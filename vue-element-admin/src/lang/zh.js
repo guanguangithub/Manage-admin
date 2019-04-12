@@ -64,7 +64,11 @@ export default {
     externalLink: '外链',
     exams: '考试管理',
     addExam: '添加考试',
-    paperList: '试卷列表'
+    paperList: '试卷列表',
+    quetions: '试题管理',
+    addQuetions: '添加试题',
+    typesQuetions: '试题分类',
+    looksQuetions: '查看试题'
   },
   navbar: {
     logOut: '退出登录',

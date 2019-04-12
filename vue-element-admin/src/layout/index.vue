@@ -7,7 +7,7 @@
         <navbar />
         <tags-view v-if="needTagsView" />
       </div>
-      <app-main />
+      <app-main class="app_main" />
       <right-panel v-if="showSettings">
         <settings />
       </right-panel>
@@ -71,6 +71,11 @@ export default {
       position: fixed;
       top: 0;
     }
+  }
+
+  .app_main{
+     width:100%;
+     height:100%;
   }
 
   .drawer-bg {

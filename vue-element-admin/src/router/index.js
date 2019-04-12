@@ -13,6 +13,8 @@ import tableRouter from './modules/table'
 import nestedRouter from './modules/nested'
 import examsRouter from './modules/exams'
 import testRouter from './modules/qustions'
+/* 考试路由 */
+import usermanageRouter from './modules/UserManagement'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -43,6 +45,7 @@ import testRouter from './modules/qustions'
 export const constantRoutes = [
   examsRouter,
   testRouter,
+  usermanageRouter,
   {
     path: '/redirect',
     component: Layout,

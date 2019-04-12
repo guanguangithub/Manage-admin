@@ -68,7 +68,10 @@ export default {
     quetions: '试题管理',
     addQuetions: '添加试题',
     typesQuetions: '试题分类',
-    looksQuetions: '查看试题'
+    looksQuetions: '查看试题',
+    UserManagement: '用户管理',
+    AddUser: '添加用户',
+    UserDisplay: '用户展示'
   },
   navbar: {
     logOut: '退出登录',

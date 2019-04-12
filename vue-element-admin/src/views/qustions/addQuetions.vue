@@ -159,8 +159,7 @@ export default {
   -webkit-justify-content: $j;
   -webkit-align-items: center;
 }
-html,
-body,
+
 .add-wraps {
   @include num(100%, 637px);
   background: #f0f2f5;

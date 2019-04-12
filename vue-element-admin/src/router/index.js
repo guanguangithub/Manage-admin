@@ -11,6 +11,8 @@ import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
 import nestedRouter from './modules/nested'
+/* 考试路由 */
+import usermanageRouter from './modules/UserManagement'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -39,6 +41,7 @@ import nestedRouter from './modules/nested'
  * all roles can be accessed
  */
 export const constantRoutes = [
+  usermanageRouter,
   {
     path: '/redirect',
     component: Layout,

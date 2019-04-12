@@ -1,89 +1,32 @@
 <template>
   <div class="add-wraps">
-    <div class="divscroll">
-      <div class="header">
-        <h3>添加试题</h3>
-      </div>
-      <div class="section">
-        <div class="content">
-          <div class="content-top">
-            <p>题目信息</p>
-            <span>题干</span>
-            <p class="inp">
-              <el-input v-model="input" placeholder="请输入内容" />
-            </p>
-          </div>
-          <div class="content-main">
-            <p>题目主题</p>
-            <div class="content-box">
-              <div class="content-ul">
-                <ul class="left">
-                  <li>
-                    <i class="mce-ico mce-i-fullscreen" />
-                  </li>
-                  <li>2</li>
-                  <li>H1</li>
-                  <li>H2</li>
-                  <li>H3</li>
-                  <li>H4</li>
-                  <li>H5</li>
-                  <li>8</li>
-                  <li>9</li>
-                </ul>
-                <div class="right">
-                  <p>10</p>
-                  <p>11</p>
-                </div>
-              </div>
-              <div class="content-textarea">
-                <ol class="textarea-left">
-                  <li>1</li>
-                </ol>
-                <textarea id name cols="30" rows="10" placeholder="请输入内容..." />
-              </div>
-            </div>
-            <div class="select-check">
-              <p>情书考试类型</p>
-              <el-select v-model="value" placeholder="请选择">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </div>
-            <div class="select-check">
-              <p>请选择以下课程</p>
-              <el-select v-model="value" placeholder="请选择">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </div>
-            <div class="select-check">
-              <p>请选择题目类型</p>
-              <el-select v-model="value" placeholder="请选择">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </div>
+
+    <div class="header">
+      <h3>添加试题</h3>
+    </div>
+    <div class="section">
+      <div class="content">
+        <div class="content-top">
+          <p>题目信息</p>
+          <span>题干</span>
+          <p class="inp">
+            <el-input v-model="input" placeholder="请输入内容" />
+          </p>
+        </div>
+        <div class="content-main">
+          <p>题目主题</p>
+          <div class="content-box">
             <div class="content-ul">
               <ul class="left">
-                <li>1</li>
+                <li>
+                  <i class="mce-ico mce-i-fullscreen" />
+                </li>
                 <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
-                <li>6</li>
-                <li>7</li>
+                <li>H1</li>
+                <li>H2</li>
+                <li>H3</li>
+                <li>H4</li>
+                <li>H5</li>
                 <li>8</li>
                 <li>9</li>
               </ul>
@@ -99,9 +42,66 @@
               <textarea id name cols="30" rows="10" placeholder="请输入内容..." />
             </div>
           </div>
+          <div class="select-check">
+            <p>请输入考试类型</p>
+            <el-select v-model="value" placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </div>
+          <div class="select-check">
+            <p>请选择以下课程</p>
+            <el-select v-model="value" placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </div>
+          <div class="select-check">
+            <p>请选择题目类型</p>
+            <el-select v-model="value" placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </div>
+          <div class="content-ul">
+            <ul class="left">
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+              <li>5</li>
+              <li>6</li>
+              <li>7</li>
+              <li>8</li>
+              <li>9</li>
+            </ul>
+            <div class="right">
+              <p>10</p>
+              <p>11</p>
+            </div>
+          </div>
+          <div class="content-textarea">
+            <ol class="textarea-left">
+              <li>1</li>
+            </ol>
+            <textarea id name cols="30" rows="10" placeholder="请输入内容..." />
+          </div>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 <script>

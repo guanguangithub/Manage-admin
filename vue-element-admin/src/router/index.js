@@ -11,8 +11,11 @@ import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
 import nestedRouter from './modules/nested'
-import examsRouter from './modules/exams'
+/** 试题管理 */
 import testRouter from './modules/qustions'
+/** 考试管理 */
+import examsRouter from './modules/exams'
+
 /* 考试路由 */
 import usermanageRouter from './modules/UserManagement'
 

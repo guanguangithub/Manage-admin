@@ -16,19 +16,19 @@ const testRouter = {
   children: [
     {
       path: 'adds',
-      component: () => import('@/views/exam/addQuetions'),
+      component: () => import('@/views/qustions/addQuetions'),
       name: 'KeyboardChart',
       meta: { title: 'addQuetions', noCache: true }
     },
     {
       path: 'types',
-      component: () => import('@/views/exam/typesQuetions'),
+      component: () => import('@/views/qustions/typesQuetions'),
       name: 'Types',
       meta: { title: 'typesQuetions', noCache: true }
     },
     {
       path: 'looks',
-      component: () => import('@/views/exam/looksQuetions'),
+      component: () => import('@/views/qustions/looksQuetions'),
       name: 'Looks',
       meta: { title: 'looksQuetions', noCache: true }
     }

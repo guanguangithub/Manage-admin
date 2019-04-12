@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="check-item">
     查看试题
   </div>
 </template>
@@ -14,6 +14,8 @@ export default {
   }
 }
 </script>
-<style scoped  lang="">
-
+<style scoped  lang="scss">
+    .check-item{
+        color:red;
+    }
 </style>

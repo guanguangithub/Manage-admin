@@ -28,3 +28,4 @@ const usermanageRouter = {
 }
 
 export default usermanageRouter
+

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="exams-bg">
     paperList
   </div>
 </template>

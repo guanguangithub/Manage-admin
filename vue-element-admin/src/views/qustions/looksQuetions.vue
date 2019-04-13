@@ -1,21 +1,33 @@
 <template>
-  <div class="check-item">
-    查看试题
-  </div>
+  <div />
 </template>
-
 <script>
-
 export default {
+  components: {
+
+  },
+  props: {
+
+  },
   data() {
     return {
 
     }
+  },
+  computed: {
+
+  },
+  created() {
+
+  },
+  mounted() {
+
+  },
+  methods: {
+
   }
 }
 </script>
-<style scoped  lang="scss">
-    .check-item{
-        color:red;
-    }
+<style scoped lang="scss">
+
 </style>

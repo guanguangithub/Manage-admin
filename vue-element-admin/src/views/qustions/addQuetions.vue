@@ -110,7 +110,7 @@ export default {
   props: {},
   data() {
     return {
-      options: [
+      options: [// 此处请求应该是请求过来的活的数据
         {
           value: '选项1',
           label: '黄金糕'
@@ -159,8 +159,7 @@ export default {
   -webkit-justify-content: $j;
   -webkit-align-items: center;
 }
-html,
-body,
+
 .add-wraps {
   @include num(100%, 637px);
   background: #f0f2f5;

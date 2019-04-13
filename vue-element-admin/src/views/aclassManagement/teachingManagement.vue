@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import Chart from '@/components/Charts/keyboard'
+import Chart from '@/components/aclassManagement/teachingManagement'
 
 export default {
-  name: 'KeyboardChart',
+  name: 'PaperList',
   components: { Chart }
 }
 </script>

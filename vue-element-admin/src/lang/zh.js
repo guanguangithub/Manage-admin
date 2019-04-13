@@ -62,9 +62,10 @@ export default {
     clipboardDemo: 'Clipboard',
     i18n: '国际化',
     externalLink: '外链',
-    mxaminationManagement: '考试管理111',
-    addExam: '添加考试',
-    paperList: '试卷列表11111'
+    aclassManagement: '班级管理',
+    classManagement: '班级管理',
+    teachingManagement: '教学管理',
+    studentManagement: '学生管理'
   },
   navbar: {
     logOut: '退出登录',

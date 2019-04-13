@@ -1,26 +1,26 @@
 <template>
   <div class="add-wraps">
-    <div class="divscroll">
-      <div class="header">
-        <h3>添加试题</h3>
-      </div>
-      <div class="section">
-        <div class="content">
-          <div class="content-top">
-            <p>
-              <el-button type="text" @click="open3">+添加类型</el-button>
-            </p>
-          </div>
-          <div class="tablelist">
-            <el-table :data="tableData" style="width: 100%">
-              <el-table-column prop="date" label="日期" width="180" />
-              <el-table-column prop="name" label="姓名" width="180" />
-              <el-table-column prop="address" label="地址" />
-            </el-table>
-          </div>
+
+    <div class="header">
+      <h3>添加试题</h3>
+    </div>
+    <div class="section">
+      <div class="content">
+        <div class="content-top">
+          <p>
+            <el-button type="text" @click="open3">+添加类型</el-button>
+          </p>
+        </div>
+        <div class="tablelist">
+          <el-table :data="tableData" :header-cell-style="getRowClass" style="width: 100%">
+            <el-table-column prop="date" label="日期" width="180" />
+            <el-table-column prop="name" label="姓名" width="180" />
+            <el-table-column prop="address" label="地址" />
+          </el-table>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -53,6 +53,13 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消'
       })
+    },
+    getRowClass({ row, colum, rowIndex, columIndex }) {
+      if (rowIndex === 0) {
+        return 'background:#efefef'
+      } else {
+        return ''
+      }
     }
   }
 }

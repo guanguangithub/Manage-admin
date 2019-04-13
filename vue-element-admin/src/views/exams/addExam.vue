@@ -4,13 +4,13 @@
     <ul class="addexam-container">
       <li>
         <label for="paper-type"> <span class="addexam-must">*</span> 试卷名称</label>
-        <span class="type-ipt"><el-input v-model="input" placeholder="请输入内容" /></span>
+        <span class="type-ipt"><el-input v-model="input" placeholder="请输入内容" size="large" /></span>
 
       </li>
       <li>
         <label for="exam-type"> <span class="addexam-must">*</span> 选择考试类型</label>
         <span>
-          <el-select v-model="examValue" placeholder="请选择">
+          <el-select v-model="examValue" placeholder="请选择" size="large">
             <el-option
               v-for="item in examOptions"
               :key="item.value"
@@ -24,7 +24,7 @@
       <li>
         <label for="lesson-type"> <span class="addexam-must">*</span> 选择课程</label>
         <span class="type-ipt">
-          <el-select v-model="lessonValue" placeholder="请选择">
+          <el-select v-model="lessonValue" placeholder="请选择" size="large">
             <el-option
               v-for="item in lessonOptions"
               :key="item.value"
@@ -38,7 +38,7 @@
       <li>
         <label for="setting-count"> <span class="addexam-must">*</span> 设置数量：</label>
         <span class="count-ipt">
-          <el-input v-model="Countinput" type="number" />
+          <el-input v-model="Countinput" type="number" size="large" />
         </span>
 
       </li>
@@ -47,12 +47,14 @@
         <div class="block">
           <el-date-picker
             v-model="startValue"
+            size="large"
             type="datetime"
             placeholder="选择日期时间"
             default-time="00:00:00"
           /> -
           <el-date-picker
             v-model="endValue"
+            size="large"
             type="datetime"
             placeholder="选择日期时间"
             default-time="12:00:00"
@@ -131,7 +133,7 @@ export default {
     .addexam-bg{
        height:698px;
         background: #F0F2F5;
-        padding:0 25px;
+        padding:0 35px;
         overflow-y: auto;
 
         >h5{padding:0;

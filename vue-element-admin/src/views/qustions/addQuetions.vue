@@ -110,7 +110,7 @@ export default {
   props: {},
   data() {
     return {
-      options: [
+      options: [// 此处请求应该是请求过来的活的数据
         {
           value: '选项1',
           label: '黄金糕'

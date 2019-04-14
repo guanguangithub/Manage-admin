@@ -1,7 +1,7 @@
 <template>
   <div class="add-wraps">
     <div class="header">
-      <h3>添加试题</h3>
+      <h3 style="fontSize:24px">添加试题</h3>
     </div>
     <div class="section">
       <div class="content">

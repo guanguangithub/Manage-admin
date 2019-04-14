@@ -99,6 +99,8 @@
             <textarea id name cols="30" rows="10" placeholder="请输入内容..." />
           </div>
         </div>
+        <!-- 接口/exam/questions -->
+        <button>提交</button>
       </div>
     </div>
 
@@ -110,6 +112,7 @@ export default {
   props: {},
   data() {
     return {
+
       options: [// 此处请求应该是请求过来的活的数据
         {
           value: '选项1',

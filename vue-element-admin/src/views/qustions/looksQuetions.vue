@@ -85,7 +85,7 @@
                   style="color: #fa8c16;background: #fff7e6;border-color: #ffd591;"
                 >默认按钮</el-button>
               </p>
-              <p>谁谁发布</p>
+              <p>某某某发布</p>
             </div>
             <p>
               <a href="http://www.baidu.com">编辑</a>

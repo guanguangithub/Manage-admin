@@ -177,8 +177,8 @@ export default {
             align-items: center;
           }
           .el-button--medium {
-            padding:10px 16px;
-           background: #0139FD;
+            padding:8px 16px;
+          background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
           }
 
         }

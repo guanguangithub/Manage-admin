@@ -100,7 +100,7 @@
           </div>
         </div>
         <!-- 接口/exam/questions -->
-        <button>提交</button>
+        <el-button>默认按钮</el-button>
       </div>
     </div>
 
@@ -258,5 +258,8 @@ export default {
     line-height: 45px;
   }
 }
-
+.el-button--medium {
+            padding:8px 16px;
+          background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
+          }
 </style>

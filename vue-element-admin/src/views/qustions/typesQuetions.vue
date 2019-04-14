@@ -128,8 +128,8 @@ export default {
 
 .el-button--text {
   font-size:14px;
-  padding: 15px 35px;
-  background: #0139fd;
+  padding: 12px 35px;
+ background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
   border: 1px solid;
   margin: 8px 0px;
   color: #fff;

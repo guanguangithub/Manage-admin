@@ -201,7 +201,7 @@ export default {}
 }
 .add_box_content {
   margin: 0 auto;
-  width: 90%;
+  width: 92%;
   height: auto;
   display: flex;
   flex-wrap: wrap;

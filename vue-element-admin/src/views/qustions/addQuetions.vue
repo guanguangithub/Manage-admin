@@ -99,6 +99,7 @@
               <textarea id name cols="30" rows="10" placeholder="请输入内容..." />
             </div>
           </div>
+          <el-button type="primary">主要按钮</el-button>
         </div>
       </div>
     </div>
@@ -254,5 +255,14 @@ export default {
     @include num(100%, 45px);
     line-height: 45px;
   }
+}
+.el-button--medium{
+  margin:20px 0;
+  @include num(111px,40px);
+  background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
+}
+textarea{
+  border-top:none;
+  border-bottom:none
 }
 </style>

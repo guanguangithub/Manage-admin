@@ -2,7 +2,7 @@
   <div class="add-wraps">
 
     <div class="header">
-      <h3>添加试题</h3>
+      <h3>试题分类</h3>
     </div>
     <div class="section">
       <div class="content">
@@ -34,7 +34,7 @@ export default {
         address: '上海市普陀区金沙江路 1518 弄'
       }, {
         date: '2016-05-04',
-        name: '王小虎',
+        name: '王小明',
         address: '上海市普陀区金沙江路 1517 弄'
       }, {
         date: '2016-05-01',
@@ -128,12 +128,13 @@ export default {
 
 .el-button--text {
   font-size:14px;
-  padding: 15px 35px;
+ @include num(158px,40px);
   background: #0139fd;
   border: 1px solid;
   margin: 8px 0px;
   color: #fff;
   border-radius:10px;
+  background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
 }
 
 .has-gutter{

@@ -65,7 +65,9 @@ export default {
     quetions: '试题管理',
     addQuetions: '添加试题',
     typesQuetions: '试题分类',
-    looksQuetions: '查看试题'
+    looksQuetions: '查看试题',
+    marking: '阅卷管理'
+
   },
   navbar: {
     logOut: '退出登录',

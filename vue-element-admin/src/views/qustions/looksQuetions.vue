@@ -1,7 +1,7 @@
 <template>
   <div class="add-wraps">
     <div class="header">
-      <h3>添加试题</h3>
+      <h3>查看试题</h3>
     </div>
     <div class="section">
       <div class="content">
@@ -24,7 +24,7 @@
           <div class="type-exam">
             <!-- 考试类型 题目类型 -->
             <p>
-              <span>请选择题目类型:</span>
+              <span>考试类型:</span>
               <el-select v-model="value" placeholder="请选择">
                 <el-option
                   v-for="item in options"
@@ -36,8 +36,8 @@
             </p>
 
             <p>
-              <span>请选择题目类型:</span>
-              <el-select v-model="value" placeholder="请选择">
+              <span>题目类型:</span>
+              <el-select v-model="value" size="medium" placeholder="请选择">
                 <el-option
                   v-for="item in options"
                   :key="item.value"
@@ -175,10 +175,11 @@ export default {
           &>p{
             display: flex;
             align-items: center;
+
           }
           .el-button--medium {
-            padding:10px 16px;
-           background: #0139FD;
+            @include num(130px,32px);
+           background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
           }
 
         }

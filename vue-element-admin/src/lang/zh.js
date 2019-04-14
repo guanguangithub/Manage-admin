@@ -64,7 +64,7 @@ export default {
     externalLink: '外链',
     aclassManagement: '班级管理',
     classManagement: '班级管理',
-    teachingManagement: '教学管理',
+    teachingManagement: '教室管理',
     studentManagement: '学生管理'
   },
   navbar: {
@@ -88,8 +88,8 @@ export default {
     github: 'Github 地址'
   },
   permission: {
-    addRole: '新增角色',
-    editPermission: '编辑权限',
+    addRole: '+ 添加班级',
+    editPermission: '修改',
     roles: '你的权限',
     switchRoles: '切换权限',
     tips: '在某些情况下，不适合使用 v-permission。例如：Element-UI 的 el-tab 或 el-table-column 以及其它动态渲染 dom 的场景。你只能通过手动设置 v-if 来实现。',

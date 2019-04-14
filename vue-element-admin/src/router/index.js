@@ -18,6 +18,13 @@ import examsRouter from './modules/exams'
 
 /* 考试路由 */
 import usermanageRouter from './modules/UserManagement'
+/* 批卷路由 */
+import readingRouter from './modules/reading'
+
+// import componentsRouter from './modules/components'
+// import chartsRouter from './modules/charts'
+// import tableRouter from './modules/table'
+// import nestedRouter from './modules/nested'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -49,27 +56,7 @@ export const constantRoutes = [
   examsRouter,
   testRouter,
   usermanageRouter,
-  {
-    path: '/redirect',
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: '/redirect/:path*',
-        component: () => import('@/views/redirect/index')
-      }
-    ]
-  },
-  {
-    path: '/login',
-    component: () => import('@/views/login/index'),
-    hidden: true
-  },
-  {
-    path: '/auth-redirect',
-    component: () => import('@/views/login/authRedirect'),
-    hidden: true
-  },
+  readingRouter,
   {
     path: '/404',
     component: () => import('@/views/errorPage/404'),
@@ -93,6 +80,41 @@ export const constantRoutes = [
       }
     ]
   }
+  // {
+  // {
+  //   path: '/redirect',
+  //   component: Layout,
+  //   hidden: true,
+  //   children: [
+  //     {
+  //       path: '/redirect/:path*',
+  //       component: () => import('@/views/redirect/index')
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/login',
+  //   component: () => import('@/views/login/index'),
+  //   hidden: true
+  // },
+  // {
+  //   path: '/auth-redirect',
+  //   component: () => import('@/views/login/authRedirect'),
+  //   hidden: true
+  // },
+  // {
+  //   path: '',
+  //   component: Layout,
+  //   redirect: 'dashboard',
+  //   children: [
+  //     {
+  //       path: 'dashboard',
+  //       component: () => import('@/views/dashboard/index'),
+  //       name: 'Dashboard',
+  //       meta: { title: 'dashboard', icon: 'dashboard', noCache: true, affix: true }
+  //     }
+  //   ]
+  // },
   // {
   //   path: '/documentation',
   //   component: Layout,

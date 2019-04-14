@@ -70,8 +70,11 @@ export default {
     typesQuetions: '试题分类',
     looksQuetions: '查看试题',
     UserManagement: '用户管理',
+    Markmanagement: '阅卷管理',
     AddUser: '添加用户',
-    UserDisplay: '用户展示'
+    UserDisplay: '用户展示',
+    ClassToBeApproved: '待批班级',
+    ReadClass: '已阅班级'
   },
   navbar: {
     logOut: '退出登录',

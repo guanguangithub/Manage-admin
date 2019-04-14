@@ -128,7 +128,7 @@ export default {
         },
         {
           value: '选项4',
-          label: '龙须面'
+          label: '龙须面12'
         },
         {
           value: '选项5',
@@ -258,4 +258,5 @@ export default {
     line-height: 45px;
   }
 }
+
 </style>

@@ -1,6 +1,5 @@
 <template>
   <div class="add-wraps">
-
     <div class="header">
       <h3 style="fontSize:24px">添加试题</h3>
     </div>
@@ -125,21 +124,17 @@ export default {
     text-align: center;
   }
 }
-
 .el-button--text {
   font-size:14px;
   padding: 12px 35px;
- background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
+  background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
   border: 1px solid;
   margin: 8px 0px;
   color: #fff;
   border-radius:10px;
 }
-
 .has-gutter{
   &>tr{background:#6a6c6e}
-
 }
-
 </style>
 

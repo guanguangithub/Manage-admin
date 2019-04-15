@@ -38,7 +38,11 @@
           label="操作"
           width="120"
           align="center"
-        />
+        >
+          <template :slot-scope="scope">
+            <router-link tag="span" to="/reading/readelete">批卷</router-link>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
   </div>

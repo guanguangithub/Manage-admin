@@ -167,7 +167,7 @@ export default {
         },
         {
           value: '选项5',
-          label: '北京烤鸭'
+          label: '北京烤鸭yew'
         }
       ],
       value: '周考一'

@@ -21,18 +21,30 @@
                   <li>
                     <i class="mce-ico mce-i-fullscreen" />
                   </li>
-                  <li>2</li>
+                  <li>
+                    <i class="el-icon-caret-left" />
+                  </li>
+                  <li>
+                    <i class="el-icon-caret-right" />
+                  </li>
                   <li>H1</li>
                   <li>H2</li>
                   <li>H3</li>
                   <li>H4</li>
-                  <li>H5</li>
-                  <li>8</li>
-                  <li>9</li>
+                  <li>＜＞</li>
+                  <li>
+                    <i class="el-icon-picture-outline" />
+                  </li>
+                  <li>
+                    <i class="el-icon-rank" />
+                  </li>
+                  <li>
+                    <i class="el-icon-location" />
+                  </li>
                 </ul>
                 <div class="right">
-                  <p>10</p>
-                  <p>11</p>
+                  <p> <i class="el-icon-rank" /></p>
+                  <p><i class="el-icon-view" /></p>
                 </div>
               </div>
               <div class="content-textarea">
@@ -43,7 +55,7 @@
               </div>
             </div>
             <div class="select-check">
-              <p>情书考试类型</p>
+              <p>请选择考试类型</p>
               <el-select v-model="value" placeholder="请选择">
                 <el-option
                   v-for="item in options"
@@ -77,19 +89,33 @@
             </div>
             <div class="content-ul">
               <ul class="left">
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
-                <li>6</li>
-                <li>7</li>
-                <li>8</li>
-                <li>9</li>
+                <li>
+                  <i class="mce-ico mce-i-fullscreen" />
+                </li>
+                <li>
+                  <i class="el-icon-caret-left" />
+                </li>
+                <li>
+                  <i class="el-icon-caret-right" />
+                </li>
+                <li>H1</li>
+                <li>H2</li>
+                <li>H3</li>
+                <li>H4</li>
+                <li>＜＞</li>
+                <li>
+                  <i class="el-icon-picture-outline" />
+                </li>
+                <li>
+                  <i class="el-icon-rank" />
+                </li>
+                <li>
+                  <i class="el-icon-location" />
+                </li>
               </ul>
               <div class="right">
-                <p>10</p>
-                <p>11</p>
+                <p> <i class="el-icon-rank" /></p>
+                <p><i class="el-icon-view" /></p>
               </div>
             </div>
             <div class="content-textarea">
@@ -99,7 +125,8 @@
               <textarea id name cols="30" rows="10" placeholder="请输入内容..." />
             </div>
           </div>
-          <el-button type="primary">主要按钮</el-button>
+          <!-- 提交时请求接口 /exam/questions 参数questions_type_id(试题类型id)  questions_stem(题干) subject_id(课程id) exam_id(考试类型id) user_id(用户id) questions_answer(题目答案) title(试题的标题)-->
+          <el-button type="primary">提交</el-button>
         </div>
       </div>
     </div>
@@ -111,7 +138,8 @@ export default {
   props: {},
   data() {
     return {
-      options: [// 此处请求应该是请求过来的活的数据
+      options: [
+        // 此处请求应该是请求过来的活的数据
         {
           value: '选项1',
           label: '黄金糕'
@@ -169,7 +197,6 @@ export default {
 .add-wraps {
   .header {
     @include num(100%, 100px);
-
     h3 {
       @include num(100%, 100px);
       line-height: 100px;
@@ -256,13 +283,13 @@ export default {
     line-height: 45px;
   }
 }
-.el-button--medium{
-  margin:20px 0;
-  @include num(111px,40px);
-  background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
+.el-button--medium {
+  margin: 20px 0;
+  @include num(111px, 40px);
+  background: linear-gradient(-90deg, #4e75ff, #0139fd) !important;
 }
-textarea{
-  border-top:none;
-  border-bottom:none
+textarea {
+  border-top: none;
+  border-bottom: none;
 }
 </style>

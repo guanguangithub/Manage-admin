@@ -1,12 +1,13 @@
 <template>
   <div class="add-wraps">
     <div class="header">
+      <!-- 查看所有试题 /exam/questions/new -->
       <h3>查看试题</h3>
     </div>
     <div class="section">
       <div class="content">
         <div class="content-top">
-          <!-- 课程类型 -->
+          <!-- 课程类型/exam/subject -->
           <ul class="type-course">
             <p>课程类型</p>
             <li>1</li>
@@ -22,7 +23,7 @@
             <li>11</li>
           </ul>
           <div class="type-exam">
-            <!-- 考试类型 题目类型 -->
+            <!-- 考试类型/exam/examType    题目类型 -->
             <p>
               <span>考试类型:</span>
               <el-select v-model="value" placeholder="请选择">
@@ -68,6 +69,7 @@
               <p><span style="fontSize:14px;color: #0139FD">萌二招财猫 发布</span></p>
             </div>
             <p>
+              <!-- 进入编辑页之后 更新数据之后更新试题接口/exam/questions/update -->
               <a href="http://www.baidu.com">编辑</a>
             </p>
           </div>

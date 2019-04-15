@@ -8,6 +8,7 @@
       <div class="content">
         <div class="content-top">
           <p>
+            <!-- 添加试题类型 参数：text试题名称 sort试题序号 接口/exam/insertQuestionsType -->
             <el-button type="text" @click="open3">+添加类型</el-button>
           </p>
         </div>
@@ -28,7 +29,7 @@
 export default {
   data() {
     return {
-      tableData: [{ // 此处数据应该是请求过来的
+      tableData: [{ // 此处数据应该是请求过来的获取所有的试题类型 参数：无 /exam/getQuestionsType
         date: '2016-05-02',
         name: '王小虎',
         address: '上海市普陀区金沙江路 1518 弄'

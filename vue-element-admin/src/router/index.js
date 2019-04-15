@@ -12,6 +12,22 @@ import Layout from '@/layout'
 // import tableRouter from './modules/table'
 // import nestedRouter from './modules/nested'
 import testRouter from './modules/qustions'
+/** 考试管理 */
+// import componentsRouter from './modules/components'
+// import chartsRouter from './modules/charts'
+// import tableRouter from './modules/table'
+// import nestedRouter from './modules/nested'
+import examsRouter from './modules/exams'
+
+/* 考试路由 */
+import usermanageRouter from './modules/UserManagement'
+/* 批卷路由 */
+import readingRouter from './modules/reading'
+
+// import componentsRouter from './modules/components'
+// import chartsRouter from './modules/charts'
+// import tableRouter from './modules/table'
+// import nestedRouter from './modules/nested'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -40,29 +56,10 @@ import testRouter from './modules/qustions'
  * all roles can be accessed
  */
 export const constantRoutes = [
+  examsRouter,
   testRouter,
-
-  {
-    path: '/redirect',
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: '/redirect/:path*',
-        component: () => import('@/views/redirect/index')
-      }
-    ]
-  },
-  {
-    path: '/login',
-    component: () => import('@/views/login/index'),
-    hidden: true
-  },
-  {
-    path: '/auth-redirect',
-    component: () => import('@/views/login/authRedirect'),
-    hidden: true
-  },
+  usermanageRouter,
+  readingRouter,
   {
     path: '/404',
     component: () => import('@/views/errorPage/404'),

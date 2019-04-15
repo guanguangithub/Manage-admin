@@ -62,12 +62,19 @@ export default {
     clipboardDemo: 'Clipboard',
     i18n: '国际化',
     externalLink: '外链',
+    exams: '考试管理',
+    addExam: '添加考试',
+    paperList: '试卷列表',
     quetions: '试题管理',
     addQuetions: '添加试题',
     typesQuetions: '试题分类',
     looksQuetions: '查看试题',
-    marking: '阅卷管理'
-
+    UserManagement: '用户管理',
+    Markmanagement: '阅卷管理',
+    AddUser: '添加用户',
+    UserDisplay: '用户展示',
+    ClassToBeApproved: '待批班级',
+    ReadClass: '已阅班级'
   },
   navbar: {
     logOut: '退出登录',

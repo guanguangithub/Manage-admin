@@ -1,6 +1,5 @@
 <template>
   <div class="add-wraps">
-
     <div class="header">
       <h3>试题分类</h3>
     </div>
@@ -98,6 +97,7 @@ export default {
       line-height: 100px;
       font-weight: 400;
       text-indent: 2em;
+       font-size:24px;
     }
   }
   .section {
@@ -126,22 +126,18 @@ export default {
     text-align: center;
   }
 }
-
 .el-button--text {
   font-size:14px;
- @include num(158px,40px);
-  background: #0139fd;
+  padding: 12px 35px;
+
   border: 1px solid;
   margin: 8px 0px;
   color: #fff;
   border-radius:10px;
   background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
 }
-
 .has-gutter{
   &>tr{background:#6a6c6e}
-
 }
-
 </style>
 

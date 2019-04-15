@@ -1,92 +1,21 @@
 <template>
   <div class="add-wraps">
-    <div class="divscroll">
-      <div class="header">
-        <h3>添加试题</h3>
-      </div>
-      <div class="section">
-        <div class="content">
-          <div class="content-top">
-            <p>题目信息</p>
-            <span>题干</span>
-            <p class="inp">
-              <el-input v-model="input" placeholder="请输入内容" />
-            </p>
-          </div>
-          <div class="content-main">
-            <p>题目主题</p>
-            <div class="content-box">
-              <div class="content-ul">
-                <ul class="left">
-                  <li>
-                    <i class="mce-ico mce-i-fullscreen" />
-                  </li>
-                  <li>
-                    <i class="el-icon-caret-left" />
-                  </li>
-                  <li>
-                    <i class="el-icon-caret-right" />
-                  </li>
-                  <li>H1</li>
-                  <li>H2</li>
-                  <li>H3</li>
-                  <li>H4</li>
-                  <li>＜＞</li>
-                  <li>
-                    <i class="el-icon-picture-outline" />
-                  </li>
-                  <li>
-                    <i class="el-icon-rank" />
-                  </li>
-                  <li>
-                    <i class="el-icon-location" />
-                  </li>
-                </ul>
-                <div class="right">
-                  <p> <i class="el-icon-rank" /></p>
-                  <p><i class="el-icon-view" /></p>
-                </div>
-              </div>
-              <div class="content-textarea">
-                <ol class="textarea-left">
-                  <li>1</li>
-                </ol>
-                <textarea id name cols="30" rows="10" placeholder="请输入内容..." />
-              </div>
-            </div>
-            <div class="select-check">
-              <p>请选择考试类型</p>
-              <el-select v-model="value" placeholder="请选择">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </div>
-            <div class="select-check">
-              <p>请选择以下课程</p>
-              <el-select v-model="value" placeholder="请选择">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </div>
-            <div class="select-check">
-              <p>请选择题目类型</p>
-              <el-select v-model="value" placeholder="请选择">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </div>
+
+    <div class="header">
+      <h3>添加试题</h3>
+    </div>
+    <div class="section">
+      <div class="content">
+        <div class="content-top">
+          <p>题目信息</p>
+          <span>题干</span>
+          <p class="inp">
+            <el-input v-model="input" placeholder="请输入内容" />
+          </p>
+        </div>
+        <div class="content-main">
+          <p>题目主题</p>
+          <div class="content-box">
             <div class="content-ul">
               <ul class="left">
                 <li>
@@ -125,11 +54,91 @@
               <textarea id name cols="30" rows="10" placeholder="请输入内容..." />
             </div>
           </div>
-          <!-- 提交时请求接口 /exam/questions 参数questions_type_id(试题类型id)  questions_stem(题干) subject_id(课程id) exam_id(考试类型id) user_id(用户id) questions_answer(题目答案) title(试题的标题)-->
-          <el-button type="primary">提交</el-button>
+          <div class="select-check">
+            <p>请选择考试类型</p>
+            <el-select v-model="value" placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </div>
+          <div class="select-check">
+            <p>请选择以下课程</p>
+            <el-select v-model="value" placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </div>
+          <div class="select-check">
+            <p>请选择题目类型</p>
+            <el-select v-model="value" placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </div>
+          <div class="content-box">
+            <div class="content-ul">
+              <ul class="left">
+                <li>
+                  <i class="mce-ico mce-i-fullscreen" />
+                </li>
+                <li>
+                  <i class="el-icon-caret-left" />
+                </li>
+                <li>
+                  <i class="el-icon-caret-right" />
+                </li>
+                <li>H1</li>
+                <li>H2</li>
+                <li>H3</li>
+                <li>H4</li>
+                <li>＜＞</li>
+                <li>
+                  <i class="el-icon-picture-outline" />
+                </li>
+                <li>
+                  <i class="el-icon-rank" />
+                </li>
+                <li>
+                  <i class="el-icon-location" />
+                </li>
+              </ul>
+              <div class="right">
+                <p> <i class="el-icon-rank" /></p>
+                <p><i class="el-icon-view" /></p>
+              </div>
+            </div>
+            <div class="content-textarea">
+              <ol class="textarea-left">
+                <li>1</li>
+              </ol>
+              <textarea id name cols="30" rows="10" placeholder="请输入内容..." />
+            </div>
+          </div>
+          <!-- <div class="content-textarea">
+              <ol class="textarea-left">
+                <li>1</li>
+              </ol>
+              <textarea id name cols="30" rows="10" placeholder="请输入内容..." />
+            </div> -->
         </div>
+        <!-- 提交时请求接口 /exam/questions 参数questions_type_id(试题类型id)  questions_stem(题干) subject_id(课程id) exam_id(考试类型id) user_id(用户id) questions_answer(题目答案) title(试题的标题)-->
+        <el-button type="primary">提交</el-button>
       </div>
+
     </div>
+
   </div>
 </template>
 <script>
@@ -138,8 +147,8 @@ export default {
   props: {},
   data() {
     return {
-      options: [
-        // 此处请求应该是请求过来的活的数据
+
+      options: [// 此处请求应该是请求过来的活的数据
         {
           value: '选项1',
           label: '黄金糕'
@@ -154,7 +163,7 @@ export default {
         },
         {
           value: '选项4',
-          label: '龙须面'
+          label: '龙须面12'
         },
         {
           value: '选项5',
@@ -190,7 +199,7 @@ export default {
 }
 
 .add-wraps {
-  @include num(100%, 637px);
+  @include num(100%, 100%);
   background: #f0f2f5;
   overflow-y: auto;
 }
@@ -201,6 +210,7 @@ export default {
       @include num(100%, 100px);
       line-height: 100px;
       font-weight: 400;
+      font-size:24px;
       text-indent: 2em;
     }
   }
@@ -250,19 +260,19 @@ export default {
     }
   }
 }
-.content-ul {
-  @include num(100%, 45px);
-  @include flex(space-between);
-  border-bottom: 1px solid #ccc;
-  .left {
-    width: 30%;
-    @include flex(space-between);
-  }
-  .right {
-    width: 5%;
-    @include flex(space-between);
-  }
-}
+// .content-ul {
+//   @include num(100%, 45px);
+//   @include flex(space-between);
+//   border-bottom: 1px solid #ccc;
+//   .left {
+//     width: 30%;
+//     @include flex(space-between);
+//   }
+//   .right {
+//     width: 5%;
+//     @include flex(space-between);
+//   }
+// }
 .content-textarea {
   @include num(100%, 160px);
   @include flex(space-between);

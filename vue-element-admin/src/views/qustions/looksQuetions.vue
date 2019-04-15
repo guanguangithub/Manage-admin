@@ -144,14 +144,14 @@ export default {
       @include num(100%, 100px);
       line-height: 100px;
       font-weight: 400;
-      font-size:20px;
+      font-size:24px;
       text-indent: 2em;
     }
   }
   .section {
     @include num(100%, 100%);
     .content {
-      padding-left: 24px;
+      padding-left: 14px;
       width: 95%;
       height: 100%;
       margin: 0 auto;
@@ -180,8 +180,8 @@ export default {
 
           }
           .el-button--medium {
-            @include num(130px,32px);
-           background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
+            padding:8px 16px;
+          background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
           }
 
         }

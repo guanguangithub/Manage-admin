@@ -47,6 +47,11 @@ export const constantRoutes = [
   usermanageRouter,
   readingRouter,
   {
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
+  },
+  {
     path: '/404',
     component: () => import('@/views/errorPage/404'),
     hidden: true
@@ -66,11 +71,6 @@ export const constantRoutes = [
   //       component: () => import('@/views/redirect/index')
   //     }
   //   ]
-  // },
-  // {
-  //   path: '/login',
-  //   component: () => import('@/views/login/index'),
-  //   hidden: true
   // },
   // {
   //   path: '/auth-redirect',

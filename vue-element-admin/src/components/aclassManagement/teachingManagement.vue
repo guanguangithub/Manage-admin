@@ -54,12 +54,13 @@
 <script>
 import path from 'path'
 import { deepClone } from '@/utils'
-import { getRoutes, getRoles, addRole, deleteRole, updateRole } from '@/api/role'
+//getRoles,
+import { getRoutes,  addRole, deleteRole, updateRole } from '@/api/role'
 import i18n from '@/lang'
 
 const defaultRole = {
-  key: '',
-  name: '',
+  // key: '',
+  // name: '',
   description: '',
   routes: []
 }
@@ -226,16 +227,16 @@ export default {
 
       const { description, key, name } = this.role
       this.dialogVisible = false
-      this.$notify({
-        title: 'Success',
-        dangerouslyUseHTMLString: true,
-        message: `
-            <div>Role Key: ${key}</div>
-            <div>Role Nmae: ${name}</div>
-            <div>Description: ${description}</div>
-          `,
-        type: 'success'
-      })
+      // this.$notify({
+      //   title: 'Success',
+      //   dangerouslyUseHTMLString: true,
+      //   message: `
+      //       <div>Role Key: ${key}</div>
+      //       <div>Role Nmae: ${name}</div>
+      //       <div>Description: ${description}</div>
+      //     `,
+      //   type: 'success'
+      // })
     },
     // reference: src/view/layout/components/Sidebar/SidebarItem.vue
     onlyOneShowingChild(children = [], parent) {

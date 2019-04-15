@@ -62,6 +62,10 @@
                   :value="item.label">
                 </el-option>
               </el-select>
+              <!-- 
+                ref="tree" 不写提交不了
+                node-key="path" 提示暂无数据 不写只能提交一次 第二次不能添加班级
+              -->
               <el-tree ref="tree" node-key="path"/>
             </el-form-item>
             
@@ -85,9 +89,10 @@
 </template>
 
 <script>
+// path 不知道干嘛呢
 import path from 'path'
 import { deepClone } from '@/utils'
-// getRoutes addRole 删除提交确定点不了
+// getRoutes addRole 删除提交确定点不了 具体干什么不知道
 // getRoles 3条模拟数据：从服务器获取所有路由和角色列表
 // deleteRole 删除数据
 // updateRole 修改数据
@@ -95,6 +100,7 @@ import { getRoutes, getRoles, addRole,  deleteRole, updateRole } from '@/api/rol
 import i18n from '@/lang'
 
 const defaultRole = {
+  // key 不知道怎么修改班级名 每次都是4个数字
   key: '',
   name: '',
   description: '',

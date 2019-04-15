@@ -11,7 +11,6 @@
 
         <el-table :data="rolesList" style="width: 100%;margin-top:30px;" border>
           <el-table-column align="center" label="班级名" width="220">
-            <!-- slot-scope="scope" vue的一个作用域插槽-->
             <template slot-scope="scope">
               {{ scope.row.key }}
             </template>
@@ -87,11 +86,7 @@
 <script>
 import path from 'path'
 import { deepClone } from '@/utils'
-// getRoutes addRole 删除提交确定点不了
-// getRoles 3条模拟数据：从服务器获取所有路由和角色列表
-// deleteRole 删除数据
-// updateRole 修改数据
-import { getRoutes, getRoles, addRole,  deleteRole, updateRole } from '@/api/role'
+import { getRoutes, getRoles, addRole, deleteRole, updateRole } from '@/api/role'
 import i18n from '@/lang'
 
 const defaultRole = {

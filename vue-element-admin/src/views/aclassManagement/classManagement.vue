@@ -60,7 +60,7 @@
     </el-dialog>
   </div> -->
   <div>
-    <classManagement></classManagement>
+    <ClassManagement />
   </div>
 </template>
 
@@ -69,16 +69,12 @@
 // import { deepClone } from '@/utils'
 // import { getRoutes, getRoles, addRole, deleteRole, updateRole } from '@/api/role'
 // import i18n from '@/lang'
-import classManagement from '@/components/aclassManagement/classManagement'
-
-const defaultRole = {
-  // key: '',
-  // name: '',
-  // description: '',
-  // routes: []
-}
+import ClassManagement from '@/components/aclassManagement/classManagement'
 
 export default {
+  components: {
+    ClassManagement
+  },
   data() {
     return {
       // role: Object.assign({}, defaultRole),
@@ -92,10 +88,7 @@ export default {
       //   label: 'title'
       // }
     }
-  },
-  components:{
-    classManagement
-  },
+  }
   // computed: {
   //   routesData() {
   //     return this.routes

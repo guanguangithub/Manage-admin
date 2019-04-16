@@ -5,7 +5,7 @@
       :style="{top:(isSticky ? stickyTop +'px' : ''),zIndex:zIndex,position:position,width:width,height:height+'px'}"
     >
       <slot>
-        <div>sticky</div>
+        <!-- <div>sticky</div> -->
       </slot>
     </div>
   </div>

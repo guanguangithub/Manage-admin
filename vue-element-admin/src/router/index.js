@@ -23,6 +23,7 @@ import examsRouter from './modules/exams'
 import usermanageRouter from './modules/UserManagement'
 /* 批卷路由 */
 import readingRouter from './modules/reading'
+import aclassManagementRouter from './modules/aclassManagement'
 
 // import componentsRouter from './modules/components'
 // import chartsRouter from './modules/charts'
@@ -60,6 +61,8 @@ export const constantRoutes = [
   testRouter,
   usermanageRouter,
   readingRouter,
+  aclassManagementRouter,
+
   {
     path: '/login',
     component: () => import('@/views/login/index'),
@@ -208,7 +211,6 @@ export const asyncRoutes = [
   // chartsRouter,
   // nestedRouter,
   // tableRouter,
-
   // {
   //   path: '/example',
   //   component: Layout,

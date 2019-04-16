@@ -12,13 +12,13 @@ export default {
     }
   },
   beforeMount() {
-    window.addEventListener('resize', this.$_resizeHandler)
+    window.addEventListener('resize', this.resizeHandler)
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.$_resizeHandler)
+    window.removeEventListener('resize', this.resizeHandler)
   },
   mounted() {
-    const isMobile = this.$_isMobile()
+    const isMobile = this.isMobile()
     if (isMobile) {
       store.dispatch('app/toggleDevice', 'mobile')
       store.dispatch('app/closeSideBar', { withoutAnimation: true })

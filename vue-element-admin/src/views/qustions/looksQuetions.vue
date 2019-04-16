@@ -58,13 +58,14 @@
               <p>
                 <el-button
                   style="color: #1890ff;background: #e6f7ff;border-color: #91d5ff;"
-                >默认按钮</el-button>
+                  @Click="godetail()"
+                >代码补全</el-button>
                 <el-button
                   style="color: #2f54eb;background: #f0f5ff; border-color: #adc6ff;"
-                >默认按钮</el-button>
+                >javascript</el-button>
                 <el-button
                   style="color: #fa8c16;background: #fff7e6;border-color: #ffd591;"
-                >默认按钮</el-button>
+                >周考1</el-button>
               </p>
               <p><span style="fontSize:14px;color: #0139FD">萌二招财猫 发布</span></p>
             </div>
@@ -79,13 +80,13 @@
               <p>
                 <el-button
                   style="color: #1890ff;background: #e6f7ff;border-color: #91d5ff;"
-                >默认按钮</el-button>
+                >补全代码</el-button>
                 <el-button
                   style="color: #2f54eb;background: #f0f5ff; border-color: #adc6ff;"
-                >默认按钮</el-button>
+                >javascript上</el-button>
                 <el-button
                   style="color: #fa8c16;background: #fff7e6;border-color: #ffd591;"
-                >默认按钮</el-button>
+                >周考1</el-button>
               </p>
               <p>某某某发布</p>
             </div>
@@ -108,7 +109,13 @@ export default {
   computed: {},
   created() {},
   mounted() {},
-  methods: {}
+  methods: {
+    godetail() {
+      alert('11')
+      this.$router.push('/looksdetail')
+    }
+
+  }
 }
 </script>
 <style scoped lang="scss">

@@ -74,7 +74,8 @@ export default {
     AddUser: '添加用户',
     UserDisplay: '用户展示',
     ClassToBeApproved: '待批班级',
-    ReadClass: '已阅班级'
+    ReadClass: '已阅班级',
+    looksdetail: '试题详情'
   },
   navbar: {
     logOut: '退出登录',

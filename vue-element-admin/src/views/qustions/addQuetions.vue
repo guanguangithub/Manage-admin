@@ -19,21 +19,19 @@
             <div class="content-ul">
               <ul class="left">
                 <li>
-                  <i class="mce-ico mce-i-fullscreen" />
+                  <svg data-v-c8a70580="" width="18px" height="18px" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-undo" /></svg>
                 </li>
                 <li>
-                  <i class="el-icon-caret-left" />
+                  <svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-redo" /></svg>
                 </li>
-                <li>
-                  <i class="el-icon-caret-right" />
-                </li>
+
                 <li>H1</li>
                 <li>H2</li>
                 <li>H3</li>
                 <li>H4</li>
-                <li>＜＞</li>
+                <li> <svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-image" /></svg></li>
                 <li>
-                  <i class="el-icon-picture-outline" />
+                  <svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-code" /></svg>
                 </li>
                 <li>
                   <i class="el-icon-rank" />
@@ -43,8 +41,8 @@
                 </li>
               </ul>
               <div class="right">
-                <p> <i class="el-icon-rank" /></p>
-                <p><i class="el-icon-view" /></p>
+                <p> <svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-fullscreen" /></svg></p>
+                <p><svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-eye-open" /></svg></p>
               </div>
             </div>
             <div class="content-textarea">
@@ -91,21 +89,19 @@
             <div class="content-ul">
               <ul class="left">
                 <li>
-                  <i class="mce-ico mce-i-fullscreen" />
+                  <svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-undo" /></svg>
                 </li>
                 <li>
-                  <i class="el-icon-caret-left" />
+                  <svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-redo" /></svg>
                 </li>
-                <li>
-                  <i class="el-icon-caret-right" />
-                </li>
+
                 <li>H1</li>
                 <li>H2</li>
                 <li>H3</li>
                 <li>H4</li>
-                <li>＜＞</li>
+                <li> <svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-image" /></svg></li>
                 <li>
-                  <i class="el-icon-picture-outline" />
+                  <svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-code" /></svg>
                 </li>
                 <li>
                   <i class="el-icon-rank" />
@@ -115,8 +111,8 @@
                 </li>
               </ul>
               <div class="right">
-                <p> <i class="el-icon-rank" /></p>
-                <p><i class="el-icon-view" /></p>
+                <p> <svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-fullscreen" /></svg></p>
+                <p><svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-eye-open" /></svg></p>
               </div>
             </div>
             <div class="content-textarea">

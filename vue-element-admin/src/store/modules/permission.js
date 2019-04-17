@@ -30,10 +30,8 @@ export function filterAsyncRoutes(routes, roles) {
       res.push(tmp)
     }
   })
-
   return res
 }
-
 const state = {
   routes: [],
   addRoutes: []

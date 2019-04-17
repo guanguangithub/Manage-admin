@@ -1,15 +1,12 @@
 import Cookies from 'js-cookie'
-
-const TokenKey = 'Admin-Token'
-
+// 登录态
+const TokenKey = 'authorization'
 export function getToken() {
   return Cookies.get(TokenKey)
 }
-
 export function setToken(token) {
-  return Cookies.set(TokenKey, token)
+  return Cookies.set(TokenKey, token, { expires: 7 })
 }
-
 export function removeToken() {
   return Cookies.remove(TokenKey)
 }

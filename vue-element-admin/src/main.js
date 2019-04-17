@@ -15,26 +15,27 @@ import router from './router'
 
 import i18n from './lang' // Internationalization
 import './icons' // icon
+// 引入导航守卫
 import './permission' // permission control
-import './utils/errorLog' // error log
+import './utils/errorLog' // 错误处理error log
 
-import * as filters from './filters' // global filters
+import * as filters from './filters' // 挂载只定义过滤器 global filters
 
-import { mockXHR } from '../mock' // simulation data
+// import { mockXHR } from '../mock' // simulation data
 
-// mock api in github pages site build
-if (process.env.NODE_ENV === 'production') { mockXHR() }
+// // mock api in github pages site build
+// if (process.env.NODE_ENV === 'production') { mockXHR() }
 
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size
   i18n: (key, value) => i18n.t(key, value)
 })
-
+// 注册全局过滤器
 // register global utility filters.
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
-
+// 使用生成环境提示
 Vue.config.productionTip = false
 
 new Vue({

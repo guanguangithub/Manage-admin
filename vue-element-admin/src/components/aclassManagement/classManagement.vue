@@ -13,15 +13,15 @@
           <el-table-column align="center" label="班级名" width="220">
             <!-- slot-scope="scope" vue的一个作用域插槽-->
             <template slot-scope="scope">
-              {{ scope.row.key }}
+              {{ scope.row.keys }}
             </template>
           </el-table-column>
-          <el-table-column align="center" label="课程名" width="220">
+          <el-table-column align="center" label="课程名">
             <template slot-scope="scope">
               {{ scope.row.name }}
             </template>
           </el-table-column>
-          <el-table-column align="header-center" label="教室号">
+          <el-table-column align="header-center" label="教室号" width="220">
             <template slot-scope="scope">
               {{ scope.row.description }}
             </template>
@@ -38,10 +38,10 @@
           </el-table-column>
         </el-table>
 
-        <el-dialog :visible.sync="dialogVisible" :title="dialogType==='edit'?'Edit Role':'添加班级'">
+        <el-dialog :visible.sync="dialogVisible" :title="dialogType==='edit'?'修改班级':'添加班级'">
           <el-form :model="role" label-width="80px" label-position="left">
             <el-form-item label="班级名">
-              <el-input v-model="role.key" placeholder="班级名" />
+              <el-input v-model="role.keys" placeholder="班级名" />
             </el-form-item>
             <el-form-item label="课程名">
               <!-- <el-input v-model="role.name" placeholder="课程名" /> -->
@@ -56,7 +56,6 @@
             <el-form-item label="教师号">
               <el-select ref="tree" v-model="role.description" placeholder="请选择">
                 <el-option
-
                   v-for="item in options"
                   :key="item.value"
                   :value="item.label"
@@ -66,7 +65,7 @@
                 ref="tree" 不写提交不了
                 node-key="path" 提示暂无数据 不写只能提交一次 第二次不能添加班级
               -->
-              <el-tree ref="tree" node-key="path" />
+              <el-tree ref="tree" node-key="path" :style="{display:'none'}"/>
             </el-form-item>
 
             <!-- <el-form-item label="Menus">
@@ -96,12 +95,13 @@ import { deepClone } from '@/utils'
 // getRoles 3条模拟数据：从服务器获取所有路由和角色列表
 // deleteRole 删除数据
 // updateRole 修改数据
-import { getRoutes, getRoles, addRole, deleteRole, updateRole } from '@/api/role'
+import { getRoutes, addRole,  deleteRole, updateRole } from '@/api/role'
 import i18n from '@/lang'
 
 const defaultRole = {
   // key 不知道怎么修改班级名 每次都是4个数字
   key: '',
+  keys:'',
   name: '',
   description: '',
   routes: []
@@ -110,9 +110,11 @@ const defaultRole = {
 export default {
   data() {
     return {
+      // Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。
       role: Object.assign({}, defaultRole),
       routes: [],
       rolesList: [],
+      // 控制弹框显示隐藏
       dialogVisible: false,
       dialogType: 'new',
       checkStrictly: false,
@@ -211,6 +213,8 @@ export default {
         }
       })
       return data
+      console.log('data....',data);
+      
     },
     // 添加班级
     handleAddRole() {
@@ -225,10 +229,13 @@ export default {
     handleEdit(scope) {
       this.dialogType = 'edit'
       this.dialogVisible = true
-      this.checkStrictly = true
+      this.checkStrictly = false
       this.role = deepClone(scope.row)
+      // Vue中的nextTick涉及到Vue中DOM的异步更新
       this.$nextTick(() => {
         const routes = this.generateRoutes(this.role.routes)
+        console.log("routes///",routes);
+        
         this.$refs.tree.setCheckedNodes(this.generateArr(routes))
         // set checked state of a node not affects its father and child nodes
         // 设置节点的检查状态不会影响其父节点和子节点
@@ -278,6 +285,7 @@ export default {
 
       if (isEdit) {
         await updateRole(this.role.key, this.role)
+        // console.log(this.role.key);
         for (let index = 0; index < this.rolesList.length; index++) {
           if (this.rolesList[index].key === this.role.key) {
             this.rolesList.splice(index, 1, Object.assign({}, this.role))
@@ -290,13 +298,13 @@ export default {
         this.rolesList.push(this.role)
       }
 
-      const { description, key, name } = this.role
+      const { description, keys, key, name } = this.role
       this.dialogVisible = false
       this.$notify({
         title: 'Success',
         dangerouslyUseHTMLString: true,
         message: `
-            <div>Role Key: ${key}</div>
+            <div>Role Key: ${keys}</div>
             <div>Role Nmae: ${name}</div>
             <div>Description: ${description}</div>
           `,
@@ -309,6 +317,7 @@ export default {
       const showingChildren = children.filter(item => !item.hidden)
 
       // When there is only one child route, the child route is displayed by default
+      // 当只有一个子路由时，默认显示子路由。
       if (showingChildren.length === 1) {
         onlyOneChild = showingChildren[0]
         onlyOneChild.path = path.resolve(parent.path, onlyOneChild.path)
@@ -316,6 +325,7 @@ export default {
       }
 
       // Show parent if there are no child route to display
+      // 如果没有要显示的子路由，则显示父路由
       if (showingChildren.length === 0) {
         onlyOneChild = { ... parent, path: '', noShowingChildren: true }
         return onlyOneChild

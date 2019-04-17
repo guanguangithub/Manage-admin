@@ -31,7 +31,7 @@
                 v-model="role.description"
                 placeholder="教室号"
               />
-              <el-tree ref="tree" node-key="path" />
+              <el-tree ref="tree" node-key="path" :style="{display:'none'}"/>
             </el-form-item>
             <!-- <el-form-item label="Menus">
               <el-tree ref="tree" :check-strictly="checkStrictly" :data="routesData" :props="defaultProps" show-checkbox node-key="path" class="permission-tree" />

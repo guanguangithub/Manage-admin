@@ -126,8 +126,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      login: 'user/login',
-      generateRoutes: 'permission/generateRoutes'
+      login: 'user/login'
     }),
     showPwd() {
       if (this.passwordType === 'password') {
@@ -142,12 +141,10 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(async valid => {
         if (valid) {
-          console.log(this.loginForm)
           this.loading = true
           const res = await this.login(this.loginForm)
-          console.log('login res...', res)
+          console.log('res...', res)
           if (res.code === 1) {
-            await this.generateRoutes([])
             this.$router.push({ path: this.redirect || '/' })
           }
           this.loading = false

@@ -14,6 +14,11 @@ const getters = {
   addRoutes: state => state.permission.addRoutes,
   errorLogs: state => state.errorLog.logs,
   userarr: state => state.usermanage.userarr,
+  identityarr: state => state.usermanage.identityarr,
+  apiperArr: state => state.usermanage.apiperArr,
+  InterArr: state => state.usermanage.InterArr,
+  ViewinterArr: state => state.usermanage.ViewinterArr,
+  IdentityviewArr: state => state.usermanage.IdentityviewArr,
   userInfo: state => state.user.userInfo
 }
 export default getters

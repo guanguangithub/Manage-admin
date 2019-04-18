@@ -95,7 +95,7 @@ import { deepClone } from '@/utils'
 // getRoles 3条模拟数据：从服务器获取所有路由和角色列表
 // deleteRole 删除数据
 // updateRole 修改数据
-import { getRoutes, addRole,  deleteRole, updateRole } from '@/api/role'
+import { getRoutes, getRoles, addRole,  deleteRole, updateRole } from '@/api/role'
 import i18n from '@/lang'
 
 const defaultRole = {
@@ -298,7 +298,7 @@ export default {
         this.rolesList.push(this.role)
       }
 
-      const { description, keys, key, name } = this.role
+      const { description, keys, name } = this.role
       this.dialogVisible = false
       this.$notify({
         title: 'Success',

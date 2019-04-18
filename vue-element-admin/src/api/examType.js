@@ -16,7 +16,7 @@ export function getexamsubject(data) {
     data
   })
 }
-// 获取所有题目类型/exam/getQuestionsType
+// 获取所有题目类型/exam/getQuestionsType //获取所有的试题类型/exam/getQuestionsType
 export function getquestionstype(data) {
   return request({
     url: '/exam/getQuestionsType',
@@ -25,10 +25,19 @@ export function getquestionstype(data) {
   })
 }
 // 添加试题  /exam/questions
-export function addquestionstype(parmas) {
+export function addquestionstype(data) {
   return request({
     url: 'exam/questions',
     method: 'post',
-    parmas
+    data
   })
 }
+// 添加试题类型 /exam/insertQuestionsType
+export function insertQuestionsType(params) {
+  return request({
+    url: 'exam/insertQuestionsType',
+    method: 'get',
+    params
+  })
+}
+

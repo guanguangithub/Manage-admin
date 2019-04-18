@@ -146,17 +146,17 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(async valid => {
         if (valid) {
-          console.log(this.loginForm)
+          // console.log(this.loginForm)
           this.loading = true
           const res = await this.login(this.loginForm)
-          console.log('login res...', res)
+          // console.log('login res...', res)
           if (res.code === 1) {
             await this.generateRoutes([])
             this.$router.push({ path: this.redirect || '/' })
           }
           this.loading = false
         } else {
-          console.log('error submit!!')
+          // console.log('error submit!!')
           return false
         }
       })

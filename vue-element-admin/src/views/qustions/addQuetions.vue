@@ -103,7 +103,7 @@ export default {
       getexamtype: 'examType/getexamtype',
       getexamsubject: 'examType/getexamsubject',
       getQuestionsType: 'examType/getquestionstype',
-      addquestions: 'examType/addquestion'
+      addquestions: 'examType/addquestionstype'
     }),
     getvalue(value) {
       this.exam = value
@@ -113,9 +113,9 @@ export default {
     },
     getquestions(value) {
       this.questions = value
+      console.log(this.questions)
     },
     getinp(e) {
-      console.log(e.target.value)
       this.inpustem = e.target.value
     },
     titleTheme(e) {
@@ -129,28 +129,38 @@ export default {
         this.$confirm('确定要添加是试题吗？', '真的要添加吗', {
           configtext: '确定',
           deteleconfig: '取消'
-        }).then(() => {
-          this.addquestions({
-            'questions_type_id': this.questions,
-            'questions_stem': this.inpustem,
-            'subject_id': this.subject,
-            'exam_id': this.exam,
-            'user_id': 'w6l6n-cbvl6s',
-            'questions_answer': this.answer,
-            'title': this.title
-          })
-          this.$message({
-            type: 'success',
-            message: '添加成功!'
-          })
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消添加'
-          })
+          // type: 'warning',
+          // center: true
         })
+          .then(() => {
+            this.addquestions({
+              questions_type_id: this.questions,
+              questions_stem: this.inpustem,
+              subject_id: this.subject,
+              exam_id: this.exam,
+              user_id: 'w6l6n-cbvl6s',
+              questions_answer: this.answer,
+              title: this.title
+            })
+            this.$message({
+              type: 'success',
+              message: '添加成功!'
+            })
+            this.exam = ''
+            this.questions = ''
+            this.subject = ''
+            this.inpustem = '' // 题干
+            this.title = '' // 题目
+            this.answer = '' // 答案
+          })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消添加'
+            })
+          })
       } else {
-        alert('请求错误')
+        alert('您的参数不足')
       }
     }
   }

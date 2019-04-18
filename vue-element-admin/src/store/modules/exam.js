@@ -1,6 +1,6 @@
-import { fatchExamList } from '@/api/exam.js'
+import { fatchExamList, addExam } from '@/api/exam.js'
 import moment from 'moment'
-// console.log(fatchExamList())
+console.log(addExam)
 const state = {
   table: [],
   examOptions: [{
@@ -64,6 +64,12 @@ const actions = {
     if (res.code === 1) {
       return commit('GETTABLEDATE', res.exam)
     }
+  },
+  async addExam({ commit }, payload) {
+    console.log(payload)
+    const res = await addExam(payload)
+    // console.log(res)
+    return res
   }
 }
 export default {

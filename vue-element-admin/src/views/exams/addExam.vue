@@ -1,66 +1,68 @@
 <template>
   <div class="addexam-bg">
     <h5>添加考试</h5>
-    <el-form
-      ref="ruleForm"
-      :model="ruleForm"
-      :rules="rules"
-      size="large"
-      :label-position="labelPosition"
-      label-width="70px"
-      class="demo-ruleForm"
-    >
-      <el-form-item label="活动名称" prop="name">
-        <el-col :span="12"><el-input v-model="ruleForm.name" /></el-col>
-      </el-form-item>
-      <el-form-item label="选择考试类型" prop="regionType">
-        <el-col :span="6">
-          <el-select v-model="ruleForm.regionType" placeholder="选择考试类型">
-            <el-option label="周考一" value="zhoukao1" />
-            <el-option label="周考二" value="zhoukao2" />
-            <el-option label="周考三" value="zhoukao3" />
-            <el-option label="月考" value="yuekao" />
-          </el-select>
-        </el-col>
-      </el-form-item>
-      <el-form-item label="选择课程" prop="region">
-        <el-col :span="6">
-          <el-select v-model="ruleForm.region" placeholder="选择课程">
-            <el-option label="javascript上" value="javascript上" />
-            <el-option label="javascript下" value="javascript下" />
-            <el-option label="模块化开发" value="模块化开发" />
-            <el-option label="移动开发" value="移动开发" />
-            <el-option label="渐进式开发" value="渐进式开发" />
-            <el-option label="组件式开发" value="组件式开发" />
-            <el-option label="项目实战" value="项目实战" />
-            <el-option label="node高级" value="node高级" />
-          </el-select>
-        </el-col>
-      </el-form-item>
-      <el-form-item label="设置题量" prop="count">
-        <el-col :span="3"> <el-input v-model="ruleForm.count" type="number" /></el-col>
-      </el-form-item>
-      <el-form-item label="考试时间" required>
-        <el-col :span="9">
-          <el-form-item prop="date1">
-            <el-date-picker v-model="ruleForm.date1" type="date" placeholder="选择日期" style="width: 100%;" />
-          </el-form-item>
-        </el-col>
-        <el-col class="line" :span="1"> &nbsp;-</el-col>
-        <el-col :span="9">
-          <el-form-item prop="date2">
-            <el-time-picker v-model="ruleForm.date2" placeholder="选择时间" style="width: 100%;" />
-          </el-form-item>
-        </el-col>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">创建试卷</el-button>
-      </el-form-item>
-    </el-form>
+    <div class="addexam-container">
+      <el-form
+        ref="ruleForm"
+        :model="ruleForm"
+        :rules="rules"
+        size="large"
+        :label-position="labelPosition"
+        label-width="70px"
+        class="demo-ruleForm"
+      >
+        <el-form-item label="活动名称" prop="name">
+          <el-col :span="12"><el-input v-model="ruleForm.name" size="large" /></el-col>
+        </el-form-item>
+        <el-form-item label="选择考试类型" prop="regionType">
+          <el-col :span="6">
+            <el-select v-model="ruleForm.regionType" placeholder="选择考试类型" size="large">
+              <el-option label="周考一" value="zhoukao1" />
+              <el-option label="周考二" value="zhoukao2" />
+              <el-option label="周考三" value="zhoukao3" />
+              <el-option label="月考" value="yuekao" />
+            </el-select>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="选择课程" prop="region">
+          <el-col :span="6">
+            <el-select v-model="ruleForm.region" placeholder="选择课程" size="large">
+              <el-option label="javascript上" value="javascript上" />
+              <el-option label="javascript下" value="javascript下" />
+              <el-option label="模块化开发" value="模块化开发" />
+              <el-option label="移动开发" value="移动开发" />
+              <el-option label="渐进式开发" value="渐进式开发" />
+              <el-option label="组件式开发" value="组件式开发" />
+              <el-option label="项目实战" value="项目实战" />
+              <el-option label="node高级" value="node高级" />
+            </el-select>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="设置题量" prop="count">
+          <el-col :span="3"> <el-input v-model="ruleForm.count" type="number" size="large" /></el-col>
+        </el-form-item>
+        <el-form-item label="考试时间" required>
+          <el-col :span="9">
+            <el-form-item prop="date1">
+              <el-date-picker v-model="ruleForm.date1" type="date" placeholder="选择日期" style="width: 100%;" size="large" />
+            </el-form-item>
+          </el-col>
+          <el-col class="line" :span="1"> &nbsp;-</el-col>
+          <el-col :span="9">
+            <el-form-item prop="date2">
+              <el-time-picker v-model="ruleForm.date2" placeholder="选择时间" style="width: 100%;" size="large" />
+            </el-form-item>
+          </el-col>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')">创建试卷</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 <script>
-// import { mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -107,12 +109,25 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      addExam: 'exam/addExam'
+    }),
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+      // console.log(this.$refs[formName].validate())
+      this.$refs[formName].validate(async(valid) => {
         if (valid) {
+          const { name: title, count:
+           number, date1: start_time, date2: end_time } = this.ruleForm
+          console.log(title, number, new Date(start_time) * 1, new Date(end_time) * 1)
           alert('submit!')
+          await this.addExam({
+            subject_id: 'f34qtktr-6lq5u',
+            exam_id: 'w345tcy-g2dts999',
+            title, number, start_time: new Date(start_time) * 1, end_time: new Date(end_time) * 1
+          })
+          this.$router.push('/exams/editExam')
         } else {
-          console.log('error submit!!')
+          console.log('请输入合法信息!!')
           return false
         }
       })
@@ -124,22 +139,30 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-    .addexam-bg{
-       height:698px;
-        background: #F0F2F5;
-        padding:0 35px;
-        overflow-y: auto;
-        >h5{padding:0;
-            margin:0;
-            width: 100%;
-            height: 100px;
-            line-height: 100px;
-            font-weight: normal;
-            font-size: 24px;
-            color:#242425;
-        }
-    }
-.el-form-item--medium .el-form-item__label{
+  .addexam-bg{
+      width:100%;
+      height:698px;
+      background: #F0F2F5;
+      padding:0 35px;
+      overflow-y: auto;
+      >h5{padding:0;
+          margin:0;
+          width: 100%;
+          height: 100px;
+          line-height: 100px;
+          font-weight: normal;
+          font-size: 24pxx;
+          color:#242425;
+      }
+  }
+  .addexam-container{
+    width: 100%;
+    height: auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 10px;
+  }
+  .el-form-item--medium .el-form-item__label{
   color:#d55;
 }
   .el-button--primary{

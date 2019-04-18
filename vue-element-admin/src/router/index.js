@@ -57,11 +57,11 @@ import aclassManagementRouter from './modules/aclassManagement'
  * all roles can be accessed
  */
 export const constantRoutes = [
-  examsRouter,
   testRouter,
   usermanageRouter,
-  readingRouter,
+  examsRouter,
   aclassManagementRouter,
+  readingRouter,
 
   {
     path: '/redirect',

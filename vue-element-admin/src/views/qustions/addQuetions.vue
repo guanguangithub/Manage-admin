@@ -1,6 +1,5 @@
 <template>
   <div class="add-wraps">
-
     <div class="header">
       <h3>添加试题</h3>
     </div>
@@ -19,19 +18,35 @@
             <div class="content-ul">
               <ul class="left">
                 <li>
-                  <svg data-v-c8a70580="" width="18px" height="18px" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-undo" /></svg>
+                  <svg
+                    data-v-c8a70580
+                    width="18px"
+                    height="18px"
+                    aria-hidden="true"
+                    class="svg-icon"
+                  >
+                    <use data-v-c8a70580 xlink:href="#icon-undo" />
+                  </svg>
                 </li>
                 <li>
-                  <svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-redo" /></svg>
+                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
+                    <use data-v-c8a70580 xlink:href="#icon-redo" />
+                  </svg>
                 </li>
 
                 <li>H1</li>
                 <li>H2</li>
                 <li>H3</li>
                 <li>H4</li>
-                <li> <svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-image" /></svg></li>
                 <li>
-                  <svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-code" /></svg>
+                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
+                    <use data-v-c8a70580 xlink:href="#icon-image" />
+                  </svg>
+                </li>
+                <li>
+                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
+                    <use data-v-c8a70580 xlink:href="#icon-code" />
+                  </svg>
                 </li>
                 <li>
                   <i class="el-icon-rank" />
@@ -41,8 +56,16 @@
                 </li>
               </ul>
               <div class="right">
-                <p> <svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-fullscreen" /></svg></p>
-                <p><svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-eye-open" /></svg></p>
+                <p>
+                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
+                    <use data-v-c8a70580 xlink:href="#icon-fullscreen" />
+                  </svg>
+                </p>
+                <p>
+                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
+                    <use data-v-c8a70580 xlink:href="#icon-eye-open" />
+                  </svg>
+                </p>
               </div>
             </div>
             <div class="content-textarea">
@@ -54,34 +77,27 @@
           </div>
           <div class="select-check">
             <p>请选择考试类型</p>
-            <el-select v-model="value" placeholder="请选择">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
+            <el-select v-model="exam" placeholder="请选择" @change="getvalue">
+              <el-option v-for="item in examlist.data" :key="item.exam_id" :value="item.exam_name" />
             </el-select>
           </div>
           <div class="select-check">
             <p>请选择以下课程</p>
-            <el-select v-model="value" placeholder="请选择">
+            <el-select v-model="subject" placeholder="请选择">
               <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="item in subjectlist.data"
+                :key="item.subject_id"
+                :value="item.subject_text"
               />
             </el-select>
           </div>
           <div class="select-check">
             <p>请选择题目类型</p>
-            <el-select v-model="value" placeholder="请选择">
+            <el-select v-model="questions" placeholder="请选择">
               <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="item in getquestionslist.data"
+                :key="item.questions_type_id"
+                :value="item.questions_type_text"
               />
             </el-select>
           </div>
@@ -89,19 +105,28 @@
             <div class="content-ul">
               <ul class="left">
                 <li>
-                  <svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-undo" /></svg>
+                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
+                    <use data-v-c8a70580 xlink:href="#icon-undo" />
+                  </svg>
                 </li>
                 <li>
-                  <svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-redo" /></svg>
+                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
+                    <use data-v-c8a70580 xlink:href="#icon-redo" />
+                  </svg>
                 </li>
-
                 <li>H1</li>
                 <li>H2</li>
                 <li>H3</li>
                 <li>H4</li>
-                <li> <svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-image" /></svg></li>
                 <li>
-                  <svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-code" /></svg>
+                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
+                    <use data-v-c8a70580 xlink:href="#icon-image" />
+                  </svg>
+                </li>
+                <li>
+                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
+                    <use data-v-c8a70580 xlink:href="#icon-code" />
+                  </svg>
                 </li>
                 <li>
                   <i class="el-icon-rank" />
@@ -111,8 +136,16 @@
                 </li>
               </ul>
               <div class="right">
-                <p> <svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-fullscreen" /></svg></p>
-                <p><svg data-v-c8a70580="" aria-hidden="true" class="svg-icon"><use data-v-c8a70580="" xlink:href="#icon-eye-open" /></svg></p>
+                <p>
+                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
+                    <use data-v-c8a70580 xlink:href="#icon-fullscreen" />
+                  </svg>
+                </p>
+                <p>
+                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
+                    <use data-v-c8a70580 xlink:href="#icon-eye-open" />
+                  </svg>
+                </p>
               </div>
             </div>
             <div class="content-textarea">
@@ -122,57 +155,49 @@
               <textarea id name cols="30" rows="10" placeholder="请输入内容..." />
             </div>
           </div>
-          <!-- <div class="content-textarea">
-              <ol class="textarea-left">
-                <li>1</li>
-              </ol>
-              <textarea id name cols="30" rows="10" placeholder="请输入内容..." />
-            </div> -->
         </div>
         <!-- 提交时请求接口 /exam/questions 参数questions_type_id(试题类型id)  questions_stem(题干) subject_id(课程id) exam_id(考试类型id) user_id(用户id) questions_answer(题目答案) title(试题的标题)-->
         <el-button type="primary">提交</el-button>
       </div>
-
     </div>
-
   </div>
 </template>
+
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   components: {},
   props: {},
   data() {
     return {
-
-      options: [// 此处请求应该是请求过来的活的数据
-        {
-          value: '选项1',
-          label: '黄金糕'
-        },
-        {
-          value: '选项2',
-          label: '双皮奶'
-        },
-        {
-          value: '选项3',
-          label: '蚵仔煎'
-        },
-        {
-          value: '选项4',
-          label: '龙须面12'
-        },
-        {
-          value: '选项5',
-          label: '北京烤鸭yew'
-        }
-      ],
-      value: '周考一'
+      exam: '',
+      questions: '',
+      subject: '',
+      input: ''
     }
   },
-  computed: {},
-  created() {},
-  mounted() {},
-  methods: {}
+  computed: {
+    // 获取到getters上的examlist
+    ...mapGetters(['examlist', 'subjectlist', 'getquestionslist'])
+  },
+  mounted() {
+    this.getexamtype() // 初始化数据考试类型的数据
+    this.getexamsubject()
+    this.getQuestionsType()
+  },
+  methods: {
+    ...mapActions({
+      // 前面的属性是自由命名的 ：第一个是命名空间的文件名/ 最后的这个是命名空间中actions中的方法
+      getexamtype: 'examType/getexamtype',
+      getexamsubject: 'examType/getexamsubject',
+      getQuestionsType: 'examType/getquestionstype'
+    }),
+
+    getvalue(value) {
+      console.log(value)
+    }
+  }
 }
 </script>
 <style scoped lang="scss">
@@ -206,7 +231,7 @@ export default {
       @include num(100%, 100px);
       line-height: 100px;
       font-weight: 400;
-      font-size:24px;
+      font-size: 24px;
       text-indent: 2em;
     }
   }
@@ -256,19 +281,7 @@ export default {
     }
   }
 }
-// .content-ul {
-//   @include num(100%, 45px);
-//   @include flex(space-between);
-//   border-bottom: 1px solid #ccc;
-//   .left {
-//     width: 30%;
-//     @include flex(space-between);
-//   }
-//   .right {
-//     width: 5%;
-//     @include flex(space-between);
-//   }
-// }
+
 .content-textarea {
   @include num(100%, 160px);
   @include flex(space-between);

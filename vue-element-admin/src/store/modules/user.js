@@ -112,7 +112,7 @@ const actions = {
     })
   }
 }
-
+// console.log(actions) //分发出去的 方法
 export default {
   namespaced: true,
   state,

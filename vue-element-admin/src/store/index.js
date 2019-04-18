@@ -13,6 +13,7 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
   // set './app.js' => 'app'
   const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
   const value = modulesFiles(modulePath)
+  // console.log(moduleName) //所有的命名空间 app errorLog examType
   modules[moduleName] = value.default
   return modules
 }, {})

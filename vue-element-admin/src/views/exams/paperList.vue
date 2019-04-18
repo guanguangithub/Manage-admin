@@ -130,6 +130,13 @@ export default {
     ...mapActions({
       fatchExamList: 'exam/fatchExamList'
     })
+    // seachPaper() {
+    //   if (this.examValue && this.lessonValue) {
+
+    //   } else {
+    //     alert('请选择搜索条件')
+    //   }
+    // }
   }
 }
 </script>

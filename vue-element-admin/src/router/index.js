@@ -124,19 +124,6 @@ export const constantRoutes = [
   //   hidden: true
   // },
   // {
-  //   path: '',
-  //   component: Layout,
-  //   redirect: 'dashboard',
-  //   children: [
-  //     {
-  //       path: 'dashboard',
-  //       component: () => import('@/views/dashboard/index'),
-  //       name: 'Dashboard',
-  //       meta: { title: 'dashboard', icon: 'dashboard', noCache: true, affix: true }
-  //     }
-  //   ]
-  // },
-  // {
   //   path: '/documentation',
   //   component: Layout,
   //   children: [
@@ -168,6 +155,18 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
+  // {
+  //   path: '/tab',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/tab/index'),
+  //       name: 'Tab',
+  //       meta: { title: 'tab', icon: 'tab' }
+  //     }
+  //   ]
+  // },
   // {
   //   path: '/permission',
   //   component: Layout,
@@ -222,7 +221,7 @@ export const asyncRoutes = [
   //   ]
   // },
 
-  /** when your routing map is too long, you can split it into small modules **/
+  // /** when your routing map is too long, you can split it into small modules **/
   // componentsRouter,
   // chartsRouter,
   // nestedRouter,
@@ -255,19 +254,6 @@ export const asyncRoutes = [
   //       component: () => import('@/views/example/list'),
   //       name: 'ArticleList',
   //       meta: { title: 'articleList', icon: 'list' }
-  //     }
-  //   ]
-  // },
-
-  // {
-  //   path: '/tab',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       component: () => import('@/views/tab/index'),
-  //       name: 'Tab',
-  //       meta: { title: 'tab', icon: 'tab' }
   //     }
   //   ]
   // },

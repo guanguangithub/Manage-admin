@@ -19,6 +19,7 @@ const getters = {
   getquestionslist: state => state.examType.getquestionslist, // 这些都是命名空间中state中的属性
   table: state => state.exam.table,
   examOptions: state => state.exam.examOptions,
-  lessonOptions: state => state.exam.lessonOptions
+  lessonOptions: state => state.exam.lessonOptions,
+  userarr: state => state.usermanage.userarr
 }
 export default getters

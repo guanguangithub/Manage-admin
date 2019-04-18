@@ -10,7 +10,6 @@ const getters = {
   name: state => state.user.name,
   introduction: state => state.user.introduction,
   roles: state => state.user.roles,
-  userInfo: state => state.user.userInfo,
   permission_routes: state => state.permission.routes,
   addRoutes: state => state.permission.addRoutes,
   errorLogs: state => state.errorLog.logs,
@@ -20,6 +19,12 @@ const getters = {
   table: state => state.exam.table,
   examOptions: state => state.exam.examOptions,
   lessonOptions: state => state.exam.lessonOptions,
-  userarr: state => state.usermanage.userarr
+  userarr: state => state.usermanage.userarr,
+  identityarr: state => state.usermanage.identityarr,
+  apiperArr: state => state.usermanage.apiperArr,
+  InterArr: state => state.usermanage.InterArr,
+  ViewinterArr: state => state.usermanage.ViewinterArr,
+  IdentityviewArr: state => state.usermanage.IdentityviewArr,
+  userInfo: state => state.user.userInfo
 }
 export default getters

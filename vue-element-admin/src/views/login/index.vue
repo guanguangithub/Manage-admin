@@ -7,7 +7,8 @@
       class="login-form"
       auto-complete="on"
       label-position="left"
-    >
+    />
+    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
       <div class="title-container">
         <h3 class="title">{{ $t('login.title') }}</h3>
         <lang-select class="set-language" />
@@ -36,12 +37,15 @@
             :key="passwordType"
             ref="password"
             v-model="loginForm.password"
+
             :type="passwordType"
             :placeholder="$t('login.password')"
             name="password"
             auto-complete="on"
             @keyup.enter.native="handleLogin"
           />
+          <!--   @keyup.native="checkCapslock"
+            @blur="capsTooltip = false" -->
           <span class="show-pwd" @click="showPwd">
             <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
           </span>
@@ -54,6 +58,9 @@
         style="width:100%;margin-bottom:30px;"
         @click.native.prevent="handleLogin"
       >{{ $t('login.logIn') }}</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">
+        {{ $t('login.logIn') }}
+      </el-button>
     </el-form>
 
     <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog">
@@ -73,14 +80,12 @@ import LangSelect from '@/components/LangSelect'
 import SocialSign from './socialSignin'
 // 引入 vuex
 import { mapActions } from 'vuex'
-console.log(mapActions)
 export default {
   name: 'Login',
   components: { LangSelect, SocialSign },
   data() {
     // 用户名自定义效验
     const validateUsername = (rule, value, callback) => {
-      // console.log('rule------', rule)
       if (!value) {
         callback(new Error('Please enter the correct user name'))
       } else {
@@ -100,13 +105,8 @@ export default {
         password: 'Chenmanjie123!'
       },
       loginRules: {
-        username: [
-          { required: true, trigger: 'blur' },
-          { trigger: 'blur', validator: validateUsername }
-        ],
-        password: [
-          { required: true, trigger: 'blur', validator: validatePassword }
-        ]
+        username: [{ required: true, trigger: 'blur' }, { trigger: 'blur', validator: validateUsername }],
+        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       passwordType: 'password',
       capsTooltip: false,
@@ -133,15 +133,12 @@ export default {
       this.$refs.password.focus()
     }
   },
-
   methods: {
-
     // 引入mapActions 过后去查一下
     ...mapActions({
       login: 'user/login',
       generateRoutes: 'permission/generateRoutes'
     }),
-
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -155,8 +152,10 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(async valid => {
         if (valid) {
+          console.log(this.loginForm)
           this.loading = true
           const res = await this.login(this.loginForm)
+          console.log('login res...', res)
           if (res.code === 1) {
             await this.generateRoutes([])
             this.$router.push({ path: this.redirect || '/' })
@@ -178,21 +177,19 @@ export default {
 
 $bg: #283443;
 $light_gray: #fff;
+$light_gray: #fff;
 $cursor: #fff;
-
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
   .login-container .el-input input {
     color: $cursor;
   }
 }
-
 /* reset element-ui css */
 .login-container {
   .el-input {
     display: inline-block;
     height: 47px;
     width: 85%;
-
     input {
       background: transparent;
       border: 0px;
@@ -202,14 +199,12 @@ $cursor: #fff;
       color: $light_gray;
       height: 47px;
       caret-color: $cursor;
-
       &:-webkit-autofill {
         box-shadow: 0 0 0px 1000px $bg inset !important;
         -webkit-text-fill-color: $cursor !important;
       }
     }
   }
-
   .el-form-item {
     border: 1px solid rgba(255, 255, 255, 0.1);
     background: rgba(0, 0, 0, 0.1);
@@ -220,16 +215,11 @@ $cursor: #fff;
 </style>
 
 <style lang="scss" scoped>
-$bg: #2d3a4b;
-$dark_gray: #889aa4;
-$light_gray: #eee;
-
-.login-container {
-  min-height: 100%;
-  width: 100%;
-  background-color: $bg;
-  overflow: hidden;
-
+  $bg: #2d3a4b;
+  $dark_gray: #889aa4;
+  $light_gray: #eee;
+  $dark_gray: #889aa4;
+  $light_gray: #eee;
   .login-form {
     position: relative;
     width: 520px;
@@ -238,19 +228,16 @@ $light_gray: #eee;
     margin: 0 auto;
     overflow: hidden;
   }
-
   .tips {
     font-size: 14px;
     color: #fff;
     margin-bottom: 10px;
-
     span {
       &:first-of-type {
         margin-right: 16px;
       }
     }
   }
-
   .svg-container {
     padding: 6px 5px 6px 15px;
     color: $dark_gray;
@@ -258,10 +245,8 @@ $light_gray: #eee;
     width: 30px;
     display: inline-block;
   }
-
   .title-container {
     position: relative;
-
     .title {
       font-size: 26px;
       color: $light_gray;
@@ -269,7 +254,6 @@ $light_gray: #eee;
       text-align: center;
       font-weight: bold;
     }
-
     .set-language {
       color: #fff;
       position: absolute;
@@ -279,7 +263,6 @@ $light_gray: #eee;
       cursor: pointer;
     }
   }
-
   .show-pwd {
     position: absolute;
     right: 10px;
@@ -289,17 +272,14 @@ $light_gray: #eee;
     cursor: pointer;
     user-select: none;
   }
-
   .thirdparty-button {
     position: absolute;
     right: 0;
     bottom: 6px;
   }
-
   @media only screen and (max-width: 470px) {
     .thirdparty-button {
       display: none;
     }
   }
-}
 </style>

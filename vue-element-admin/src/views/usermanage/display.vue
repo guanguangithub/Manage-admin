@@ -5,67 +5,66 @@
     </div>
     <div class="Dispaly_box_type">
       <ul>
-        <li>用户数据</li>
-        <li>身份数据</li>
-        <li>API接口权限</li>
-        <li>身份和API接口关系</li>
-        <li>视图接口权限</li>
-        <li>身份和视图权限关系</li>
+        <li v-for="(item,index) in tableData" id="ulla" :key="index" :class="inds===index?'currentlis':''" @click="liClick(index)">{{ item.name }}</li>
       </ul>
     </div>
-    <div class="Dispaly_box_text">
-      <p>用户数据</p>
-    </div>
+    <h1 class="Dispaly_box_text">
+      <span v-for="(item,index) in tableData" :key="index" :class="inds===index?'currentspans':'currentspan'" @click="liClick(index)">{{ inds===index?item.name:'' }}</span>
+    </h1>
     <div class="Dispaly_box_table">
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="name" label="用户名" width="180px" height="55px" align="center" />
-        <el-table-column prop="pwd" label="密码" height="55px" />
-        <el-table-column prop="Identity" label="身份" width="180px" height="55px" align="center" />
+      <el-table :border="true" style="width:100%;" :data="userarr[0].data">
+        <el-table-column label="用户名" align="center" width="277px" prop="user_name" />
+        <el-table-column label="密码" prop="user_pwd" />
+        <el-table-column label="身份" align="center" width="174px" prop="identity_text" />
       </el-table>
     </div>
+    <div class="Dispaly_box_pagination">
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="200"
+      />
+    </div>
+
   </div>
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
     return {
       tableData: [
         {
-          pwd: 'dawdawdawd',
-          name: '战士',
-          Identity: '管理员'
+          name: '用户数据'
         },
         {
-          pwd: 'grgvsdvseadawdaw',
-          name: '里斯',
-          Identity: '管理员'
+          name: '身份数据'
         },
         {
-          pwd: 'vaefdawdawfbsrfsaef',
-          name: '马克',
-          Identity: '管理员'
+          name: '身份和API接口关系'
         },
         {
-          pwd: 'dawvawdawdawcawdaw',
-          name: '李四',
-          Identity: '管理员'
+          name: '视图接口权限'
         },
         {
-          pwd: 'dawvawdawdawcawdaw',
-          name: '大V',
-          Identity: '管理员'
-        },
-        {
-          pwd: 'dawvawdawdawcawdaw',
-          name: '付费',
-          Identity: '管理员'
-        },
-        {
-          pwd: 'dawvawdawdawcawdaw',
-          name: '王企鹅',
-          Identity: '管理员'
+          name: '身份和视图权限关系'
         }
-      ]
+      ],
+      inds: 0
+    }
+  },
+  computed: {
+    ...mapGetters(['userarr'])
+  },
+  mounted() {
+    this.usermanage()
+  },
+  methods: {
+    ...mapActions({
+      usermanage: 'usermanage/userdelete'
+    }),
+    liClick(ind) {
+      this.inds = ind
     }
   }
 }
@@ -78,54 +77,83 @@ export default {
 }
 .Dispaly_box {
   width: 100%;
-  height: 850px;
+  height: auto;
   display: flex;
   flex-direction: column;
   background: #f0f2f5;
-}
-.Dispaly_box_header {
-  width: 100%;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  text-indent: 50px;
-  font-size: 30px;
-}
-.Dispaly_box_type {
-  width: 100%;
-  height: 50px;
-  ul {
+  overflow-y:auto;
+  .Dispaly_box_header {
     width: 100%;
-    height: 100%;
+    height: 80px;
     display: flex;
     align-items: center;
-    li {
-      margin-left: 20px;
-      height: 70%;
-      padding: 0 10px;
-      border: 1px solid #ccc;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 12px;
-      &:nth-child(1) {
-        margin-left: 80px;
-      }
+    text-indent: 50px;
+    p{
+      font-size: 26px;
     }
   }
+  .Dispaly_box_type {
+    width: 100%;
+    height: 50px;
+    ul{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        .currentlis{
+            border-color: #0139FD;
+            box-shadow: none !important
+        }
+        li {
+          height: 70%;
+          width:180px;
+          border: 1px solid #ccc;
+          background-color: #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 12px;
+          &:nth-child(1) {
+            margin-left: 80px;
+          }
+        }
+        li:hover{
+          color: #0139FD;
+        }
+    }
+  }
+  .Dispaly_box_text{
+    width:100%;
+    height:60px;
+    font-size:26px;
+    display: flex;
+    align-items: center;
+    .currentspan{
+      display: none;
+    }
+    .currentspans{
+      display: flex;
+    }
+    span{
+      margin-left: 50px;
+      font-size:26px;
+      font-weight: normal;
+    }
+  }
+  .Dispaly_box_table{
+    margin: 0 auto;
+    width:95%;
+    height:auto;
+  }
+  .Dispaly_box_pagination{
+    margin: 20px auto;
+    width:95%;
+    height:60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
 }
-.Dispaly_box_text {
-  width: 100%;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  text-indent: 50px;
-  font-size: 26px;
-}
-.Dispaly_box_table {
-  margin: 0 auto;
-  width: 90%;
-  height: auto;
-}
+
 </style>
 

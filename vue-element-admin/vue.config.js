@@ -11,7 +11,6 @@ const port = 9527 // dev port
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
- 
   /**
    * You will need to set publicPath if you plan to deploy your site under a sub path,
    * for example GitHub Pages. If you plan to deploy your site to https://foo.github.io/bar/,
@@ -44,6 +43,13 @@ module.exports = {
      }
     },
     // after: require('./mock/mock-server.js')
+      '/api': {
+        target: `http://169.254.12.1:7001/`,
+        changeOrigin: true,
+        pathRewrite: {
+          '/api': ''
+        }
+      }
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
@@ -55,8 +61,8 @@ module.exports = {
         "vue$":"vue/dist/vue.runtime.esm.js"
       }
     }
-  },
-  chainWebpack(config) {
+},
+chainWebpack(config) {
     config.plugins.delete('preload') // TODO: need test
     config.plugins.delete('prefetch') // TODO: need test
 
@@ -131,5 +137,7 @@ module.exports = {
           config.optimization.runtimeChunk('single')
         }
       )
-  }
 }
+}
+
+

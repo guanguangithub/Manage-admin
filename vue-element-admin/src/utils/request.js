@@ -6,6 +6,7 @@ import { getToken } from '@/utils/auth'
 // create an axios instance
 const service = axios.create({
   baseURL: '/api', // api 的 base_url
+  // baseURL: 'http://169.254.12.55:7001', // api 的 base_url
   // withCredentials: true, // 跨域请求时发送 cookies
   timeout: 5000 // request timeout
 })
@@ -48,6 +49,17 @@ service.interceptors.response.use(
     // if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
     // 请自行在引入 MessageBox
     // import { Message, MessageBox } from 'element-ui'
+
+    // if (res.code !== 20000) {
+    //   Message({
+    //     message: res.msg || 'error',
+    //     type: 'error',
+    //     duration: 5 * 1000
+    //   })
+    //   // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了;
+    //   if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
+    //     // 请自行在引入 MessageBox
+    //     // import { Message, MessageBox } from 'element-ui'
     //     MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
     //       confirmButtonText: '重新登录',
     //       cancelButtonText: '取消',

@@ -1,6 +1,6 @@
 <template>
   <div class="paperList-bg">
-    <h5>添加考试</h5>
+    <h5>试卷列表</h5>
     <div class="paper-search">
       <label class="exam-type"> 考试类型:</label>
       <span>

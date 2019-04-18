@@ -133,9 +133,7 @@ export default {
       this.$refs.password.focus()
     }
   },
-
   methods: {
-
     // 引入mapActions 过后去查一下
     ...mapActions({
       login: 'user/login',

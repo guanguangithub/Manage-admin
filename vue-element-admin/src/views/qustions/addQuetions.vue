@@ -15,65 +15,9 @@
         <div class="content-main">
           <p>题目主题</p>
           <div class="content-box">
-            <div class="content-ul">
-              <ul class="left">
-                <li>
-                  <svg
-                    data-v-c8a70580
-                    width="18px"
-                    height="18px"
-                    aria-hidden="true"
-                    class="svg-icon"
-                  >
-                    <use data-v-c8a70580 xlink:href="#icon-undo" />
-                  </svg>
-                </li>
-                <li>
-                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
-                    <use data-v-c8a70580 xlink:href="#icon-redo" />
-                  </svg>
-                </li>
+            <texaImg />
+            <textarea id name cols="30" rows="10" placeholder="请输入内容..." />
 
-                <li>H1</li>
-                <li>H2</li>
-                <li>H3</li>
-                <li>H4</li>
-                <li>
-                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
-                    <use data-v-c8a70580 xlink:href="#icon-image" />
-                  </svg>
-                </li>
-                <li>
-                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
-                    <use data-v-c8a70580 xlink:href="#icon-code" />
-                  </svg>
-                </li>
-                <li>
-                  <i class="el-icon-rank" />
-                </li>
-                <li>
-                  <i class="el-icon-location" />
-                </li>
-              </ul>
-              <div class="right">
-                <p>
-                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
-                    <use data-v-c8a70580 xlink:href="#icon-fullscreen" />
-                  </svg>
-                </p>
-                <p>
-                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
-                    <use data-v-c8a70580 xlink:href="#icon-eye-open" />
-                  </svg>
-                </p>
-              </div>
-            </div>
-            <div class="content-textarea">
-              <ol class="textarea-left">
-                <li>1</li>
-              </ol>
-              <textarea id name cols="30" rows="10" placeholder="请输入内容..." />
-            </div>
           </div>
           <div class="select-check">
             <p>请选择考试类型</p>
@@ -102,58 +46,10 @@
             </el-select>
           </div>
           <div class="content-box">
-            <div class="content-ul">
-              <ul class="left">
-                <li>
-                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
-                    <use data-v-c8a70580 xlink:href="#icon-undo" />
-                  </svg>
-                </li>
-                <li>
-                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
-                    <use data-v-c8a70580 xlink:href="#icon-redo" />
-                  </svg>
-                </li>
-                <li>H1</li>
-                <li>H2</li>
-                <li>H3</li>
-                <li>H4</li>
-                <li>
-                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
-                    <use data-v-c8a70580 xlink:href="#icon-image" />
-                  </svg>
-                </li>
-                <li>
-                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
-                    <use data-v-c8a70580 xlink:href="#icon-code" />
-                  </svg>
-                </li>
-                <li>
-                  <i class="el-icon-rank" />
-                </li>
-                <li>
-                  <i class="el-icon-location" />
-                </li>
-              </ul>
-              <div class="right">
-                <p>
-                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
-                    <use data-v-c8a70580 xlink:href="#icon-fullscreen" />
-                  </svg>
-                </p>
-                <p>
-                  <svg data-v-c8a70580 aria-hidden="true" class="svg-icon">
-                    <use data-v-c8a70580 xlink:href="#icon-eye-open" />
-                  </svg>
-                </p>
-              </div>
-            </div>
-            <div class="content-textarea">
-              <ol class="textarea-left">
-                <li>1</li>
-              </ol>
-              <textarea id name cols="30" rows="10" placeholder="请输入内容..." />
-            </div>
+            <texaImg />
+            <!-- <div class="content-textarea">              -->
+            <textarea id name cols="30" rows="10" placeholder="请输入内容..." />
+            <!-- </div> -->
           </div>
         </div>
         <!-- 提交时请求接口 /exam/questions 参数questions_type_id(试题类型id)  questions_stem(题干) subject_id(课程id) exam_id(考试类型id) user_id(用户id) questions_answer(题目答案) title(试题的标题)-->
@@ -165,9 +61,9 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-
+import texaImg from '../../components/Tinymce'
 export default {
-  components: {},
+  components: { texaImg },
   props: {},
   data() {
     return {
@@ -265,35 +161,21 @@ export default {
     line-height: 50px;
   }
 }
-.content-box {
-  border: 1px solid #ccc;
-  .content-ul {
-    @include num(100%, 45px);
-    @include flex(space-between);
-    border-bottom: 1px solid #ccc;
-    .left {
-      width: 30%;
-      @include flex(space-between);
-    }
-    .right {
-      width: 5%;
-      @include flex(space-between);
-    }
+.content-box{
+  position:relative;
+  width:96%;
+  height:498px;
+  overflow: hidden;
+  textarea {
+     position:absolute;
+     left:0;
+     top:110px;
+     outline: none;
+    @include num(100%, 70%);
   }
+
 }
 
-.content-textarea {
-  @include num(100%, 160px);
-  @include flex(space-between);
-  .textarea-left {
-    @include num(45px, 100%);
-    text-align: center;
-    background: #efefef;
-  }
-  textarea {
-    @include num(100%, 100%);
-  }
-}
 .select-check {
   @include num(100%, 100px);
   margin: 5px 0px;

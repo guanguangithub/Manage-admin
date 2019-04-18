@@ -9,51 +9,64 @@
           <p>题目信息</p>
           <span>题干</span>
           <p class="inp">
-            <el-input v-model="input" placeholder="请输入内容" />
+            <el-input v-model="inpustem" placeholder="请输入内容" @blur="getinp($event)" />
           </p>
         </div>
         <div class="content-main">
           <p>题目主题</p>
           <div class="content-box">
             <texaImg />
-            <textarea id name cols="30" rows="10" placeholder="请输入内容..." />
-
+            <textarea cols="30" rows="10" placeholder="请输入内容..." @input="titleTheme($event)" />
           </div>
           <div class="select-check">
             <p>请选择考试类型</p>
             <el-select v-model="exam" placeholder="请选择" @change="getvalue">
-              <el-option v-for="item in examlist.data" :key="item.exam_id" :value="item.exam_name" />
+              <el-option
+                v-for="item in examlist.data"
+                :key="item.exam_id"
+                :value="item.exam_id"
+                :label="item.exam_name"
+              />
             </el-select>
           </div>
           <div class="select-check">
             <p>请选择以下课程</p>
-            <el-select v-model="subject" placeholder="请选择">
+            <el-select v-model="subject" placeholder="请选择" @change="getsubject">
               <el-option
                 v-for="item in subjectlist.data"
                 :key="item.subject_id"
-                :value="item.subject_text"
+                :label="item.subject_text"
+                :value="item.subject_id"
               />
             </el-select>
           </div>
           <div class="select-check">
             <p>请选择题目类型</p>
-            <el-select v-model="questions" placeholder="请选择">
+            <el-select v-model="questions" placeholder="请选择" @change="getquestions">
               <el-option
                 v-for="item in getquestionslist.data"
                 :key="item.questions_type_id"
-                :value="item.questions_type_text"
+                :value="item.questions_type_id"
+                :label="item.questions_type_text"
               />
             </el-select>
           </div>
           <div class="content-box">
             <texaImg />
-            <!-- <div class="content-textarea">              -->
-            <textarea id name cols="30" rows="10" placeholder="请输入内容..." />
-            <!-- </div> -->
+
+            <textarea
+              id
+              name
+              cols="30"
+              rows="10"
+              placeholder="请输入内容..."
+              @input="answerinfo($event)"
+            />
+
           </div>
         </div>
         <!-- 提交时请求接口 /exam/questions 参数questions_type_id(试题类型id)  questions_stem(题干) subject_id(课程id) exam_id(考试类型id) user_id(用户id) questions_answer(题目答案) title(试题的标题)-->
-        <el-button type="primary">提交</el-button>
+        <el-button type="primary" @click="sub">提交</el-button>
       </div>
     </div>
   </div>
@@ -70,7 +83,9 @@ export default {
       exam: '',
       questions: '',
       subject: '',
-      input: ''
+      inpustem: '', // 题干
+      title: '', // 题目
+      answer: '' // 答案
     }
   },
   computed: {
@@ -87,11 +102,66 @@ export default {
       // 前面的属性是自由命名的 ：第一个是命名空间的文件名/ 最后的这个是命名空间中actions中的方法
       getexamtype: 'examType/getexamtype',
       getexamsubject: 'examType/getexamsubject',
-      getQuestionsType: 'examType/getquestionstype'
+      getQuestionsType: 'examType/getquestionstype',
+      addquestions: 'examType/addquestionstype'
     }),
-
     getvalue(value) {
-      console.log(value)
+      this.exam = value
+    },
+    getsubject(value) {
+      this.subject = value
+    },
+    getquestions(value) {
+      this.questions = value
+      console.log(this.questions)
+    },
+    getinp(e) {
+      this.inpustem = e.target.value
+    },
+    titleTheme(e) {
+      this.title = e.target.value
+    },
+    answerinfo(e) {
+      this.answer = e.target.value
+    },
+    sub() {
+      if (this.inpustem !== '' && this.title !== '' && this.answer !== '') {
+        this.$confirm('确定要添加是试题吗？', '真的要添加吗', {
+          configtext: '确定',
+          deteleconfig: '取消'
+          // type: 'warning',
+          // center: true
+        })
+          .then(() => {
+            this.addquestions({
+              questions_type_id: this.questions,
+              questions_stem: this.inpustem,
+              subject_id: this.subject,
+              exam_id: this.exam,
+              user_id: 'w6l6n-cbvl6s',
+              questions_answer: this.answer,
+              title: this.title
+            })
+            this.$message({
+              type: 'success',
+              message: '添加成功!'
+            })
+            this.exam = ''
+            this.questions = ''
+            this.subject = ''
+            this.inpustem = '' // 题干
+            this.title = '' // 题目
+            this.answer = '' // 答案
+          })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消添加'
+            })
+          })
+      } else {
+        alert('您的参数不足')
+      }
     }
   }
 }
@@ -161,21 +231,19 @@ export default {
     line-height: 50px;
   }
 }
-.content-box{
-  position:relative;
-  width:96%;
-  height:498px;
+.content-box {
+  position: relative;
+  width: 96%;
+  height: 498px;
   overflow: hidden;
   textarea {
-     position:absolute;
-     left:0;
-     top:110px;
-     outline: none;
+    position: absolute;
+    left: 0;
+    top: 110px;
+    outline: none;
     @include num(100%, 70%);
   }
-
 }
-
 .select-check {
   @include num(100%, 100px);
   margin: 5px 0px;

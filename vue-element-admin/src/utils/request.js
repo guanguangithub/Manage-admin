@@ -73,5 +73,5 @@ service.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-
+// console.log(service)
 export default service

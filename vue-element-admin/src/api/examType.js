@@ -24,3 +24,11 @@ export function getquestionstype(data) {
     data
   })
 }
+// 添加试题  /exam/questions
+export function addquestionstype(parmas) {
+  return request({
+    url: 'exam/questions',
+    method: 'post',
+    parmas
+  })
+}

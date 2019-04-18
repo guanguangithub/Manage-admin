@@ -123,6 +123,18 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   // {
+  //   path: '/tab',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/tab/index'),
+  //       name: 'Tab',
+  //       meta: { title: 'tab', icon: 'tab' }
+  //     }
+  //   ]
+  // },
+  // {
   //   path: '/permission',
   //   component: Layout,
   //   redirect: '/permission/index',
@@ -210,19 +222,6 @@ export const asyncRoutes = [
   //       component: () => import('@/views/example/list'),
   //       name: 'ArticleList',
   //       meta: { title: 'articleList', icon: 'list' }
-  //     }
-  //   ]
-  // },
-
-  // {
-  //   path: '/tab',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       component: () => import('@/views/tab/index'),
-  //       name: 'Tab',
-  //       meta: { title: 'tab', icon: 'tab' }
   //     }
   //   ]
   // },

@@ -1,4 +1,4 @@
-import { login, logout, getInfo } from '@/api/user'
+import { login, logout, getInfo, GetviewAuthority } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
@@ -8,7 +8,8 @@ const state = {
   avatar: '',
   introduction: '',
   roles: [],
-  userInfo: {}
+  userInfo: {},
+  viewAutohostiry: [] // 用户路由权限
 }
 
 const mutations = {
@@ -29,6 +30,9 @@ const mutations = {
   },
   GET_USERINFOR: (state, userInfo) => {
     state.userInfo = userInfo
+  },
+  SET_VIEWAUTOHOSTIRY: (state, viewAutohority) => {
+    state.viewAutohostiry = viewAutohority
   }
 }
 
@@ -48,6 +52,16 @@ const actions = {
     commit('GET_USERINFOR', data.data)
     return data.data
   },
+
+  async getviewAuthority({ commit }, payload) {
+    const userAutohostiry = await GetviewAuthority()
+    if (userAutohostiry.code === 1) {
+      commit('SET_VIEWAUTOHOSTIRY', userAutohostiry.data)
+      return userAutohostiry.data
+    }
+    return []
+  },
+
   // user logout
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {

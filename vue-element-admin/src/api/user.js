@@ -28,3 +28,10 @@ export function getUserInfo() {
     method: 'get'
   })
 }
+export function GetviewAuthority() {
+  return request({
+    url: '/user/view_authority',
+    method: 'get'
+  })
+}
+

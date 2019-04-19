@@ -48,12 +48,9 @@
         </el-form-item>
       </el-tooltip>
 
-      <el-button
-        :loading="loading"
-        type="primary"
-        style="width:100%;margin-bottom:30px;"
-        @click.native.prevent="handleLogin"
-      >{{ $t('login.logIn') }}</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">
+        {{ $t('login.logIn') }}
+      </el-button>
     </el-form>
 
     <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog">
@@ -139,6 +136,7 @@ export default {
     // 引入mapActions 过后去查一下
     ...mapActions({
       login: 'user/login'
+
     }),
 
     showPwd() {
@@ -162,7 +160,7 @@ export default {
           }
           this.loading = false
         } else {
-          console.log('error submit!!')
+          // console.log('error submit!!')
           return false
         }
       })

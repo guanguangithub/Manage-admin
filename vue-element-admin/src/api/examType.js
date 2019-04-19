@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+// api里是所有的请求
 // 这个文件里是 试题管理的所有api接口
 // 获取所有考试类型
 export function getexamtype(data) {
@@ -16,7 +17,7 @@ export function getexamsubject(data) {
     data
   })
 }
-// 获取所有题目类型/exam/getQuestionsType
+// 获取所有题目类型/exam/getQuestionsType //获取所有的试题类型/exam/getQuestionsType
 export function getquestionstype(data) {
   return request({
     url: '/exam/getQuestionsType',
@@ -24,3 +25,20 @@ export function getquestionstype(data) {
     data
   })
 }
+// 添加试题  /exam/questions
+export function addquestionstype(data) {
+  return request({
+    url: 'exam/questions',
+    method: 'post',
+    data
+  })
+}
+// 添加试题类型 /exam/insertQuestionsType
+export function insertQuestionsType(params) {
+  return request({
+    url: 'exam/insertQuestionsType',
+    method: 'get',
+    params
+  })
+}
+

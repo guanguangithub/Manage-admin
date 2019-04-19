@@ -10,40 +10,34 @@
           <!-- 课程类型/exam/subject -->
           <ul class="type-course">
             <p>课程类型</p>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li>6</li>
-            <li>7</li>
-            <li>8</li>
-            <li>9</li>
-            <li>10</li>
-            <li>11</li>
+            <li>all</li>
+            <li
+              v-for="item in subjectlist.data"
+              :key="item.subject_id"
+            >{{ item.subject_text }}</li>
           </ul>
           <div class="type-exam">
             <!-- 考试类型/exam/examType    题目类型 -->
             <p>
               <span>考试类型:</span>
-              <el-select v-model="value" placeholder="请选择">
+              <el-select v-model="exam" placeholder="请选择" @change="getvalue">
                 <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
+                  v-for="item in examlist.data"
+                  :key="item.exam_id"
+                  :value="item.exam_id"
+                  :label="item.exam_name"
                 />
               </el-select>
             </p>
 
             <p>
               <span>题目类型:</span>
-              <el-select v-model="value" size="medium" placeholder="请选择">
+              <el-select v-model="questions" placeholder="请选择" @change="getquestions">
                 <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
+                  v-for="item in getquestionslist.data"
+                  :key="item.questions_type_id"
+                  :value="item.questions_type_id"
+                  :label="item.questions_type_text"
                 />
               </el-select>
             </p>
@@ -74,42 +68,40 @@
               <a href="http://www.baidu.com">编辑</a>
             </p>
           </div>
-          <div class="content-list">
-            <div class="list-left">
-              <p>哈哈</p>
-              <p>
-                <el-button
-                  style="color: #1890ff;background: #e6f7ff;border-color: #91d5ff;"
-                >补全代码</el-button>
-                <el-button
-                  style="color: #2f54eb;background: #f0f5ff; border-color: #adc6ff;"
-                >javascript上</el-button>
-                <el-button
-                  style="color: #fa8c16;background: #fff7e6;border-color: #ffd591;"
-                >周考1</el-button>
-              </p>
-              <p>某某某发布</p>
-            </div>
-            <p>
-              <a href="http://www.baidu.com">编辑</a>
-            </p>
-          </div>
+
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {},
   props: {},
   data() {
-    return {}
+    return {
+      exam: '',
+      questions: ''
+    }
   },
-  computed: {},
+  computed: {
+    ...mapGetters(['examlist', 'subjectlist', 'getquestionslist'])
+  },
   created() {},
-  mounted() {},
+  mounted() {
+    this.getexamtype() // 初始化数据考试类型的数据
+    this.getexamsubject()
+    this.getQuestionsType()
+  },
   methods: {
+    ...mapActions({
+      // 前面的属性是自由命名的 ：第一个是命名空间的文件名/ 最后的这个是命名空间中actions中的方法
+      getexamtype: 'examType/getexamtype',
+      getexamsubject: 'examType/getexamsubject',
+      getQuestionsType: 'examType/getquestionstype',
+      addquestions: 'examType/addquestionstype'
+    }),
     godetail() {
       alert('11')
       this.$router.push('/looksdetail')

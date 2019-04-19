@@ -27,7 +27,7 @@ const mutations = {
   SET_ROLES: (state, roles) => {
     state.roles = roles
   },
-  SET_USERINFO: (state, userInfo) => {
+  GET_USERINFOR: (state, userInfo) => {
     state.userInfo = userInfo
   }
 }
@@ -42,9 +42,10 @@ const actions = {
   },
 
   // get user info
-  async getInfo({ commit, state }) {
+  async getInfo({ commit }) {
     const data = await getInfo()
-    commit('SET_USERINFO', data)
+    // 把用户信息给了mutations 里面  交给state中userInfo：{}
+    commit('GET_USERINFOR', data.data)
     return data.data
   },
   // user logout

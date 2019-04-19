@@ -12,7 +12,7 @@
       <span v-for="(item,index) in tableData" :key="index" :class="inds===index?'currentspans':'currentspan'" @click="liClick(index)">{{ inds===index?item.names:'' }}</span>
     </h1>
     <div class="Dispaly_box_table">
-      <el-table style="width:100%;" :data="data">
+      <el-table style="width:100%;" :data="data" :row-style="setClass" :header-row-style="headerClass">
         <el-table-column v-for="(item,index) in tableData[inds].title" :key="index" :label="item.tit" :prop="item.render" />
       </el-table>
     </div>
@@ -23,6 +23,7 @@
         :total="total"
         :page-size="limit"
         :page-count="Math.ceil(total/limit)"
+        :current-page.sync="toals"
         @current-change="currentChange"
       />
     </div>
@@ -141,7 +142,8 @@ export default {
       list: null,
       total: 0,
       limit: 5,
-      data: null
+      data: null,
+      toals: 1
     }
   },
   created() {
@@ -164,6 +166,7 @@ export default {
     }),
     liClick(ind) {
       this.inds = ind
+      this.toals = 1
       if (this.inds === 0) {
         this.usermanagedele().then(res => {
           if (res.code === 1) {
@@ -215,7 +218,14 @@ export default {
       }
     },
     currentChange(val) {
+      this.toals = 1
       this.data = this.list.slice((val - 1) * this.limit, val * this.limit)
+    },
+    setClass() {
+      return 'height:50px;background-color:#f0f2f5;'
+    },
+    headerClass() {
+      return 'height:60px;font-size:16px;'
     }
   }
 }

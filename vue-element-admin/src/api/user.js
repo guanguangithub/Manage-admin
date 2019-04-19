@@ -22,3 +22,10 @@ export function logout() {
   })
 }
 
+export function GetviewAuthority() {
+  return request({
+    url: '/user/view_authority',
+    method: 'get'
+  })
+}
+

@@ -41,9 +41,9 @@ router.beforeEach(async(to, from, next) => {
           const userInfo = await store.dispatch('user/getInfo')
           console.log(userInfo)
           // 通过身份获取权限
-          await store.dispatch('permission/generateRoutes', [])
+          const viewAutohostiry = await store.dispatch('user/getviewAuthority')
           // 通过权限生成路由
-
+          await store.dispatch('permission/generateRoutes', viewAutohostiry)
           next({ ...to, replace: true })
           // get user info
 

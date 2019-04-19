@@ -21,5 +21,6 @@ const getters = {
   examOptions: state => state.exam.examOptions,
   lessonOptions: state => state.exam.lessonOptions,
   userarr: state => state.usermanage.userarr
+
 }
 export default getters

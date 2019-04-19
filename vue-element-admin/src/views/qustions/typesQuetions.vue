@@ -12,47 +12,59 @@
           </p>
         </div>
         <div class="tablelist">
-          <el-table :data="tableData" :header-cell-style="getRowClass" style="width: 100%">
-            <el-table-column prop="date" label="日期" width="180" />
-            <el-table-column prop="name" label="姓名" width="180" />
+          <el-table
+            :data="getquestionslist.data"
+            :header-cell-style="getRowClass"
+            style="width: 100%"
+          >
+            <el-table-column prop="questions_type_id" label="类型Id" width="180" />
+            <el-table-column prop="questions_type_text" label="类型名称" width="180" />
             <el-table-column prop="address" label="地址" />
           </el-table>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
-    return {
-      tableData: [{ // 此处数据应该是请求过来的获取所有的试题类型 参数：无 /exam/getQuestionsType
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小明',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小红',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
-    }
+    return {}
   },
+  computed: {
+    ...mapGetters(['getquestionslist'])
+  },
+  mounted() {
+    this.getQuestionsType()
+  },
+
   methods: {
+    ...mapActions({
+      getQuestionsType: 'examType/getquestionstype',
+      insertQuestionsType: 'examType/insertQuestionsType'
+    }),
     open3() {
       this.$prompt('添加新类型', {
         confirmButtonText: '确定',
         cancelButtonText: '取消'
       })
+        .then(({ value }) => {
+          console.log(value)
+          this.insertQuestionsType({
+            text: value,
+            sort: Math.random()
+              .toString()
+              .substr(2, 6)
+          })
+          this.$message({
+            message: '添加成功'
+          })
+        })
+        .catch(() => {
+          console.log('添加失败')
+        })
     },
     getRowClass({ row, colum, rowIndex, columIndex }) {
       if (rowIndex === 0) {
@@ -97,7 +109,7 @@ export default {
       line-height: 100px;
       font-weight: 400;
       text-indent: 2em;
-       font-size:24px;
+      font-size: 24px;
     }
   }
   .section {
@@ -110,12 +122,10 @@ export default {
       border-radius: 10px;
       background: #fff;
       .content-top {
-
         & > p {
           @include num(100%, 55px);
           line-height: 55px;
         }
-
       }
     }
   }
@@ -127,17 +137,19 @@ export default {
   }
 }
 .el-button--text {
-  font-size:14px;
+  font-size: 14px;
   padding: 12px 35px;
 
   border: 1px solid;
   margin: 8px 0px;
   color: #fff;
-  border-radius:10px;
-  background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
+  border-radius: 10px;
+  background: linear-gradient(-90deg, #4e75ff, #0139fd) !important;
 }
-.has-gutter{
-  &>tr{background:#6a6c6e}
+.has-gutter {
+  & > tr {
+    background: #6a6c6e;
+  }
 }
 </style>
 

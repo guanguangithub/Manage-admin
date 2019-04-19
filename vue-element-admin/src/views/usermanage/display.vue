@@ -12,7 +12,7 @@
       <span v-for="(item,index) in tableData" :key="index" :class="inds===index?'currentspans':'currentspan'" @click="liClick(index)">{{ inds===index?item.names:'' }}</span>
     </h1>
     <div class="Dispaly_box_table">
-      <el-table style="width:100%;" :data="list">
+      <el-table style="width:100%;" :data="data">
         <el-table-column v-for="(item,index) in tableData[inds].title" :key="index" :label="item.tit" :prop="item.render" />
       </el-table>
     </div>
@@ -20,7 +20,10 @@
       <el-pagination
         background
         layout="prev, pager, next"
-        :total="200"
+        :total="total"
+        :page-size="limit"
+        :page-count="Math.ceil(total/limit)"
+        @current-change="currentChange"
       />
     </div>
 
@@ -135,13 +138,18 @@ export default {
         }
       ],
       inds: 0,
-      list: null
+      list: null,
+      total: 0,
+      limit: 5,
+      data: null
     }
   },
   created() {
     this.usermanagedele().then(res => {
       if (res.code === 1) {
         this.list = res.data
+        this.data = this.list.slice(0, this.limit)
+        this.total = this.list.length
       }
     })
   },
@@ -160,39 +168,54 @@ export default {
         this.usermanagedele().then(res => {
           if (res.code === 1) {
             this.list = res.data
+            this.total = this.list.length
+            this.data = this.list.slice(0, this.limit)
           }
         })
       } else if (this.inds === 1) {
         this.identitydele().then(res => {
           if (res.code === 1) {
             this.list = res.data
+            this.total = this.list.length
+            this.data = this.list.slice(0, this.limit)
           }
         })
       } else if (this.inds === 2) {
         this.apiperdele().then(res => {
           if (res.code === 1) {
             this.list = res.data
+            this.total = this.list.length
+            this.data = this.list.slice(0, this.limit)
           }
         })
       } else if (this.inds === 3) {
         this.Interfacedele().then(res => {
           if (res.code === 1) {
             this.list = res.data
+            this.total = this.list.length
+            this.data = this.list.slice(0, this.limit)
           }
         })
       } else if (this.inds === 4) {
         this.Viewinterdele().then(res => {
           if (res.code === 1) {
             this.list = res.data
+            this.total = this.list.length
+            this.data = this.list.slice(0, this.limit)
           }
         })
       } else if (this.inds === 5) {
         this.Identityviewdele().then(res => {
           if (res.code === 1) {
             this.list = res.data
+            this.total = this.list.length
+            this.data = this.list.slice(0, this.limit)
           }
         })
       }
+    },
+    currentChange(val) {
+      this.data = this.list.slice((val - 1) * this.limit, val * this.limit)
     }
   }
 }

@@ -16,7 +16,8 @@ const getters = {
   examlist: state => state.examType.examlist,
   subjectlist: state => state.examType.subjectlist, // 这些都是命名空间中state中的属性
   getquestionslist: state => state.examType.getquestionslist, // 这些都是命名空间中state中的属性
-  userarr: state => state.usermanage.userarr
+  userarr: state => state.usermanage.userarr,
+  userInfo: state => state.user.userInfo
 
 }
 export default getters

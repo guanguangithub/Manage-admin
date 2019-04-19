@@ -130,8 +130,8 @@ export default {
   methods: {
     // 引入mapActions 过后去查一下
     ...mapActions({
-      login: 'user/login',
-      generateRoutes: 'permission/generateRoutes'
+      login: 'user/login'
+
     }),
     showPwd() {
       if (this.passwordType === 'password') {
@@ -151,7 +151,6 @@ export default {
           const res = await this.login(this.loginForm)
           // console.log('login res...', res)
           if (res.code === 1) {
-            await this.generateRoutes([])
             this.$router.push({ path: this.redirect || '/' })
           }
           this.loading = false

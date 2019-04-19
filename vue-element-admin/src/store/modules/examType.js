@@ -24,7 +24,7 @@ const mutations = {
 
 }
 const actions = {
-  // aync 后面的getexamtype是自由命名的 await是请求数据那边的方法名
+  // aync 后面的getexamtype是自由命名的 await是请求数据那边的方法名 context里面有commit dispatch
   async getexamtype(context) {
     const res = await getexamtype()
     return context.commit('getlist', res)
@@ -39,11 +39,11 @@ const actions = {
     return context.commit('gettype', res)
   },
 
-  async addquestionstype(context, payload) {
+  async addquestionstype(context, payload) { // 添加试题 要传参
     const res = await addquestionstype(payload)
     return res
   },
-  async insertQuestionsType(context, payload) {
+  async insertQuestionsType(context, payload) { // 添加类型 要传参
     const res = await insertQuestionsType(payload)
     return res
   }

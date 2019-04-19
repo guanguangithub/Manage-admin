@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+// api里是所有的请求
 // 这个文件里是 试题管理的所有api接口
 // 获取所有考试类型
 export function getexamtype(data) {

@@ -5,66 +5,227 @@
     </div>
     <div class="Dispaly_box_type">
       <ul>
-        <li v-for="(item,index) in tableData" id="ulla" :key="index" :class="inds===index?'currentlis':''" @click="liClick(index)">{{ item.name }}</li>
+        <li v-for="(item,index) in tableData" :key="index" :class="inds===index?'currentlis':''" @click="liClick(index)">{{ item.names }}</li>
       </ul>
     </div>
     <h1 class="Dispaly_box_text">
-      <span v-for="(item,index) in tableData" :key="index" :class="inds===index?'currentspans':'currentspan'" @click="liClick(index)">{{ inds===index?item.name:'' }}</span>
+      <span v-for="(item,index) in tableData" :key="index" :class="inds===index?'currentspans':'currentspan'" @click="liClick(index)">{{ inds===index?item.names:'' }}</span>
     </h1>
     <div class="Dispaly_box_table">
-      <el-table :border="true" style="width:100%;" :data="userarr[0].data">
-        <el-table-column label="用户名" align="center" width="277px" prop="user_name" />
-        <el-table-column label="密码" prop="user_pwd" />
-        <el-table-column label="身份" align="center" width="174px" prop="identity_text" />
+      <el-table style="width:100%;" :data="data" :row-style="setClass" :header-row-style="headerClass">
+        <el-table-column v-for="(item,index) in tableData[inds].title" :key="index" :label="item.tit" :prop="item.render" />
       </el-table>
     </div>
     <div class="Dispaly_box_pagination">
       <el-pagination
         background
         layout="prev, pager, next"
-        :total="200"
+        :total="total"
+        :page-size="limit"
+        :page-count="Math.ceil(total/limit)"
+        :current-page.sync="toals"
+        @current-change="currentChange"
       />
     </div>
 
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
       tableData: [
         {
-          name: '用户数据'
+          names: '用户数据',
+          id: '1',
+          title: [
+            {
+              'tit': '用户名',
+              'render': 'user_name'
+            },
+            {
+              'tit': '密码',
+              'render': 'user_pwd'
+            },
+            {
+              'tit': '身份',
+              'render': 'identity_text'
+            }
+          ]
         },
         {
-          name: '身份数据'
+          names: '身份数据',
+          id: '2',
+          title: [
+            {
+              'tit': '身份名称',
+              'render': 'identity_text'
+            }
+          ]
         },
         {
-          name: '身份和API接口关系'
+          names: 'api接口权限',
+          id: '3',
+          title: [
+            {
+              'tit': 'api权限名称',
+              'render': 'api_authority_text'
+            },
+            {
+              'tit': 'api权限url',
+              'render': 'api_authority_url'
+            },
+            {
+              'tit': 'api权限方法',
+              'render': 'api_authority_method'
+            }
+          ]
+
         },
         {
-          name: '视图接口权限'
+          names: '身份和api接口关系',
+          id: '4',
+          title: [
+            {
+              'tit': '身份名称',
+              'render': 'identity_text'
+            },
+            {
+              'tit': 'api权限名称',
+              'render': 'api_authority_text'
+            },
+            {
+              'tit': 'api权限url',
+              'render': 'api_authority_url'
+            },
+            {
+              'tit': 'api权限方法',
+              'render': 'api_authority_method'
+            }
+          ]
         },
         {
-          name: '身份和视图权限关系'
+          names: '身份视图接口权限',
+          id: '5',
+          title: [
+            {
+              'tit': '视图权限名称',
+              'render': 'view_authority_text'
+            },
+            {
+              'tit': '视图id',
+              'render': 'view_id'
+            }
+          ]
+        },
+        {
+          names: '身份和视图权限关系',
+          id: '6',
+          title: [
+            {
+              'tit': '身份',
+              'render': 'identity_text'
+            },
+            {
+              'tit': '视图名称',
+              'render': 'view_authority_text'
+            },
+            {
+              'tit': '视图id',
+              'render': 'view_id'
+            }
+          ]
         }
       ],
-      inds: 0
+      inds: 0,
+      list: null,
+      total: 0,
+      limit: 5,
+      data: null,
+      toals: 1
     }
   },
-  computed: {
-    ...mapGetters(['userarr'])
-  },
-  mounted() {
-    this.usermanage()
+  created() {
+    this.usermanagedele().then(res => {
+      if (res.code === 1) {
+        this.list = res.data
+        this.data = this.list.slice(0, this.limit)
+        this.total = this.list.length
+      }
+    })
   },
   methods: {
     ...mapActions({
-      usermanage: 'usermanage/userdelete'
+      usermanagedele: 'usermanage/userdelete',
+      identitydele: 'usermanage/identitydelete',
+      apiperdele: 'usermanage/apipermissions',
+      Interfacedele: 'usermanage/InterfaceRelationship',
+      Viewinterdele: 'usermanage/Viewinterface',
+      Identityviewdele: 'usermanage/Identityview'
     }),
     liClick(ind) {
       this.inds = ind
+      this.toals = 1
+      if (this.inds === 0) {
+        this.usermanagedele().then(res => {
+          if (res.code === 1) {
+            this.list = res.data
+            this.total = this.list.length
+            this.data = this.list.slice(0, this.limit)
+          }
+        })
+      } else if (this.inds === 1) {
+        this.identitydele().then(res => {
+          if (res.code === 1) {
+            this.list = res.data
+            this.total = this.list.length
+            this.data = this.list.slice(0, this.limit)
+          }
+        })
+      } else if (this.inds === 2) {
+        this.apiperdele().then(res => {
+          if (res.code === 1) {
+            this.list = res.data
+            this.total = this.list.length
+            this.data = this.list.slice(0, this.limit)
+          }
+        })
+      } else if (this.inds === 3) {
+        this.Interfacedele().then(res => {
+          if (res.code === 1) {
+            this.list = res.data
+            this.total = this.list.length
+            this.data = this.list.slice(0, this.limit)
+          }
+        })
+      } else if (this.inds === 4) {
+        this.Viewinterdele().then(res => {
+          if (res.code === 1) {
+            this.list = res.data
+            this.total = this.list.length
+            this.data = this.list.slice(0, this.limit)
+          }
+        })
+      } else if (this.inds === 5) {
+        this.Identityviewdele().then(res => {
+          if (res.code === 1) {
+            this.list = res.data
+            this.total = this.list.length
+            this.data = this.list.slice(0, this.limit)
+          }
+        })
+      }
+    },
+    currentChange(val) {
+      this.toals = 1
+      this.data = this.list.slice((val - 1) * this.limit, val * this.limit)
+    },
+    setClass() {
+      return 'height:50px;background-color:#f0f2f5;'
+    },
+    headerClass() {
+      return 'height:60px;font-size:16px;'
     }
   }
 }

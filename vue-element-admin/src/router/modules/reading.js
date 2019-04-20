@@ -17,7 +17,7 @@ const readingRouter = {
       path: 'classtobe',
       component: () => import('@/views/reading/classtobe'),
       name: 'ClassToBeApproved',
-      meta: { title: 'ClassToBeApproved', noCache: true }
+      meta: { title: 'ClassToBeApproved', noCache: true, view_id: 'main-examPaperClassList' }
     },
     {
       path: 'readelete',

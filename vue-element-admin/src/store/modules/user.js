@@ -1,4 +1,4 @@
-import { login, logout, getInfo } from '@/api/user'
+import { login, logout, getInfo, GetviewAuthority } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
@@ -8,7 +8,8 @@ const state = {
   avatar: '',
   introduction: '',
   roles: [],
-  userInfo: ''
+  userInfo: {},
+  viewAutohostiry: [] // 用户路由权限
 }
 
 const mutations = {
@@ -27,8 +28,11 @@ const mutations = {
   SET_ROLES: (state, roles) => {
     state.roles = roles
   },
-  SET_USERINFO: (state, userInfo) => {
+  GET_USERINFOR: (state, userInfo) => {
     state.userInfo = userInfo
+  },
+  SET_VIEWAUTOHOSTIRY: (state, viewAutohority) => {
+    state.viewAutohostiry = viewAutohority
   }
 }
 
@@ -42,34 +46,20 @@ const actions = {
   },
 
   // get user info
-  async getInfo({ commit, state }) {
+  async getInfo({ commit }) {
     const data = await getInfo()
-    commit('SET_USERINFO', data)
+    // 把用户信息给了mutations 里面  交给state中userInfo：{}
+    commit('GET_USERINFOR', data.data)
     return data.data
-    // return new Promise((resolve, reject) => {
-    //   getInfo(state.token).then(response => {
-    //     const { data } = response
+  },
 
-    //     if (!data) {
-    //       reject('Verification failed, please Login again.')
-    //     }
-
-    //     const { roles, name, avatar, introduction } = data
-
-    //     // roles must be a non-empty array
-    //     if (!roles || roles.length <= 0) {
-    //       reject('getInfo: roles must be a non-null array!')
-    //     }
-
-    //     commit('SET_ROLES', roles)
-    //     commit('SET_NAME', name)
-    //     commit('SET_AVATAR', avatar)
-    //     commit('SET_INTRODUCTION', introduction)
-    //     resolve(data)
-    //   }).catch(error => {
-    //     reject(error)
-    //   })
-    // })
+  async getviewAuthority({ commit }, payload) {
+    const userAutohostiry = await GetviewAuthority()
+    if (userAutohostiry.code === 1) {
+      commit('SET_VIEWAUTOHOSTIRY', userAutohostiry.data)
+      return userAutohostiry.data
+    }
+    return []
   },
 
   // user logout

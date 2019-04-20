@@ -116,7 +116,6 @@ export default {
     await this.getexamtype()
     await this.getexamsubject()
     await this.fatchExamList()
-    console.log(this.table, this.examlist.data)
   },
   methods: {
     getRowClass({ row, column, rowIndex, columnIndex }) {

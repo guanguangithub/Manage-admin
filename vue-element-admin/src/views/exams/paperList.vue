@@ -6,10 +6,10 @@
       <span>
         <el-select v-model="examValue" placeholder="请选择" size="large">
           <el-option
-            v-for="item in this.examOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="item in this.examlist.data"
+            :key="item.exam_id"
+            :label="item.exam_name"
+            :value="item.exam_id"
           />
         </el-select>
       </span>
@@ -18,10 +18,10 @@
       <span class="type-ipt">
         <el-select v-model="lessonValue" placeholder="请选择" size="large">
           <el-option
-            v-for="item in this.lessonOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="item in this.subjectlist.data"
+            :key="item.exam_id"
+            :label="item.exam_name"
+            :value="item.exam_id"
           />
         </el-select>
       </span>
@@ -82,12 +82,12 @@
             prop="operate"
             label="操作"
           >
-            <a href="#" class="detail">详情</a>
+            <template slot-scope="scope">
+              <span href="#" class="detail" @click="handleClick(scope.row)">详情</span>
+            </template>
           </el-table-column>
         </el-table>
-        <!-- <p>{{this.table}}</p> -->
       </div>
-
     </div>
   </div>
 </template>
@@ -108,13 +108,15 @@ export default {
   computed: {
     ...mapGetters([
       'table',
-      'lessonOptions',
-      'examOptions'
+      'examlist',
+      'subjectlist'
     ])
   },
-  created() {
-    this.fatchExamList()
-    // console.log({...mapActions()})
+  async created() {
+    await this.getexamtype()
+    await this.getexamsubject()
+    await this.fatchExamList()
+    console.log(this.table, this.examlist.data)
   },
   methods: {
     getRowClass({ row, column, rowIndex, columnIndex }) {
@@ -128,15 +130,14 @@ export default {
       return 'height:100px'
     },
     ...mapActions({
-      fatchExamList: 'exam/fatchExamList'
-    })
-    // seachPaper() {
-    //   if (this.examValue && this.lessonValue) {
-
-    //   } else {
-    //     alert('请选择搜索条件')
-    //   }
-    // }
+      fatchExamList: 'exam/fatchExamList',
+      getexamtype: 'examType/getexamtype',
+      getexamsubject: 'examType/getexamsubject'
+    }),
+    handleClick(row) {
+      console.log(row)
+      this.$router.push('/exams/paperDetail/' + row.exam_exam_id)
+    }
   }
 }
 </script>

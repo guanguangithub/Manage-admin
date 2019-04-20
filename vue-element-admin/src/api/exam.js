@@ -13,3 +13,10 @@ export function addExam(data) {
     data
   })
 }
+export function getDetailPaper(params) {
+  return request({
+    url: '/exam/exam/' + params,
+    method: 'get',
+    params
+  })
+}

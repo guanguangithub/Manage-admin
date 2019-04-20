@@ -15,26 +15,16 @@
           <el-col :span="12"><el-input v-model="ruleForm.name" size="large" /></el-col>
         </el-form-item>
         <el-form-item label="选择考试类型" prop="regionType">
-          <el-col :span="6">
+          <el-col :span="10">
             <el-select v-model="ruleForm.regionType" placeholder="选择考试类型" size="large">
-              <el-option label="周考一" value="zhoukao1" />
-              <el-option label="周考二" value="zhoukao2" />
-              <el-option label="周考三" value="zhoukao3" />
-              <el-option label="月考" value="yuekao" />
+              <el-option v-for="item in this.examlist.data" :key="item.exam_id" :label="item.exam_name" :value="item.exam_id" />
             </el-select>
           </el-col>
         </el-form-item>
         <el-form-item label="选择课程" prop="region">
-          <el-col :span="6">
+          <el-col :span="10">
             <el-select v-model="ruleForm.region" placeholder="选择课程" size="large">
-              <el-option label="javascript上" value="javascript上" />
-              <el-option label="javascript下" value="javascript下" />
-              <el-option label="模块化开发" value="模块化开发" />
-              <el-option label="移动开发" value="移动开发" />
-              <el-option label="渐进式开发" value="渐进式开发" />
-              <el-option label="组件式开发" value="组件式开发" />
-              <el-option label="项目实战" value="项目实战" />
-              <el-option label="node高级" value="node高级" />
+              <el-option v-for="item in this.subjectlist.data" :key="item.subject_id" :label="item.subject_text" :value="item.subject_id" />
             </el-select>
           </el-col>
         </el-form-item>
@@ -62,7 +52,7 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -82,7 +72,7 @@ export default {
       rules: {
         name: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          { min: 3, max: 10, message: '长度在 3 到10 个字符', trigger: 'blur' }
         ],
         count: [
           { required: true, message: '请输入题量', trigger: 'blur' }
@@ -108,23 +98,37 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters([
+      'examlist',
+      'subjectlist'
+    ])
+  },
+  async created() {
+    await this.getexamtype()
+    await this.getexamsubject()
+  },
   methods: {
     ...mapActions({
-      addExam: 'exam/addExam'
+      addExam: 'exam/addExam',
+      getexamtype: 'examType/getexamtype',
+      getexamsubject: 'examType/getexamsubject'
     }),
     submitForm(formName) {
       // console.log(this.$refs[formName].validate())
       this.$refs[formName].validate(async(valid) => {
         if (valid) {
-          const { name: title, count:
-           number, date1: start_time, date2: end_time } = this.ruleForm
-          console.log(title, number, new Date(start_time) * 1, new Date(end_time) * 1)
-          alert('submit!')
+          const { name: title, count: number, date1: start_time, date2: end_time, regionType: exam_id, region: subject_id } = this.ruleForm
           await this.addExam({
-            subject_id: 'f34qtktr-6lq5u',
-            exam_id: 'w345tcy-g2dts999',
-            title, number, start_time: new Date(start_time) * 1, end_time: new Date(end_time) * 1
+            subject_id,
+            exam_id,
+            title,
+            number: number * 1,
+            start_time: new Date(start_time) * 1,
+            end_time: new Date(end_time) * 1
           })
+
+          alert('submit!')
           this.$router.push('/exams/editExam')
         } else {
           console.log('请输入合法信息!!')

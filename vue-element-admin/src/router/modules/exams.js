@@ -26,6 +26,13 @@ const examsRouter = {
       meta: { title: 'editExam', noCache: true }
     },
     {
+      path: 'paperDetail/:id',
+      hidden: true,
+      component: () => import('@/views/exams/paperDetail'),
+      name: 'paperDetail',
+      meta: { title: 'paperDetail', noCache: true }
+    },
+    {
       path: 'paperList',
       component: () => import('@/views/exams/paperList'),
       name: 'paperList',

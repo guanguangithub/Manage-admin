@@ -4,9 +4,17 @@
     <div :class="className">
       <p><el-button plain size="large" @click="addNewQuestion">添加新题</el-button></p>
       <div class="content">
-        <h3>十点多</h3>
+        <h3>{{ this.newPaper.title }}</h3>
         <span>考试时间：1小时30分钟 监考人：刘于 开始考试时间：2018.9.10 10:00 阅卷人：刘于</span>
-        <el-button type="primary" size="large">创建试卷</el-button>
+        <div class="questions">
+          <dl v-for="(item,i) in this.newPaper.questions" :key="item.questions_id" class="question-list">
+            <dt><span>{{ i }}.{{ item.title }}</span> <span class="del">删除</span></dt>
+            <dd><pre>
+                <code>{{ item.questions_stem }}</code>
+              </pre></dd>
+          </dl>
+        </div>
+        <el-button type="primary" size="large" @click="jump">创建试卷</el-button>
       </div>
     </div>
     <div :class="allQues">
@@ -19,6 +27,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -27,42 +36,54 @@ export default {
       allQues: 'editexam-container none'
     }
   },
+  created() {
+    console.log(this.newPaper)
+  },
+  computed: {
+    ...mapGetters([
+      'newPaper'
+    ])
+  },
   methods: {
     addNewQuestion() {
       this.flag = false
       this.className = this.flag ? 'editexam-container' : 'editexam-container none'
       this.allQues = this.flag ? 'editexam-container none' : 'editexam-container'
+    },
+    jump() {
+      this.$router.push({ path: '/exams/paperList' })
     }
   }
 }
 </script>
 <style lang="scss" scoped>
 .editexam-bg{
-    height:698px;
-    background: #F0F2F5;
-    padding:0 35px;
-    overflow-y: auto;
-    >h5{padding:0;
-        margin:0;
-        width: 100%;
-        height: 100px;
-        line-height: 100px;
-        font-weight: normal;
-        font-size: 24px;
-        color:#242425;
-    }
-    .editexam-container{
-        width: 100%;
-        height: auto;
-        padding: 30px;
-        background: #fff;
-        border-radius: 10px;
-    }
+  height:698px;
+  background: #F0F2F5;
+  padding:0 35px;
+  overflow-y: auto;
+  >h5{padding:0;
+      margin:0;
+      width: 100%;
+      height: 100px;
+      line-height: 100px;
+      font-weight: normal;
+      font-size: 24px;
+      color:#242425;
+  }
+  .editexam-container{
+      width: 100%;
+      height: auto;
+      padding: 30px;
+      border-radius: 10px;
+      background: #fff;
+  }
 }
 .none{
     display:none
 }
 .content{
+    background: #fff;
     width: 90%;
     min-height: 200px;
     padding:40px;
@@ -90,10 +111,38 @@ export default {
     }
 }
 .el-button--primary{
-    display:block;
-    margin-left:20px;
-    background:linear-gradient(-90deg,#4e75ff,#0139fd)!important;
-    border:0!important;
-    width:150px;
+  display:block;
+  margin-left:20px;
+  background:linear-gradient(-90deg,#4e75ff,#0139fd)!important;
+  border:0!important;
+  width:150px;
+}
+.questions{
+  width: 100%;
+  height:auto;
+  >.question-list{
+    width: 100%;padding:10px;
+    min-height: 80px;
+    border:1px solid #eee;
+    padding:20px;
+    margin:20px 0;
+  >dt{
+     display: flex;
+     justify-content: space-between;
+      align-items: center;
+      margin:20px 0;
+    .del{
+      font-size: 16px;
+      color:#44f;
+      &:hover{
+        color:#66e;
+        cursor: pointer;
+      }
+    }
+   }
+   dd{
+    line-height: 30px;
+   }
+  }
 }
 </style>

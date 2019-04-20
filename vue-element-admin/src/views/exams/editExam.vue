@@ -9,7 +9,8 @@
         <div class="questions">
           <dl v-for="(item,i) in this.newPaper.questions" :key="item.questions_id" class="question-list">
             <dt><span>{{ i }}.{{ item.title }}</span> <span class="del">删除</span></dt>
-            <dd><pre>
+            <dd>
+              <pre>
                 <code>{{ item.questions_stem }}</code>
               </pre></dd>
           </dl>
@@ -35,9 +36,6 @@ export default {
       className: '',
       allQues: 'editexam-container none'
     }
-  },
-  created() {
-    console.log(this.newPaper)
   },
   computed: {
     ...mapGetters([

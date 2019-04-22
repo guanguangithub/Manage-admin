@@ -20,3 +20,17 @@ export function getDetailPaper(params) {
     params
   })
 }
+export function updateDetailPaper(id, data) {
+  console.log(data)
+  return request({
+    url: `/exam/exam/${id}`,
+    method: 'put',
+    data
+  })
+}
+export function deletePaper(params) {
+  return request({
+    url: '/exam/exam/' + params,
+    method: 'DELETE'
+  })
+}

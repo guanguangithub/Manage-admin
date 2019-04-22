@@ -11,36 +11,36 @@
         label-width="70px"
         class="demo-ruleForm"
       >
-        <el-form-item label="活动名称" prop="name">
-          <el-col :span="12"><el-input v-model="ruleForm.name" size="large" /></el-col>
+        <el-form-item label="活动名称" prop="title">
+          <el-col :span="12"><el-input v-model="ruleForm.title" size="large" /></el-col>
         </el-form-item>
-        <el-form-item label="选择考试类型" prop="regionType">
+        <el-form-item label="选择考试类型" prop="exam_id">
           <el-col :span="10">
-            <el-select v-model="ruleForm.regionType" placeholder="选择考试类型" size="large">
+            <el-select v-model="ruleForm.exam_id" placeholder="选择考试类型" size="large">
               <el-option v-for="item in this.examlist.data" :key="item.exam_id" :label="item.exam_name" :value="item.exam_id" />
             </el-select>
           </el-col>
         </el-form-item>
-        <el-form-item label="选择课程" prop="region">
+        <el-form-item label="选择课程" prop="subject_id">
           <el-col :span="10">
-            <el-select v-model="ruleForm.region" placeholder="选择课程" size="large">
+            <el-select v-model="ruleForm.subject_id" placeholder="选择课程" size="large">
               <el-option v-for="item in this.subjectlist.data" :key="item.subject_id" :label="item.subject_text" :value="item.subject_id" />
             </el-select>
           </el-col>
         </el-form-item>
-        <el-form-item label="设置题量" prop="count">
-          <el-col :span="3"> <el-input v-model="ruleForm.count" type="number" size="large" /></el-col>
+        <el-form-item label="设置题量" prop="number">
+          <el-col :span="3"> <el-input v-model="ruleForm.number" type="number" size="large" /></el-col>
         </el-form-item>
         <el-form-item label="考试时间" required>
           <el-col :span="9">
-            <el-form-item prop="date1">
-              <el-date-picker v-model="ruleForm.date1" type="date" placeholder="选择日期" style="width: 100%;" size="large" />
+            <el-form-item prop="start_time">
+              <el-date-picker v-model="ruleForm.start_time" type="datetime" placeholder="选择日期" style="width: 100%;" size="large" />
             </el-form-item>
           </el-col>
           <el-col class="line" :span="1"> &nbsp;-</el-col>
           <el-col :span="9">
-            <el-form-item prop="date2">
-              <el-time-picker v-model="ruleForm.date2" placeholder="选择时间" style="width: 100%;" size="large" />
+            <el-form-item prop="end_time">
+              <el-date-picker v-model="ruleForm.end_time" type="datetime" placeholder="选择日期" style="width: 100%;" size="large" />
             </el-form-item>
           </el-col>
         </el-form-item>
@@ -58,32 +58,32 @@ export default {
     return {
       labelPosition: 'top',
       ruleForm: {
-        name: '',
-        region: '',
-        regionType: '',
-        date1: '',
-        date2: '',
+        title: '',
+        subject_id: '',
+        exam_id: '',
+        start_time: '',
+        end_time: '',
         delivery: false,
         type: [],
         resource: '',
         desc: '',
-        count: 4
+        number: 4
       },
       rules: {
-        name: [
+        title: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },
           { min: 3, max: 10, message: '长度在 3 到10 个字符', trigger: 'blur' }
         ],
-        count: [
+        number: [
           { required: true, message: '请输入题量', trigger: 'blur' }
         ],
-        region: [
+        subject_id: [
           { required: true, message: '请选择活动区域', trigger: 'change' }
         ],
-        date1: [
+        start_time: [
           { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
         ],
-        date2: [
+        end_time: [
           { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
         ],
         type: [
@@ -118,8 +118,8 @@ export default {
       // console.log(this.$refs[formName].validate())
       this.$refs[formName].validate(async(valid) => {
         if (valid) {
-          const { name: title, count: number, date1: start_time, date2: end_time, regionType: exam_id, region: subject_id } = this.ruleForm
-          await this.addExam({
+          const { title, number, start_time, end_time, exam_id, subject_id } = this.ruleForm
+          const res = await this.addExam({
             subject_id,
             exam_id,
             title,
@@ -127,9 +127,8 @@ export default {
             start_time: new Date(start_time) * 1,
             end_time: new Date(end_time) * 1
           })
-
           alert('submit!')
-          this.$router.push('/exams/editExam')
+          this.$router.push('/exams/editExam/' + res.data.exam_exam_id)
         } else {
           console.log('请输入合法信息!!')
           return false
@@ -174,6 +173,7 @@ export default {
         background:linear-gradient(-90deg,#4e75ff,#0139fd)!important;
         border:0!important;
         width:136px!important;
-        height:38px!important;
+        height:40px!important;
+        line-height:15px!important;
     }
 </style>

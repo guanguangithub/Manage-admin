@@ -1,4 +1,4 @@
-import { fatchExamList, addExam, getDetailPaper } from '@/api/exam.js'
+import { fatchExamList, addExam, getDetailPaper, updateDetailPaper } from '@/api/exam.js'
 import moment from 'moment'
 const state = {
   table: [],
@@ -26,10 +26,10 @@ const actions = {
     if (res.code === 1) {
       return commit('GETTABLEDATE', res.exam)
     }
+    return res.exam
   },
   async addExam({ commit }, payload) {
     const res = await addExam(payload)
-    console.log(res)
     commit('SETQUESTION', res.data)
     return res
   },
@@ -37,7 +37,16 @@ const actions = {
     const res = await getDetailPaper(examId)
     context.commit('SETDETAILPAPER', res.data)
     return res.data
+  },
+  async updateDetailPaper(context, payload) {
+    console.log(payload)
+    const res = await updateDetailPaper(payload.id, { question_ids: payload.question_ids })
+    return res
   }
+  // async deletePaper(context, examId) {
+  //   const res = await deletePaper(examId)
+  //   return res.data
+  // },
 }
 export default {
   namespaced: true,

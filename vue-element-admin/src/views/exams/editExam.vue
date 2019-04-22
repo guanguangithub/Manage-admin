@@ -8,7 +8,7 @@
         <span>考试时间：1小时30分钟 监考人：刘于 开始考试时间：2018.9.10 10:00 阅卷人：刘于</span>
         <div class="questions">
           <dl v-for="(item,i) in this.newPaper.questions" :key="item.questions_id" class="question-list">
-            <dt><span>{{ i }}.{{ item.title }}</span> <span class="del">删除</span></dt>
+            <dt><span>{{ i }}.{{ item.title }}</span> <span class="del" @click="dele(item.questions_id)">删除</span></dt>
             <dd>
               <pre>
                 <code>{{ item.questions_stem }}</code>
@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -43,13 +43,36 @@ export default {
     ])
   },
   methods: {
+    ...mapActions({
+      updateDetailPaper: 'exam/updateDetailPaper'
+    }),
     addNewQuestion() {
       this.flag = false
       this.className = this.flag ? 'editexam-container' : 'editexam-container none'
       this.allQues = this.flag ? 'editexam-container none' : 'editexam-container'
     },
-    jump() {
+    async jump() {
+      const id = this.$route.params.id
+      var questions_id = this.newPaper.questions.map(item => item.questions_id)
+      await this.updateDetailPaper({ id: id, question_ids: JSON.stringify(questions_id) })
       this.$router.push({ path: '/exams/paperList' })
+    },
+    dele() {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     }
   }
 }

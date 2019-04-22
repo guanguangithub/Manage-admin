@@ -32,7 +32,7 @@
       <div class="paper-listop">
         <p>试卷列表</p>
         <p>
-          <el-button plain>全部</el-button>
+          <el-button plain @click="a">全部</el-button>
           <el-button plain>进行中</el-button>
           <el-button plain>已结束</el-button>
         </p>
@@ -112,12 +112,16 @@ export default {
       'subjectlist'
     ])
   },
-  async created() {
-    await this.getexamtype()
-    await this.getexamsubject()
-    await this.fatchExamList()
+  created() {
+    this.getexamtype()
+    this.getexamsubject()
+    this.fatchExamList()
   },
   methods: {
+    a() {
+      const res = this.fatchExamList()
+      console.log(res)
+    },
     getRowClass({ row, column, rowIndex, columnIndex }) {
       if (rowIndex === 0) {
         return 'background:#F4F7F9;height:70px;font-size:18px;color:#242525;font-weight:normal'
@@ -134,7 +138,6 @@ export default {
       getexamsubject: 'examType/getexamsubject'
     }),
     handleClick(row) {
-      console.log(row)
       this.$router.push('/exams/paperDetail/' + row.exam_exam_id)
     }
   }

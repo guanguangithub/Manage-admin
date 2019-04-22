@@ -62,8 +62,10 @@ export default {
   },
   watch: {
     value(val) {
+      console.log(val)
       if (!this.hasChange && this.hasInit) {
         this.$nextTick(() =>
+
           window.tinymce.get(this.tinymceId).setContent(val || ''))
       }
     },
@@ -85,6 +87,9 @@ export default {
     this.destroyTinymce()
   },
   methods: {
+    hahaha(e) {
+      console.log(e)
+    },
     initTinymce() {
       const _this = this
       window.tinymce.init({

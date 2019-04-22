@@ -42,3 +42,20 @@ export function insertQuestionsType(params) {
   })
 }
 
+// 查看获取所有试题/exam/questions/new
+export function checkitems() {
+  return request({
+    url: '/exam/questions/new',
+    method: 'get'
+  })
+}
+// exam/questions/update //更新试题
+export function updateQuestionsType(data) {
+  console.log(data)
+  return request({
+    url: 'exam/questions/update',
+    method: 'put',
+    data
+  })
+}
+//

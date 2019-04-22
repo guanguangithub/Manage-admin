@@ -11,7 +11,7 @@ import Layout from '@/layout'
 // import chartsRouter from './modules/charts'
 // import tableRouter from './modules/table'
 // import nestedRouter from './modules/nested'
-import testRouter from './modules/qustions'
+import { testRouter, detailRouter } from './modules/qustions'
 /** 考试管理 */
 // import componentsRouter from './modules/components'
 // import chartsRouter from './modules/charts'
@@ -62,6 +62,7 @@ export const constantRoutes = [
   examsRouter,
   aclassManagementRouter,
   readingRouter,
+  detailRouter,
 
   {
     path: '/redirect',

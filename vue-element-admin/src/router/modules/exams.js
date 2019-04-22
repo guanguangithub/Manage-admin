@@ -1,7 +1,5 @@
 /** When your routing table is too long, you can split it into small modules**/
-
 import Layout from '@/layout'
-
 const examsRouter = {
   path: '/exams',
   component: Layout,
@@ -38,6 +36,7 @@ const examsRouter = {
       name: 'paperList',
       meta: { title: 'paperList', noCache: true }
     }
+
   ]
 }
 

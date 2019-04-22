@@ -15,7 +15,8 @@
           <el-table
             :data="getquestionslist.data"
             :header-cell-style="getRowClass"
-            style="width: 100%"
+            style="width: 100% "
+            :row-style="getRowstyle"
           >
             <el-table-column prop="questions_type_id" label="类型Id" width="180" />
             <el-table-column prop="questions_type_text" label="类型名称" width="180" />
@@ -31,11 +32,15 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
-    return {}
+    return {
+      text: '',
+      sort: ''
+    }
   },
   computed: {
     ...mapGetters(['getquestionslist'])
   },
+
   mounted() {
     this.getQuestionsType()
   },
@@ -51,13 +56,15 @@ export default {
         cancelButtonText: '取消'
       })
         .then(({ value }) => {
-          console.log(value)
           this.insertQuestionsType({
             text: value,
             sort: Math.random()
               .toString()
               .substr(2, 6)
+          }).then(() => {
+            this.getQuestionsType()
           })
+
           this.$message({
             message: '添加成功'
           })
@@ -72,6 +79,9 @@ export default {
       } else {
         return ''
       }
+    },
+    getRowstyle() {
+      return 'height:53px'
     }
   }
 }
@@ -117,7 +127,7 @@ export default {
     .content {
       padding-left: 24px;
       width: 95%;
-      height: 100%;
+      height: auto;
       margin: 0 auto;
       border-radius: 10px;
       background: #fff;

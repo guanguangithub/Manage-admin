@@ -4,108 +4,96 @@
       <h1>待批班级</h1>
     </div>
     <div class="ClassToBe_box_table">
-      <el-table :data="tableData" style="width: 100%" :row-style="setClass" :header-row-style="headerClass">
-        <el-table-column
-          prop="classname"
-          label="班级名"
-          width="200"
-          align="center"
-        />
-        <el-table-column
-          prop="coursetitle"
-          label="课程名称"
-          width="200"
-          align="center"
-        />
-        <el-table-column
-          prop="steate"
-          label="阅卷状态"
-          align="center"
-        />
-        <el-table-column
-          prop="coursetitle"
-          label="课程名称"
-          align="center"
-        />
-        <el-table-column
-          prop="Yieldrate"
-          label="成才率"
-          width="120"
-          align="center"
-        />
-        <el-table-column
-          prop="operating"
-          label="操作"
-          width="120"
-          align="center"
-        >
-          <template :slot-scope="scope">
-            <router-link tag="span" to="/reading/readelete">批卷</router-link>
+      <el-table :data="textBorder.slice((cuurrentpage - 1)*limit,cuurrentpage*limit)" style="width: 100%" :row-style="setClass" :header-row-style="headerClass">
+        <el-table-column prop="grade_name" label="班级名" width="200" align="center" />
+        <el-table-column prop="subject_text" label="课程名称" width="200" align="center" />
+        <el-table-column prop="steate" label="阅卷状态" align="center" />
+        <el-table-column prop="subject_text" label="课程名称" align="center" />
+        <el-table-column prop="room_text" label="成才率" width="120" align="center" />
+        <el-table-column prop="grade_id" label="操作" width="120" align="center">
+          <template slot-scope="{row}">
+            <span @click="pushLoca(row)">批卷</span>
           </template>
         </el-table-column>
       </el-table>
     </div>
+    <div class="ClassToBe_box_pagination">
+      <el-pagination
+        background
+        :total="total"
+        :page-size="limit"
+        :page-sizes="pagesizes"
+        :current-page="page"
+        layout="prev, pager, next, sizes, jumper"
+        @current-change="currentChange"
+        @size-change="sizeChange"
+      />
+    </div>
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
-      tableData: [
-        {
-          classname: '1609A',
-          coursetitle: '实训一',
-          steate: '未阅',
-          Yieldrate: 100,
-          operating: ''
-        },
-        {
-          classname: '1609B',
-          coursetitle: '实训一',
-          steate: '未阅',
-          Yieldrate: 100,
-          operating: ''
-        },
-        {
-          classname: '1609C',
-          coursetitle: '实训一',
-          steate: '未阅',
-          Yieldrate: 100,
-          operating: ''
-        },
-        {
-          classname: '1609D',
-          coursetitle: '实训一',
-          steate: '未阅',
-          Yieldrate: 100,
-          operating: ''
-        },
-        {
-          classname: '1609E',
-          coursetitle: '实训一',
-          steate: '未阅',
-          Yieldrate: 100,
-          operating: ''
-        }
-      ]
+      textBorder: [],
+      Batchdelete: [],
+      limit: 5,
+      total: 0,
+      cuurrentpage: 1,
+      page: 1,
+      pagesizes: [5, 10, 20, 50],
+      data: []
     }
   },
   methods: {
+    ...mapActions({
+      testmanagement: 'Testmanagement/Testdelete',
+      Batchdetails: 'Testmanagement/Batchdetails'
+    }),
+    currentChange(val) {
+      this.cuurrentpage = val
+    },
+    sizeChange(val) {
+      this.limit = val
+    },
     setClass() {
-      return 'height:50px;background-color:#f0f2f5;'
+      return 'height:50px;background-color:#f0f2f5;78ii8'
     },
     headerClass() {
       return 'height:60px;font-size:16px;'
+    },
+    pushLoca(row) {
+      console.log(row.grade_id)
+      this.Batchdelete.map((item) => {
+        console.log(item.grade_id)
+        if (row.grade_id === item.grade_id) {
+          console.log(item)
+        }
+      })
     }
+  },
+  created() {
+    this.testmanagement().then((res) => {
+      this.total = res.length
+      this.textBorder = res
+    })
+    this.Batchdetails().then((res) => {
+      this.Batchdelete = res
+    })
   }
 }
 </script>
 <style lang="scss">
   .ClassToBe_box{
       width:100%;
-      height:100%;
+      height:auto;
       overflow: hidden;
-      padding:30px 0;
+      background-color: #f0f2f5;
+      padding-bottom:30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
   }
   .ClassToBe_box_header{
       width:100%;
@@ -118,9 +106,17 @@ export default {
       }
   }
   .ClassToBe_box_table{
-      margin: 0 auto;
       width:95%;
       height:auto;
-
+      background-color: #fff;
+      padding:20px;
+      border-radius: 20px;
+  }
+  .ClassToBe_box_pagination{
+      width:95%;
+      height:70px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
   }
 </style>

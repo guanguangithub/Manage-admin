@@ -10,9 +10,9 @@
         </el-button>
 
         <el-table :data="rolesList" style="width: 100%;margin-top:30px;" border>
-          <el-table-column align="header-center" label="教室号">
+          <el-table-column align="center" label="教室号">
             <template slot-scope="scope">
-              {{ scope.row.description }}
+              {{ scope.row.room_text }}
             </template>
           </el-table-column>
           <el-table-column align="center" label="操作">
@@ -24,14 +24,14 @@
           </el-table-column>
         </el-table>
 
-        <el-dialog :visible.sync="dialogVisible" :title="dialogType==='edit'?'Edit Role':'New Role'">
+        <el-dialog :visible.sync="dialogVisible" :title="dialogType==='edit'?'':'添加教室'">
           <el-form :model="role" label-width="80px" label-position="left">
             <el-form-item label="教室号">
               <el-input
-                v-model="role.description"
+                v-model="role.room_text"
                 placeholder="教室号"
               />
-              <el-tree ref="tree" node-key="path" :style="{display:'none'}"/>
+              <el-tree ref="tree" node-key="path" :style="{display:'none'}" />
             </el-form-item>
             <!-- <el-form-item label="Menus">
               <el-tree ref="tree" :check-strictly="checkStrictly" :data="routesData" :props="defaultProps" show-checkbox node-key="path" class="permission-tree" />
@@ -52,11 +52,11 @@
 </template>
 
 <script>
-import path from 'path'
-import { deepClone } from '@/utils'
-// ,getRoles
-import { getRoutes, getRoles, addRole, deleteRole, updateRole } from '@/api/role'
-import i18n from '@/lang'
+// import path from 'path'
+// import { deepClone } from '@/utils'
+// ,getRoles addRole
+import { addRoom, deleteRoom, getRoom } from '@/api/role'
+// import i18n from '@/lang'
 
 const defaultRole = {
   // key: '',
@@ -87,177 +87,127 @@ export default {
   },
   created() {
     // Mock: get all routes and roles list from server
-    this.getRoutes()
-    this.getRoles()
+    this.getRoom()
   },
   methods: {
-    async getRoutes() {
-      const res = await getRoutes()
-      this.serviceRoutes = res.data
-      const routes = this.generateRoutes(res.data)
-      this.routes = this.i18n(routes)
-    },
-    async getRoles() {
-      const res = await getRoles()
+    async getRoom() {
+      const res = await getRoom()
+      console.log('res////////', res)
       this.rolesList = res.data
-    },
-    i18n(routes) {
-      const app = routes.map(route => {
-        route.title = i18n.t(`route.${route.title}`)
-        if (route.children) {
-          route.children = this.i18n(route.children)
-        }
-        return route
-      })
-      return app
+      // console.log("this.rolesList////////",this.rolesList);
     },
     // Reshape the routes structure so that it looks the same as the sidebar
-    generateRoutes(routes, basePath = '/') {
-      const res = []
-
-      for (let route of routes) {
-        // skip some route
-        if (route.hidden) { continue }
-
-        const onlyOneShowingChild = this.onlyOneShowingChild(route.children, route)
-
-        if (route.children && onlyOneShowingChild && !route.alwaysShow) {
-          route = onlyOneShowingChild
-        }
-
-        const data = {
-          path: path.resolve(basePath, route.path),
-          title: route.meta && route.meta.title
-
-        }
-
-        // recursive child routes
-        if (route.children) {
-          data.children = this.generateRoutes(route.children, data.path)
-        }
-        res.push(data)
-      }
-      return res
-    },
-    generateArr(routes) {
-      let data = []
-      routes.forEach(route => {
-        data.push(route)
-        if (route.children) {
-          const temp = this.generateArr(route.children)
-          if (temp.length > 0) {
-            data = [...data, ...temp]
-          }
-        }
-      })
-      return data
-    },
+    // generateArr(routes) {
+    //   let data = []
+    //   routes.forEach(route => {
+    //     data.push(route)
+    //     if (route.children) {
+    //       const temp = this.generateArr(route.children)
+    //       if (temp.length > 0) {
+    //         data = [...data, ...temp]
+    //       }
+    //     }
+    //   })
+    //   return data
+    // },
     handleAddRole() {
-      this.role = Object.assign({}, defaultRole)
+      // this.role = Object.assign({}, defaultRole)
+      // console.log("role../././././.",this.role);
+
       if (this.$refs.tree) {
         this.$refs.tree.setCheckedNodes([])
       }
       this.dialogType = 'new'
       this.dialogVisible = true
     },
-    handleEdit(scope) {
-      this.dialogType = 'edit'
-      this.dialogVisible = true
-      this.checkStrictly = true
-      this.role = deepClone(scope.row)
-      this.$nextTick(() => {
-        const routes = this.generateRoutes(this.role.routes)
-        this.$refs.tree.setCheckedNodes(this.generateArr(routes))
-        // set checked state of a node not affects its father and child nodes
-        this.checkStrictly = false
-      })
-    },
+    // handleEdit(scope) {
+    //   this.dialogType = 'edit'
+    //   this.dialogVisible = true
+    //   this.checkStrictly = true
+    //   this.role = deepClone(scope.row)
+    //   this.$nextTick(() => {
+    //     const routes = this.generateRoutes(this.role.routes)
+    //     this.$refs.tree.setCheckedNodes(this.generateArr(routes))
+    //     // set checked state of a node not affects its father and child nodes
+    //     this.checkStrictly = false
+    //   })
+    // },
     handleDelete({ $index, row }) {
-      this.$confirm('Confirm to remove the role?', 'Warning', {
-        confirmButtonText: 'Confirm',
-        cancelButtonText: 'Cancel',
-        type: 'warning'
+      // console.log(',,,,,,,,,,,,,,,', $index,'............', row.room_id );
+
+      this.$confirm('确定删除吗?', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
       })
         .then(async() => {
-          await deleteRole(row.key)
+          await deleteRoom(row.room_id)
           this.rolesList.splice($index, 1)
           this.$message({
             type: 'success',
-            message: 'Delete succed!'
+            message: '删除成功!'
           })
         })
         .catch(err => { console.error(err) })
     },
-    generateTree(routes, basePath = '/', checkedKeys) {
-      const res = []
+    // generateTree(routes, basePath = '/', checkedKeys) {
+    //   const res = []
 
-      for (const route of routes) {
-        const routePath = path.resolve(basePath, route.path)
+    //   for (const route of routes) {
+    //     const routePath = path.resolve(basePath, route.path)
 
-        // recursive child routes
-        if (route.children) {
-          route.children = this.generateTree(route.children, routePath, checkedKeys)
-        }
+    //     // recursive child routes
+    //     if (route.children) {
+    //       route.children = this.generateTree(route.children, routePath, checkedKeys)
+    //     }
 
-        if (checkedKeys.includes(routePath) || (route.children && route.children.length >= 1)) {
-          res.push(route)
-        }
-      }
-      return res
-    },
+    //     if (checkedKeys.includes(routePath) || (route.children && route.children.length >= 1)) {
+    //       res.push(route)
+    //     }
+    //   }
+    //   return res
+    // },
     async confirmRole() {
-      const isEdit = this.dialogType === 'edit'
+      // const isEdit = this.dialogType === 'edit'
 
-      const checkedKeys = this.$refs.tree.getCheckedKeys()
-      this.role.routes = this.generateTree(deepClone(this.serviceRoutes), '/', checkedKeys)
+      // const checkedKeys = this.$refs.tree.getCheckedKeys()
+      // this.role.routes = this.generateTree(deepClone(this.serviceRoutes), '/', checkedKeys)
 
-      if (isEdit) {
-        await updateRole(this.role.key, this.role)
-        for (let index = 0; index < this.rolesList.length; index++) {
-          if (this.rolesList[index].key === this.role.key) {
-            this.rolesList.splice(index, 1, Object.assign({}, this.role))
-            break
-          }
-        }
-      } else {
-        const { data } = await addRole(this.role)
-        this.role.key = data.key
-        this.rolesList.push(this.role)
-      }
-
-      // const { description, key, name } = this.role
+      // if (isEdit) {
+      //   await updateRole(this.role.key, this.role)
+      //   for (let index = 0; index < this.rolesList.length; index++) {
+      //     if (this.rolesList[index].key === this.role.key) {
+      //       this.rolesList.splice(index, 1, Object.assign({}, this.role))
+      //       break
+      //     }
+      //   }
+      // } else {
+      await addRoom(this.role)
+      console.log('this.role,,,,,,,,,,', this.role)
+      // this.role.key = data.key
+      this.rolesList.push(this.role)
+      // }
       this.dialogVisible = false
-      // this.$notify({
-      //   title: 'Success',
-      //   dangerouslyUseHTMLString: true,
-      //   message: `
-      //       <div>Role Key: ${key}</div>
-      //       <div>Role Nmae: ${name}</div>
-      //       <div>Description: ${description}</div>
-      //     `,
-      //   type: 'success'
-      // })
-    },
-    // reference: src/view/layout/components/Sidebar/SidebarItem.vue
-    onlyOneShowingChild(children = [], parent) {
-      let onlyOneChild = null
-      const showingChildren = children.filter(item => !item.hidden)
-
-      // When there is only one child route, the child route is displayed by default
-      if (showingChildren.length === 1) {
-        onlyOneChild = showingChildren[0]
-        onlyOneChild.path = path.resolve(parent.path, onlyOneChild.path)
-        return onlyOneChild
-      }
-
-      // Show parent if there are no child route to display
-      if (showingChildren.length === 0) {
-        onlyOneChild = { ... parent, path: '', noShowingChildren: true }
-        return onlyOneChild
-      }
-
-      return false
     }
+    // reference: src/view/layout/components/Sidebar/SidebarItem.vue
+    // onlyOneShowingChild(children = [], parent) {
+    //   let onlyOneChild = null
+    //   const showingChildren = children.filter(item => !item.hidden)
+
+    //   // When there is only one child route, the child route is displayed by default
+    //   if (showingChildren.length === 1) {
+    //     onlyOneChild = showingChildren[0]
+    //     onlyOneChild.path = path.resolve(parent.path, onlyOneChild.path)
+    //     return onlyOneChild
+    //   }
+
+    //   // Show parent if there are no child route to display
+    //   if (showingChildren.length === 0) {
+    //     onlyOneChild = { ... parent, path: '', noShowingChildren: true }
+    //     return onlyOneChild
+    //   }
+
+    //   return false
+    // }
   }
 }
 </script>

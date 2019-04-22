@@ -70,7 +70,7 @@ import LangSelect from '@/components/LangSelect'
 import SocialSign from './socialSignin'
 // 引入 vuex
 import { mapActions } from 'vuex'
-console.log(mapActions)
+
 export default {
   name: 'Login',
   components: { LangSelect, SocialSign },
@@ -154,7 +154,7 @@ export default {
         if (valid) {
           this.loading = true
           const res = await this.login(this.loginForm)
-          console.log('res...', res)
+          // console.log('res...', res)
           if (res.code === 1) {
             this.$router.push({ path: this.redirect || '/' })
           }

@@ -1,7 +1,8 @@
 <template>
   <div class="add-wraps">
     <div class="header">
-      <h3>添加试题</h3>
+      <h3 v-if="ischange">添加试题</h3>
+      <h3 v-else>编辑试题</h3>
     </div>
     <div class="section">
       <div class="content">
@@ -16,7 +17,13 @@
           <p>题目主题</p>
           <div class="content-box">
             <texaImg />
-            <textarea cols="30" rows="10" placeholder="请输入内容..." @input="titleTheme($event)" />
+            <textarea
+              v-model="title"
+              cols="30"
+              rows="10"
+              placeholder="请输入内容..."
+              @input="titleTheme($event)"
+            />
           </div>
           <div class="select-check">
             <p>请选择考试类型</p>
@@ -53,21 +60,21 @@
           </div>
           <div class="content-box">
             <texaImg />
-
             <textarea
               id
+              v-model="answer"
               name
               cols="30"
               rows="10"
               placeholder="请输入内容..."
               @input="answerinfo($event)"
             />
-
           </div>
         </div>
         <!-- 提交时请求接口 /exam/questions 参数questions_type_id(试题类型id)  questions_stem(题干) subject_id(课程id) exam_id(考试类型id) user_id(用户id) questions_answer(题目答案) title(试题的标题)-->
         <el-button type="primary" @click="sub">提交</el-button>
       </div>
+
     </div>
   </div>
 </template>
@@ -85,17 +92,40 @@ export default {
       subject: '',
       inpustem: '', // 题干
       title: '', // 题目
-      answer: '' // 答案
+      answer: '', // 答案
+      ischange: true,
+      hasid: '',
+      detailobj: {}
     }
   },
   computed: {
     // 获取到getters上的examlist
-    ...mapGetters(['examlist', 'subjectlist', 'getquestionslist'])
+    ...mapGetters([
+      'examlist',
+      'subjectlist',
+      'getquestionslist',
+      'checkitemlist'
+    ])
   },
   mounted() {
     this.getexamtype() // 初始化数据考试类型的数据
     this.getexamsubject()
     this.getQuestionsType()
+    this.checkitems()
+    this.checkitems()
+    const id = this.$route.query.id
+    this.detailobj = this.checkitemlist.find((item, ind) => {
+      return item.questions_id === id
+    })
+    this.getinitId()
+    if (!this.ischange) {
+      this.exam = this.detailobj.exam_id
+      this.questions = this.detailobj.questions_type_id
+      this.subject = this.detailobj.subject_id
+      this.inpustem = this.detailobj.title
+      this.title = this.detailobj.questions_stem
+      this.answer = this.detailobj.questions_answer
+    }
   },
   methods: {
     ...mapActions({
@@ -103,8 +133,17 @@ export default {
       getexamtype: 'examType/getexamtype',
       getexamsubject: 'examType/getexamsubject',
       getQuestionsType: 'examType/getquestionstype',
-      addquestions: 'examType/addquestionstype'
+      addquestions: 'examType/addquestionstype',
+      checkitems: 'examType/checkitems',
+      updateQuestionsType: 'examType/updateQuestionsType'
     }),
+    getinitId() {
+      // 如果有id说明是编辑页 ischange就要变为false
+      this.hasid = this.$route.query.id
+      if (this.hasid) {
+        this.ischange = false
+      }
+    },
     getvalue(value) {
       this.exam = value
     },
@@ -113,7 +152,6 @@ export default {
     },
     getquestions(value) {
       this.questions = value
-      console.log(this.questions)
     },
     getinp(e) {
       this.inpustem = e.target.value
@@ -125,42 +163,77 @@ export default {
       this.answer = e.target.value
     },
     sub() {
-      if (this.inpustem !== '' && this.title !== '' && this.answer !== '') {
-        this.$confirm('确定要添加是试题吗？', '真的要添加吗', {
-          configtext: '确定',
-          deteleconfig: '取消'
-          // type: 'warning',
-          // center: true
-        })
-          .then(() => {
-            this.addquestions({
-              questions_type_id: this.questions,
-              questions_stem: this.inpustem,
-              subject_id: this.subject,
-              exam_id: this.exam,
-              user_id: 'w6l6n-cbvl6s',
-              questions_answer: this.answer,
-              title: this.title
-            })
-            this.$message({
-              type: 'success',
-              message: '添加成功!'
-            })
-            this.exam = ''
-            this.questions = ''
-            this.subject = ''
-            this.inpustem = '' // 题干
-            this.title = '' // 题目
-            this.answer = '' // 答案
+      if (this.ischange) { // 如果是添加试题 就发送添加试题的接口
+        if (this.inpustem !== '' && this.title !== '' && this.answer !== '' && this.exam !== '' && this.questions !== '' && this.subject !== '') {
+          this.$confirm('确定要添加是试题吗？', '真的要添加吗', {
+            configtext: '确定',
+            deteleconfig: '取消'
           })
-          .catch(() => {
-            this.$message({
-              type: 'info',
-              message: '已取消添加'
+            .then(() => {
+              this.addquestions({ // 传参
+                questions_type_id: this.questions,
+                questions_stem: this.inpustem,
+                subject_id: this.subject,
+                exam_id: this.exam,
+                user_id: 'w6l6n-cbvl6s',
+                questions_answer: this.answer,
+                title: this.title
+              })
+              this.$message({
+                type: 'success',
+                message: '添加成功!'
+              })
+              this.exam = ''
+              this.questions = ''
+              this.subject = ''
+              this.inpustem = '' // 题干
+              this.title = '' // 题目
+              this.answer = '' // 答案
             })
+            .catch(() => {
+              this.$message({
+                type: 'info',
+                message: '已取消添加'
+              })
+            })
+        } else {
+          alert('您的参数不足')
+        }
+      } else { // 如果是更新试题  就发送更新试题的接口
+        if (this.inpustem !== '' && this.title !== '' && this.answer !== '' && this.exam !== '' && this.questions !== '' && this.subject !== '') {
+          this.$confirm('确定要修改试题吗？', '真的要修改吗', {
+            configtext: '确定',
+            deteleconfig: '取消'
           })
-      } else {
-        alert('您的参数不足')
+            .then(() => {
+              // 调用方法传参
+              this.updateQuestionsType({ // 传参
+                questions_id: this.$route.query.id,
+                questions_type_id: this.questions,
+                questions_stem: this.inpustem,
+                subject_id: this.subject,
+                exam_id: this.exam,
+                user_id: 'w6l6n-cbvl6s',
+                questions_answer: this.answer,
+                title: this.title
+              }).then((res) => {
+                console.log(res)
+                if (res.code === 1) {
+                  alert(res.msg)
+                  location.href = 'http://169.254.12.1:9527/#/quetions/looks'
+                } else {
+                  alert('更新失败')
+                }
+              })
+            }).catch(() => {
+              this.$message({
+                type: 'info',
+                message: '已取消编辑'
+              })
+            })
+        } else {
+          alert('您的参数不足')
+        }
       }
     }
   }

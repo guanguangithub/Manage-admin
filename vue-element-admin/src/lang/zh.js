@@ -78,7 +78,8 @@ export default {
     aclassManagement: '班级管理',
     classManagement: '班级管理',
     teachingManagement: '教室管理',
-    studentManagement: '学生管理'
+    studentManagement: '学生管理',
+    detail: '试题详情'
   },
   navbar: {
     logOut: '退出登录',

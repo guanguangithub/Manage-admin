@@ -10,11 +10,8 @@
           <!-- 课程类型/exam/subject -->
           <ul class="type-course">
             <p>课程类型</p>
-            <li>all</li>
-            <li
-              v-for="item in subjectlist.data"
-              :key="item.subject_id"
-            >{{ item.subject_text }}</li>
+            <li :class="ischeckout?'currents':''" @click="allchange">all</li>
+            <li v-for="(item,index) in subjectlist.data" :key="index" :class="(activeclass===index||ischeckout)?'currents':''" @click="changestyle(index,item.subject_id)">{{ item.subject_text }}</li>
           </ul>
           <div class="type-exam">
             <!-- 考试类型/exam/examType    题目类型 -->
@@ -41,37 +38,43 @@
                 />
               </el-select>
             </p>
-            <el-button type="primary" icon="el-icon-search">查询</el-button>
+            <el-button type="primary" icon="el-icon-search" @click="refer">查询</el-button>
           </div>
         </div>
         <div class="content-bottom">
-          <div class="content-list">
+          <div
+            v-for="(item,index) in checkitemlist"
+            :key="index"
+            class="content-list"
+            :class="activeid===index?'currents':''"
+            @click="$router.push({path:&quot;/permission&quot;,query:{id:item.questions_id}})"
+            @mouseover="changeclass(index)"
+          >
             <!-- content-list是请求到的数据 渲染的 -->
             <div class="list-left">
-              <p>哈哈</p>
+              <p>{{ item.title }}</p>
               <p>
                 <el-button
                   style="color: #1890ff;background: #e6f7ff;border-color: #91d5ff;"
-                  @Click="godetail()"
-                >代码补全</el-button>
+                >{{ item.questions_type_text }}</el-button>
                 <el-button
                   style="color: #2f54eb;background: #f0f5ff; border-color: #adc6ff;"
-                >javascript</el-button>
-                <el-button
-                  style="color: #fa8c16;background: #fff7e6;border-color: #ffd591;"
-                >周考1</el-button>
+                >{{ item.subject_text }}</el-button>
+                <el-button style="color: #fa8c16;background: #fff7e6;border-color: #ffd591;">{{ item.exam_name }}</el-button>
               </p>
-              <p><span style="fontSize:14px;color: #0139FD">萌二招财猫 发布</span></p>
+              <p>
+                <span style="fontSize:14px;color: #0139FD">{{ item.user_name }} 发布</span>
+              </p>
             </div>
             <p>
               <!-- 进入编辑页之后 更新数据之后更新试题接口/exam/questions/update -->
-              <a href="http://www.baidu.com">编辑</a>
+              <a :href="['http://169.254.12.1:9527/#/quetions/adds?id='+item.questions_id]">编辑</a>
             </p>
           </div>
-
         </div>
       </div>
     </div>
+
   </div>
 </template>
 <script>
@@ -82,17 +85,30 @@ export default {
   data() {
     return {
       exam: '',
-      questions: ''
+      questions: '',
+      subject: '',
+      activeid: -1,
+      activeclass: -1,
+      ischeckout: false,
+      newarr: []
     }
   },
   computed: {
-    ...mapGetters(['examlist', 'subjectlist', 'getquestionslist'])
+    ...mapGetters([
+      'examlist',
+      'subjectlist',
+      'getquestionslist',
+      'checkitemlist'
+    ])
   },
-  created() {},
+  created() {
+    this.checkitems()
+  },
   mounted() {
     this.getexamtype() // 初始化数据考试类型的数据
     this.getexamsubject()
     this.getQuestionsType()
+    this.checkitems()
   },
   methods: {
     ...mapActions({
@@ -100,13 +116,36 @@ export default {
       getexamtype: 'examType/getexamtype',
       getexamsubject: 'examType/getexamsubject',
       getQuestionsType: 'examType/getquestionstype',
-      addquestions: 'examType/addquestionstype'
+      addquestions: 'examType/addquestionstype',
+      checkitems: 'examType/checkitems'
     }),
-    godetail() {
-      alert('11')
-      this.$router.push('/looksdetail')
-    }
 
+    getvalue(value) {
+      this.exam = value
+    },
+    getquestions(value) {
+      this.questions = value
+    },
+    allchange() {
+      this.ischeckout = !this.ischeckout
+    },
+    changestyle(index, id) {
+      this.activeclass = index
+      this.subject = id
+    },
+    changeclass(index) {
+      this.activeid = index
+    },
+    refer() { // 查询
+      this.checkitems()
+      if (this.subject !== '' && this.questions !== '' && this.exam !== '') {
+        this.newarr = this.checkitemlist.filter((item, ind) => {
+          return item.subject_id === this.subject || item.questions_type_id === this.questions || item.exam_id === this.exam
+        })
+      } else {
+        this.newarr = this.checkitemlist
+      }
+    }
   }
 }
 </script>
@@ -115,7 +154,7 @@ export default {
   padding: 0;
   margin: 0;
   list-style: none;
-  font-size:14px;
+  font-size: 14px;
 }
 @mixin num($w, $h) {
   width: $w;
@@ -143,7 +182,7 @@ export default {
       @include num(100%, 100px);
       line-height: 100px;
       font-weight: 400;
-      font-size:24px;
+      font-size: 24px;
       text-indent: 2em;
     }
   }
@@ -154,7 +193,6 @@ export default {
       width: 95%;
       height: 100%;
       margin: 0 auto;
-
       .content-top {
         width: 100%;
         height: 220px;
@@ -167,22 +205,24 @@ export default {
           height: 50px;
           @include flex(space-around);
           margin: 25px 0;
+          li {
+            font-size: 12px;
+            color:#575252;
+          }
         }
 
         .type-exam {
           padding-left: 20px;
-          @include num(70%,55px);
+          @include num(70%, 55px);
           @include flex(space-around);
-          &>p{
+          & > p {
             display: flex;
             align-items: center;
-
           }
           .el-button--medium {
-            padding:8px 16px;
-          background: linear-gradient(-90deg,#4e75ff,#0139fd)!important;
+            padding: 8px 16px;
+            background: linear-gradient(-90deg, #4e75ff, #0139fd) !important;
           }
-
         }
       }
     }
@@ -191,7 +231,7 @@ export default {
 .content-bottom {
   width: 100%;
   margin-top: 12px;
-  padding: 18px;
+  padding: 15px;
   background: #fff;
   border-radius: 10px;
   .content-list {
@@ -206,8 +246,15 @@ export default {
       }
       p {
         padding: 6px 0px;
+        color: rgba(0, 0, 0, 0.65);
       }
     }
   }
+}
+a {
+  color: #0027d6;
+}
+.currents {
+  background: #e6f7ff;
 }
 </style>

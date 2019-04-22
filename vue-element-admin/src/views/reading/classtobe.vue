@@ -43,8 +43,17 @@ export default {
       cuurrentpage: 1,
       page: 1,
       pagesizes: [5, 10, 20, 50],
-      data: []
+      Studentpaperdetele: []
     }
+  },
+  created() {
+    this.testmanagement().then((res) => {
+      this.total = res.length
+      this.textBorder = res
+    })
+    this.Batchdetails().then((res) => {
+      this.Batchdelete = res
+    })
   },
   methods: {
     ...mapActions({
@@ -64,23 +73,16 @@ export default {
       return 'height:60px;font-size:16px;'
     },
     pushLoca(row) {
-      console.log(row.grade_id)
       this.Batchdelete.map((item) => {
-        console.log(item.grade_id)
         if (row.grade_id === item.grade_id) {
-          console.log(item)
+          item.classname = row.grade_name
+          this.Studentpaperdetele.push(item)
+          this.$router.push({ path: '/reading/readelete', query: { ids: item.grade_id, sundentdelte: this.Studentpaperdetele }})
+        } else {
+          // this.$router.push('/reading/readelete',{params:{const:"暂无待批试卷"}})
         }
       })
     }
-  },
-  created() {
-    this.testmanagement().then((res) => {
-      this.total = res.length
-      this.textBorder = res
-    })
-    this.Batchdetails().then((res) => {
-      this.Batchdelete = res
-    })
   }
 }
 </script>

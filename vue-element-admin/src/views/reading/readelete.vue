@@ -24,12 +24,12 @@
       <div class="readelete_box_content_table">
         <el-table :data="deleteArr" style="width: 100%" :border="true">
           <el-table-column prop="classname" label="班级" width="183" />
-          <el-table-column prop="name" label="姓名" width="191" />
-          <el-table-column prop="state" label="阅卷状态" />
-          <el-table-column prop="kTime" label="开始时间" />
-          <el-table-column prop="jTime" label="结束时间" />
-          <el-table-column prop="Yieldrate" label="成才率" width="191" />
-          <el-table-column prop="operating" label="操作" width="156">
+          <el-table-column prop="student_name" label="姓名" width="191" />
+          <el-table-column prop="status" label="阅卷状态" />
+          <el-table-column prop="start_time" label="开始时间" />
+          <el-table-column prop="end_time" label="结束时间" />
+          <el-table-column prop="score" label="成才率" width="191" />
+          <el-table-column prop="grade_id" label="操作" width="156">
             <template :slot-scope="scope">
               <router-link tag="span" to="/reading/delete">批卷</router-link>
             </template>
@@ -43,36 +43,34 @@
 export default {
   data() {
     return {
-      deleteArr: [
-        {
-          classname: '1610B',
-          name: '嗡嗡嗡',
-          state: '未阅',
-          kTime: '2019-04-15 19:00',
-          jTime: '2019-04-15 19:30',
-          Yieldrate: 100,
-          operating: ''
-        },
-        {
-          classname: '1610B',
-          name: '三生石',
-          state: '未阅',
-          kTime: '2019-04-15 19:00',
-          jTime: '2019-04-15 19:32',
-          Yieldrate: 100,
-          operating: ''
-        },
-        {
-          classname: '1610B',
-          name: '杀完毒',
-          state: '未阅',
-          kTime: '2019-04-15 19:00',
-          jTime: '2019-04-15 19:35',
-          Yieldrate: 100,
-          operating: ''
-        }
-      ]
+      deleteArr: []
     }
+  },
+  created() {
+    // classname student_name  score  end_time  start_time status grade_id
+    // console.log(this.$route.query.sundentdelte)
+    // console.log(this.deleteArr)
+    this.$route.query.sundentdelte.forEach((item, ind) => {
+      console.log(item)
+      // 开始时间
+      const endate = new Date(Number(item.end_time))
+      const hour = endate.getHours()
+      const minu = endate.getMinutes()
+      const sec = endate.getSeconds()
+      const endtime = hour + ':' + minu + ':' + sec
+      // 结束时间
+      const startdata = new Date(Number(item.start_time))
+      const houra = startdata.getHours()
+      const minua = startdata.getMinutes()
+      const seca = startdata.getSeconds()
+      const startime = houra + ':' + minua + ':' + seca
+      // 未阅/阅卷
+      const statusText = item.status === 0 ? '未阅' : '阅卷'
+      item.status = statusText
+      item.end_time = endtime
+      item.start_time = startime
+      this.deleteArr.push(item)
+    })
   }
 }
 </script>

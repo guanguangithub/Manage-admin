@@ -217,10 +217,11 @@ export default {
                 questions_answer: this.answer,
                 title: this.title
               }).then((res) => {
-                console.log(res)
-                if (res.code === 1) {
-                  alert(res.msg)
-                  location.href = 'http://169.254.12.1:9527/#/quetions/looks'
+                if (res) {
+                  if (res.code === 1) {
+                    alert(res.msg)
+                    location.href = 'http://169.254.12.1:9527/#/quetions/looks'
+                  }
                 } else {
                   alert('更新失败')
                 }

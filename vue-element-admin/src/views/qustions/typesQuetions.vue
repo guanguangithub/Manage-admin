@@ -39,7 +39,6 @@ export default {
   },
   computed: {
     ...mapGetters(['getquestionslist'])
-
   },
 
   mounted() {
@@ -57,15 +56,15 @@ export default {
         cancelButtonText: '取消'
       })
         .then(({ value }) => {
-          const { text, sort } = this
           this.insertQuestionsType({
             text: value,
             sort: Math.random()
               .toString()
               .substr(2, 6)
+          }).then(() => {
+            this.getQuestionsType()
           })
 
-          this.checkitemlist.push({ text, sort })
           this.$message({
             message: '添加成功'
           })
@@ -128,7 +127,7 @@ export default {
     .content {
       padding-left: 24px;
       width: 95%;
-      height: 100%;
+      height: auto;
       margin: 0 auto;
       border-radius: 10px;
       background: #fff;

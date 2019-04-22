@@ -49,7 +49,7 @@ export function checkitems() {
     method: 'get'
   })
 }
-// exam/questions/update
+// exam/questions/update //更新试题
 export function updateQuestionsType(data) {
   console.log(data)
   return request({
@@ -58,3 +58,4 @@ export function updateQuestionsType(data) {
     data
   })
 }
+//

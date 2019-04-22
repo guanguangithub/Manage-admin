@@ -47,7 +47,7 @@
             :key="index"
             class="content-list"
             :class="activeid===index?'currents':''"
-            @click="$router.push({path:&quot;/permission&quot;,query:{id:item.questions_id}})"
+            @click="$router.push({path:'/permission',query:{id:item.questions_id}})"
             @mouseover="changeclass(index)"
           >
             <!-- content-list是请求到的数据 渲染的 -->

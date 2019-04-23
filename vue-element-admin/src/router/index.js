@@ -11,7 +11,7 @@ import Layout from '@/layout'
 // import chartsRouter from './modules/charts'
 // import tableRouter from './modules/table'
 // import nestedRouter from './modules/nested'
-import testRouter from './modules/qustions'
+import { testRouter, detailRouter } from './modules/qustions'
 /** 考试管理 */
 // import componentsRouter from './modules/components'
 // import chartsRouter from './modules/charts'
@@ -24,6 +24,8 @@ import usermanageRouter from './modules/UserManagement'
 /* 批卷路由 */
 import readingRouter from './modules/reading'
 import aclassManagementRouter from './modules/aclassManagement'
+/* 上传图片 */
+import uploadimageRouter from './modules/uploadimage'
 
 // import componentsRouter from './modules/components'
 // import chartsRouter from './modules/charts'
@@ -62,7 +64,8 @@ export const constantRoutes = [
   examsRouter,
   aclassManagementRouter,
   readingRouter,
-
+  detailRouter,
+  uploadimageRouter,
   {
     path: '/redirect',
     component: Layout,

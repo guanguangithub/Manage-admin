@@ -66,13 +66,11 @@ export default {
     Search
   },
   computed: {
-    ...mapGetters([
-      'sidebar',
-      'name',
-      'avatar',
-      'device',
-      'userInfo'
-    ])
+    // userInfo
+    ...mapGetters(['sidebar', 'name', 'avatar', 'device', 'userInfo'])
+  },
+  mounted() {
+    console.log(this.userInfo.avatar)
   },
   methods: {
     toggleSideBar() {

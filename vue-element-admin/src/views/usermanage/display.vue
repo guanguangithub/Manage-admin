@@ -218,7 +218,6 @@ export default {
       }
     },
     currentChange(val) {
-      this.toals = 1
       this.data = this.list.slice((val - 1) * this.limit, val * this.limit)
     },
     setClass() {

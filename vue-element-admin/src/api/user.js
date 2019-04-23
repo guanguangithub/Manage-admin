@@ -43,3 +43,11 @@ export function GetviewAuthority() {
   })
 }
 
+export function avatarUser(data) {
+  return request({
+    url: '/user/user',
+    method: 'put',
+    data
+  })
+}
+

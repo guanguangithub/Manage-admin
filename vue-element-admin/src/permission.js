@@ -28,22 +28,17 @@ router.beforeEach(async(to, from, next) => {
         next()
       } else {
         try {
+          // get user info
           // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
-          // 如果没有用户信息就去获取用户信息
+          // 1.如果没有用户信息就去获取用户信息
           const userInfo = await store.dispatch('user/getInfo')
-          console.log(userInfo)
-          // 通过身份获取权限
+          console.log('permission第35行', userInfo)
+          // 2.通过身份获取权限
           const viewAutohostiry = await store.dispatch('user/getviewAuthority')
           // 通过权限生成路由
           const routess = await store.dispatch('permission/generateRoutes', viewAutohostiry)
           router.addRoutes(routess)
           next({ ...to, replace: true })
-
-          // get user info
-          // generate accessible routes map based on roles
-          // const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
-          // dynamically add accessible routes
-          // router.addRoutes(accessRoutes)
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record
           // next({ ...to, replace: true })
@@ -59,7 +54,6 @@ router.beforeEach(async(to, from, next) => {
     }
   } else {
     /* has no token*/
-
     if (whiteList.indexOf(to.path) !== -1) { // 如果已经是当前这两个路由 就不再重定向了 避免重复跳转
       // in the free login whitelist, go directly
       next()

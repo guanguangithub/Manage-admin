@@ -1,26 +1,31 @@
-import { getexamtype, getexamsubject, getquestionstype, addquestionstype, insertQuestionsType } from '@/api/examType' // 是获取数据的方法名
+import { getexamtype, getexamsubject, getquestionstype, addquestionstype, insertQuestionsType, checkitems, updateQuestionsType } from '@/api/examType' // 是获取数据的方法名
 const state = {
   examlist: [],
   subjectlist: [],
-  getquestionslist: []
+  getquestionslist: [], // yuanben
+  checkitemlist: []// 查看所有试题
 }
 const mutations = {
-  getlist: (state, payload) => {
+  getlist: (state, getdata) => {
     // console.log(state) //state就是上面state的
-    state.examlist = payload
+    state.examlist = getdata
   },
-  getsubjectlist: (state, payload) => {
+  getsubjectlist: (state, getdata) => {
     // console.log(state) //state就是上面state的
-    state.subjectlist = payload
+    state.subjectlist = getdata
   },
-  gettype: (state, payload) => {
+  gettype: (state, getdata) => {
     // console.log(state) //state就是上面state的
-    state.getquestionslist = payload
-  }
+    state.getquestionslist = getdata
+  },
   // 添加试题
   // addquestion: (state, payload) => {
   //   state.code = payload
   // }
+  // checlitemlist查看试题
+  checkitemlist: (state, getdata) => {
+    state.checkitemlist = getdata
+  }
 
 }
 const actions = {
@@ -34,7 +39,7 @@ const actions = {
     return context.commit('getsubjectlist', res)
   },
 
-  async getquestionstype(context) {
+  async getquestionstype(context) { // 获取考试类型
     const res = await getquestionstype()
     return context.commit('gettype', res)
   },
@@ -43,8 +48,18 @@ const actions = {
     const res = await addquestionstype(payload)
     return res
   },
+
   async insertQuestionsType(context, payload) { // 添加类型 要传参
     const res = await insertQuestionsType(payload)
+    return res
+  },
+
+  async checkitems(context) {
+    const res = await checkitems()
+    return context.commit('checkitemlist', res.data)
+  },
+  async updateQuestionsType(context, payload) { // 更新试题   payload是传过去的参数
+    const res = await updateQuestionsType(payload)
     return res
   }
 }

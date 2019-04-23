@@ -20,8 +20,8 @@
     </div>
     <div :class="allQues">
       <ul class="addList">
-        <li v-for="item in this.allPapers" :key="item.questions_id">
-          <span>{{ item.title }}</span>
+        <li v-for="(item,i) in this.allPapers" :key="i">
+          <span>{{ item.questions_stem }}</span>
           <b class="addbtn" @click="addPaper(item)">添加</b></li>
       </ul>
     </div>

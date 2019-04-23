@@ -25,7 +25,9 @@
           />
         </el-select>
       </span>
-      <span class="searchPaperBtn"><span class="search-icon"><svg-icon icon-class="search" /></span><el-button type="primary" @click="searchBtn">搜索</el-button></span>
+      <span class="searchPaperBtn">
+        <span class="search-icon"><svg-icon icon-class="search" /></span>
+        <el-button type="primary" @click="searchBtn">搜索</el-button></span>
 
     </div>
     <div class="paperList-container">

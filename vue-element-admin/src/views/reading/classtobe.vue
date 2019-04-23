@@ -50,9 +50,11 @@ export default {
     this.testmanagement().then((res) => {
       this.total = res.length
       this.textBorder = res
+      console.log(this.textBorder)
     })
     this.Batchdetails().then((res) => {
       this.Batchdelete = res
+      console.log(this.Batchdelete)
     })
   },
   methods: {

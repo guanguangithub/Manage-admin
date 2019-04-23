@@ -14,3 +14,12 @@ export function Batchdetails() {
     method: 'get'
   })
 }
+
+export function studentDeleta(params) {
+  return request({
+    url: '/exam/student/' + params,
+    method: 'get',
+    params
+  })
+}
+

@@ -38,7 +38,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      avatarUser: 'user/avatarUser'
+      avatarUser: 'user/avatarUser',
+      getInfo: 'user/getInfo'
     }),
     close() {
       this.imagecropperShow = false
@@ -48,7 +49,8 @@ export default {
       this.imagecropperShow = false
       this.imagecropperKey = this.imagecropperKey + 1
       this.avatarUser({ user_id: this.userInfo.user_id, avatar: this.image }).then(res => {
-        console.log(res)
+        // console.log(res)
+        this.getInfo()
       })
     }
   }

@@ -1,11 +1,9 @@
 <template>
   <div class="navbar">
     <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
-
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
-
+    <!-- <breadcrumb id="breadcrumb-container" class="breadcrumb-container" /> -->
     <div class="right-menu">
-      <template v-if="device!=='mobile'">
+      <!-- <template v-if="device!=='mobile'">
         <search id="header-search" class="right-menu-item" />
 
         <error-log class="errLog-container right-menu-item hover-effect" />
@@ -18,8 +16,7 @@
 
         <lang-select class="right-menu-item hover-effect" />
 
-      </template>
-
+      </template> -->
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <img :src="userInfo.avatar" class="user-avatar">
@@ -47,24 +44,24 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Breadcrumb from '@/components/Breadcrumb'
-import Hamburger from '@/components/Hamburger'
-import ErrorLog from '@/components/ErrorLog'
-import Screenfull from '@/components/Screenfull'
-import SizeSelect from '@/components/SizeSelect'
-import LangSelect from '@/components/LangSelect'
-import Search from '@/components/HeaderSearch'
+// import Breadcrumb from '@/components/Breadcrumb'
+// import Hamburger from '@/components/Hamburger'
+// import ErrorLog from '@/components/ErrorLog'
+// import Screenfull from '@/components/Screenfull'
+// import SizeSelect from '@/components/SizeSelect'
+// import LangSelect from '@/components/LangSelect'
+// import Search from '@/components/HeaderSearch'
 
 export default {
-  components: {
-    Breadcrumb,
-    Hamburger,
-    ErrorLog,
-    Screenfull,
-    SizeSelect,
-    LangSelect,
-    Search
-  },
+  // components: {
+  //   Breadcrumb,
+  //   Hamburger,
+  //   ErrorLog,
+  //   Screenfull,
+  //   SizeSelect,
+  //   LangSelect,
+  //   Search
+  // },
   computed: {
     // userInfo
     ...mapGetters(['sidebar', 'name', 'avatar', 'device', 'userInfo'])
@@ -86,7 +83,7 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  height: 50px;
+  height: 80px;
   overflow: hidden;
   position: relative;
   background: #fff;
@@ -145,13 +142,15 @@ export default {
       margin-right: 30px;
 
       .avatar-wrapper {
-        margin-top: 5px;
+        width:60px;
+        height:60px;
+        margin-top:10px;
         position: relative;
 
         .user-avatar {
           cursor: pointer;
-          width: 40px;
-          height: 40px;
+          width: 60px;
+          height: 60px;
           border-radius: 10px;
         }
 

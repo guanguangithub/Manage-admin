@@ -4,11 +4,12 @@
       <p>添加用户</p>
     </div>
     <div class="add_box_content">
+      <!--添加用户  -->
       <div class="add_box_content_add">
-        <p>
-          <span>添加用户</span>
-          <span>更新用户</span>
+        <p id="ptx">
+          <span v-for="(item,index) in dataArr" :key="index" :class="inds===index?'current':''" @click="SpanClick(index)">{{ item.title }}</span>
         </p>
+        <!-- 添加用户 -->
         <div class="add_box_content_child_one">
           <p>
             <input type="text" placeholder="请输入用户名">
@@ -31,6 +32,7 @@
             <el-button plain>重置</el-button>
           </p>
         </div>
+        <!-- 更新用户 -->
         <!-- <div class="add_box_content_child_two">
                   <p>
                     <select>
@@ -64,7 +66,7 @@
                   </p>
                 </div> -->
       </div>
-
+      <!-- 添加身份 -->
       <div class="add_box_content_Identity">
         <p>
           <span>添加身份</span>
@@ -77,7 +79,7 @@
           <el-button plain>重置</el-button>
         </p>
       </div>
-
+      <!-- 添加API接口权限 -->
       <div class="add_box_content_API">
         <p>
           <span>添加API接口权限</span>
@@ -96,7 +98,7 @@
           <el-button plain>重置</el-button>
         </p>
       </div>
-
+      <!-- 添加视图接口权限 -->
       <div class="add_box_content_Viewinterface">
         <p>
           <span>添加视图接口权限</span>
@@ -116,7 +118,7 @@
           <el-button plain>重置</el-button>
         </p>
       </div>
-
+      <!-- 给身份设置API接口权限 -->
       <div class="add_box_content_setApi">
         <p>
           <span>给身份设置API接口权限</span>
@@ -146,7 +148,7 @@
           <el-button plain>重置</el-button>
         </p>
       </div>
-
+      <!-- 给身份设置视图权限 -->
       <div class="add_box_content_getIdentity">
         <p>
           <span>给身份设置视图权限</span>
@@ -180,13 +182,34 @@
   </div>
 </template>
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      dataArr: [
+        {
+          title: '添加用户'
+        },
+        {
+          title: '更新用户'
+        }
+      ],
+      inds: 0
+    }
+  },
+  methods: {
+    SpanClick(ind) {
+      this.inds = ind
+    }
+  }
+}
 </script>
 <style lang="scss">
 .add_box {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background: #f0f2f5;
+  padding-bottom: 20px;
 }
 .add_box_heander {
   width: 100%;
@@ -205,12 +228,47 @@ export default {}
   height: auto;
   display: flex;
   flex-wrap: wrap;
+  input{
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  select{
+    width:150px;
+    height:32px;
+    font-variant: tabular-nums;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    display: inline-block;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.65);
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  input:hover,select:hover{
+    border-color: #295eff;
+  }
 }
 .add_box_content_add {
-  margin: 20px 20px;
-  width: 470px;
+  padding:10px;
+  width: 33.3%;
   height: auto;
-  border: 1px solid #000;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-radius: 5px;
+  #ptx{
+    .current{
+      border: 1px solid #0139FD;
+      background-color: #fff;
+      color: #0139FD;
+    }
+  }
   p{
     width:100%;
     height:50px;
@@ -221,6 +279,8 @@ export default {}
       span{
         padding:10px 30px;
         border: 1px solid #ccc;
+        background-color: #fff;
+        color: #0139FD;
         &:nth-child(1){
           margin-left:20px;
         }
@@ -304,10 +364,13 @@ export default {}
   }
 }
 .add_box_content_Identity{
-  margin: 20px 20px;
-  width: 470px;
+  padding:10px;
+  width: 33.3%;
   height: auto;
-  border: 1px solid #000;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-radius: 5px;
     p{
         width:100%;
         height:50px;
@@ -317,8 +380,10 @@ export default {}
             height:60px;
             span{
               padding:10px 30px;
-              border: 1px solid #ccc;
               margin-left:20px;
+              border: 1px solid #0139FD;
+              background-color: #fff;
+              color: #0139FD;
             }
         }
         &:nth-child(2){
@@ -345,10 +410,12 @@ export default {}
 
 }
 .add_box_content_API{
-  margin: 20px 20px;
-  width: 470px;
+  padding:10px;
+  width: 33.3%;
   height: auto;
-  border: 1px solid #000;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-radius: 5px;
     p{
         width:100%;
         height:50px;
@@ -358,8 +425,10 @@ export default {}
             height:60px;
             span{
               padding:10px 30px;
-              border: 1px solid #ccc;
               margin-left:20px;
+              border: 1px solid #0139FD;
+              background-color: #fff;
+              color: #0139FD;
             }
         }
         &:nth-child(2),&:nth-child(3),&:nth-child(4){
@@ -385,10 +454,12 @@ export default {}
     }
 }
 .add_box_content_Viewinterface{
-    margin: 20px 20px;
-    width: 470px;
+    padding:10px;
+    width: 33.3%;
     height: auto;
-    border: 1px solid #000;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-radius: 5px;
     p{
         width:100%;
         height:50px;
@@ -398,8 +469,10 @@ export default {}
             height:60px;
             span{
               padding:10px 30px;
-              border: 1px solid #ccc;
               margin-left:20px;
+              border: 1px solid #0139FD;
+              background-color: #fff;
+              color: #0139FD;
             }
         }
         &:nth-child(2){
@@ -422,10 +495,13 @@ export default {}
     }
 }
 .add_box_content_setApi{
-    margin: 20px 20px;
-    width: 470px;
+    padding:10px;
+    width: 33.3%;
     height: auto;
-    border: 1px solid #000;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-radius: 5px;
     p{
         width:100%;
         height:50px;
@@ -435,8 +511,10 @@ export default {}
             height:60px;
             span{
               padding:10px 30px;
-              border: 1px solid #ccc;
               margin-left:20px;
+              border: 1px solid #0139FD;
+              background-color: #fff;
+              color: #0139FD;
             }
         }
         &:nth-child(2),&:nth-child(3){
@@ -459,10 +537,12 @@ export default {}
     }
 }
 .add_box_content_getIdentity{
-    margin: 20px 20px;
-    width: 470px;
+    padding:10px;
+    width: 33.3%;
     height: auto;
-    border: 1px solid #000;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-radius: 5px;
     p{
         width:100%;
         height:50px;
@@ -472,8 +552,10 @@ export default {}
             height:60px;
             span{
               padding:10px 30px;
-              border: 1px solid #ccc;
               margin-left:20px;
+              border: 1px solid #0139FD;
+              background-color: #fff;
+              color: #0139FD;
             }
         }
         &:nth-child(2),&:nth-child(3){

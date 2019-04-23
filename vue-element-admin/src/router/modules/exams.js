@@ -19,6 +19,12 @@ const examsRouter = {
       meta: { title: 'addExam', noCache: true }
     },
     {
+      path: 'upload',
+      component: () => import('@/views/exams/upload'),
+      name: 'upload',
+      meta: { title: 'upload', noCache: true }
+    },
+    {
       path: 'editExam/:id',
       hidden: true,
       component: () => import('@/views/exams/editExam'),

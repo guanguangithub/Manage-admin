@@ -18,6 +18,7 @@ const getters = {
   getquestionslist: state => state.examType.getquestionslist, // 这些都是命名空间中state中的属性
   table: state => state.exam.table,
   newPaper: state => state.exam.newPaper,
+  allPapers: state => state.exam.allPapers,
   detailPaper: state => state.exam.detailPaper,
   userarr: state => state.usermanage.userarr,
   identityarr: state => state.usermanage.identityarr,

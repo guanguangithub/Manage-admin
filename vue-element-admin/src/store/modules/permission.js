@@ -52,7 +52,7 @@ const actions = {
     const accessedRoutes = filterAsyncRoutes(asyncRoutes, view_ids)
     // 更新路由
     commit('SET_ROUTES', accessedRoutes)
-
+    return accessedRoutes
     // return new Promise(resolve => {
     //   let accessedRoutes
     //   if (roles.includes('admin')) {

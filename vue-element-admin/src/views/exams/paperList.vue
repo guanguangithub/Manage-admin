@@ -19,20 +19,20 @@
         <el-select v-model="lessonValue" placeholder="请选择" size="large">
           <el-option
             v-for="item in this.subjectlist.data"
-            :key="item.exam_id"
-            :label="item.exam_name"
-            :value="item.exam_id"
+            :key="item.subject_id"
+            :label="item.subject_text"
+            :value="item.subject_id"
           />
         </el-select>
       </span>
-      <span class="searchPaperBtn"><span class="search-icon"><svg-icon icon-class="search" /></span><el-button type="primary">搜索</el-button></span>
+      <span class="searchPaperBtn"><span class="search-icon"><svg-icon icon-class="search" /></span><el-button type="primary" @click="searchBtn">搜索</el-button></span>
 
     </div>
     <div class="paperList-container">
       <div class="paper-listop">
         <p>试卷列表</p>
         <p>
-          <el-button plain @click="a">全部</el-button>
+          <el-button plain>全部</el-button>
           <el-button plain>进行中</el-button>
           <el-button plain>已结束</el-button>
         </p>
@@ -118,9 +118,8 @@ export default {
     this.fatchExamList()
   },
   methods: {
-    a() {
-      const res = this.fatchExamList()
-      console.log(res)
+    searchBtn() {
+      console.log(this.lessonValue, this.examValue)
     },
     getRowClass({ row, column, rowIndex, columnIndex }) {
       if (rowIndex === 0) {

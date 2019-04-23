@@ -8,7 +8,7 @@
         <span>考试时间：1小时30分钟 监考人：刘于 开始考试时间：2018.9.10 10:00 阅卷人：刘于</span>
         <div class="questions">
           <dl v-for="(item,i) in this.newPaper.questions" :key="item.questions_id" class="question-list">
-            <dt><span>{{ i }}.{{ item.title }}</span> <span class="del" @click="dele(item.questions_id)">删除</span></dt>
+            <dt><span>{{ i }}.{{ item.title }}</span> <span class="del" @click="dele(i)">删除</span></dt>
             <dd>
               <pre>
                 <code>{{ item.questions_stem }}</code>
@@ -19,16 +19,16 @@
       </div>
     </div>
     <div :class="allQues">
-      ome contents...
-
-      Some contents...
-
-      Some contents...
+      <ul class="addList">
+        <li v-for="item in this.allPapers" :key="item.questions_id">
+          <span>{{ item.title }}</span>
+          <b class="addbtn" @click="addPaper(item)">添加</b></li>
+      </ul>
     </div>
   </div>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -39,25 +39,34 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'newPaper'
+      'newPaper',
+      'allPapers'
     ])
   },
   methods: {
     ...mapActions({
-      updateDetailPaper: 'exam/updateDetailPaper'
+      updateDetailPaper: 'exam/updateDetailPaper',
+      getallPapers: 'exam/getallPapers'
+    }),
+    ...mapMutations({
+      deletePaper: 'exam/DELETEPAPER',
+      addnewPaper: 'exam/ADDNEWPAPER'
     }),
     addNewQuestion() {
       this.flag = false
       this.className = this.flag ? 'editexam-container' : 'editexam-container none'
       this.allQues = this.flag ? 'editexam-container none' : 'editexam-container'
+      this.getallPapers()
     },
     async jump() {
       const id = this.$route.params.id
-      var questions_id = this.newPaper.questions.map(item => item.questions_id)
+      var questions_id = this.newPaper.questions ? this.newPaper.questions.map(item => item.questions_id) : []
+      console.log(id, questions_id)
+      // console.log(this.updateDetailPaper())
       await this.updateDetailPaper({ id: id, question_ids: JSON.stringify(questions_id) })
       this.$router.push({ path: '/exams/paperList' })
     },
-    dele() {
+    dele(i) {
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -67,12 +76,21 @@ export default {
           type: 'success',
           message: '删除成功!'
         })
+        console.log(i)
+        this.deletePaper(i)
       }).catch(() => {
         this.$message({
           type: 'info',
           message: '已取消删除'
         })
       })
+    },
+    addPaper(item) {
+      console.log(item)
+      this.flag = true
+      this.className = this.flag ? 'editexam-container' : 'editexam-container none'
+      this.allQues = this.flag ? 'editexam-container none' : 'editexam-container'
+      this.addnewPaper(item)
     }
   }
 }
@@ -164,6 +182,34 @@ export default {
    dd{
     line-height: 30px;
    }
+  }
+}
+code{
+   white-space: normal;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+}
+.addList{
+  width: 100%;
+  height:auto;
+  >li{
+    width: 100%;
+    height:40px;
+    border-bottom: 1px solid #eee;
+    font-size: 16px;color:#555;
+    box-sizing: border-box;
+    padding:0 50px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    >span{}
+    >.addbtn{
+      color:#e44;
+      font-size: 14px;
+      background: #eee;
+      padding: 8px 10px;
+      border-radius: 5px;
+    }
   }
 }
 </style>

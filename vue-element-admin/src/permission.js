@@ -35,7 +35,8 @@ router.beforeEach(async(to, from, next) => {
           // 通过身份获取权限
           const viewAutohostiry = await store.dispatch('user/getviewAuthority')
           // 通过权限生成路由
-          await store.dispatch('permission/generateRoutes', viewAutohostiry)
+          const routess = await store.dispatch('permission/generateRoutes', viewAutohostiry)
+          router.addRoutes(routess)
           next({ ...to, replace: true })
 
           // get user info
@@ -47,6 +48,7 @@ router.beforeEach(async(to, from, next) => {
           // set the replace: true, so the navigation will not leave a history record
           // next({ ...to, replace: true })
         } catch (error) {
+          console.log(error)
           // remove token and go to login page to re-login
           await store.dispatch('user/resetToken')
           Message.error(error || 'Has Error')

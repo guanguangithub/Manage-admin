@@ -1,9 +1,11 @@
-import { fatchExamList, addExam, getDetailPaper, updateDetailPaper } from '@/api/exam.js'
+import { fatchExamList, addExam, getDetailPaper, updateDetailPaper, getallPapers } from '@/api/exam.js'
+import { updateUserInfo } from '@/api/user.js'
 import moment from 'moment'
 const state = {
   table: [],
   newPaper: {},
-  detailPaper: []
+  detailPaper: [],
+  allPapers: []
 }
 const mutations = {
   GETTABLEDATE: (state, payload) => {
@@ -18,6 +20,15 @@ const mutations = {
   },
   SETDETAILPAPER: (state, payload) => {
     state.detailPaper = payload
+  },
+  DELETEPAPER: (state, payload) => {
+    state.newPaper.questions.splice(payload, 1)
+  },
+  ALLPAPERS: (state, payload) => {
+    state.allPapers = payload
+  },
+  ADDNEWPAPER: (state, payload) => {
+    state.newPaper.questions.unshift(payload)
   }
 }
 const actions = {
@@ -40,7 +51,17 @@ const actions = {
   },
   async updateDetailPaper(context, payload) {
     console.log(payload)
+    console.log(updateDetailPaper)
     const res = await updateDetailPaper(payload.id, { question_ids: payload.question_ids })
+    return res
+  },
+  async updateUserInfo(context, payload) {
+    const res = await updateUserInfo(payload)
+    return res
+  },
+  async getallPapers(context) {
+    const res = await getallPapers()
+    context.commit('ALLPAPERS', res.data)
     return res
   }
   // async deletePaper(context, examId) {

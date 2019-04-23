@@ -28,6 +28,14 @@ export function getUserInfo() {
     method: 'get'
   })
 }
+export function updateUserInfo(data) {
+  console.log('data...', data)
+  return request({
+    url: '/user/user',
+    method: 'put',
+    data
+  })
+}
 export function GetviewAuthority() {
   return request({
     url: '/user/view_authority',

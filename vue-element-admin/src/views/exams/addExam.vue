@@ -127,7 +127,7 @@ export default {
             start_time: new Date(start_time) * 1,
             end_time: new Date(end_time) * 1
           })
-          alert('submit!')
+          // alert('submit!')
           this.$router.push('/exams/editExam/' + res.data.exam_exam_id)
         } else {
           console.log('请输入合法信息!!')

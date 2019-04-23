@@ -6,11 +6,10 @@
         <div v-for="(item,i) in this.detailPaper.questions" :key="item.questions_id" class="markdown">
           <h5>{{ i+1 }} : {{ item.title }}</h5>
           <pre>
-                    <code>
-
-                    {{ item.questions_stem }}
-                    </code>
-                </pre>
+              <code>
+              {{ item.questions_stem }}
+              </code>
+          </pre>
         </div>
       </div>
       <div class="detail-container1" />

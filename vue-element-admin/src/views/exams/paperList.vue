@@ -147,7 +147,7 @@ export default {
 
 <style lang="scss" scoped>
     .paperList-bg{
-       height:698px;
+        height:698px;
         background: #F0F2F5;
         padding:0 35px;
         overflow-y: auto;

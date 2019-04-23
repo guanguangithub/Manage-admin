@@ -29,9 +29,9 @@
           <el-table-column prop="start_time" label="开始时间" />
           <el-table-column prop="end_time" label="结束时间" />
           <el-table-column prop="score" label="成才率" width="191" />
-          <el-table-column prop="grade_id" label="操作" width="156">
-            <template :slot-scope="scope">
-              <router-link tag="span" to="/reading/delete">批卷</router-link>
+          <el-table-column prop="exam_student_id" label="操作" width="156">
+            <template slot-scope="{row}">
+              <span @click="setDelte(row)">批卷</span>
             </template>
           </el-table-column>
         </el-table>
@@ -71,6 +71,11 @@ export default {
       item.start_time = startime
       this.deleteArr.push(item)
     })
+  },
+  methods: {
+    setDelte(row) {
+      this.$router.push({ path: '/reading/delete', query: { ids: row.exam_student_id, jsonArr: row.answer_json_path }})
+    }
   }
 }
 </script>

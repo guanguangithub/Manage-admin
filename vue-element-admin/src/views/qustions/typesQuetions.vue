@@ -20,7 +20,15 @@
           >
             <el-table-column prop="questions_type_id" label="类型Id" width="180" />
             <el-table-column prop="questions_type_text" label="类型名称" width="180" />
-            <el-table-column prop="address" label="地址" />
+            <el-table-column label="操作">
+              <template slot-scope="scope">
+                <el-button
+
+                  type="danger"
+                  @click="handleDelete(scope.$index, scope.row)"
+                >删除</el-button>
+              </template>
+            </el-table-column>
           </el-table>
         </div>
       </div>
@@ -48,8 +56,20 @@ export default {
   methods: {
     ...mapActions({
       getQuestionsType: 'examType/getquestionstype',
-      insertQuestionsType: 'examType/insertQuestionsType'
+      insertQuestionsType: 'examType/insertQuestionsType',
+      delQuestionsType: 'examType/delQuestionsType'
     }),
+    handleDelete(index, row) {
+      this.delQuestionsType({
+        id: row.questions_type_id
+      }).then(res => {
+        if (res.code === 1) {
+          this.getQuestionsType()
+        } else {
+          alert('删除失败')
+        }
+      })
+    },
     open3() {
       this.$prompt('添加新类型', {
         confirmButtonText: '确定',
@@ -64,7 +84,6 @@ export default {
           }).then(() => {
             this.getQuestionsType()
           })
-
           this.$message({
             message: '添加成功'
           })
@@ -160,6 +179,9 @@ export default {
   & > tr {
     background: #6a6c6e;
   }
+}
+.el-button--medium{
+  padding:8px 16px;
 }
 </style>
 

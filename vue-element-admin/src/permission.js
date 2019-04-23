@@ -8,7 +8,7 @@ import { getToken } from '@/utils/auth' // 引入登录态 get token from cookie
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const whiteList = ['/login', '/auth-redirect'] // 白名单 如果已经是当前这两个路由 就不再重定向了 避免重复跳转
-// 全局导航守卫
+// *************全局导航守卫
 router.beforeEach(async(to, from, next) => {
   // start progress bar
   NProgress.start()
@@ -30,7 +30,7 @@ router.beforeEach(async(to, from, next) => {
         try {
           // get user info
           // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
-          // 1.如果没有用户信息就去获取用户信息
+          // 如果没有用户信息就去获取用户信息 //获取到的用户信息
           const userInfo = await store.dispatch('user/getInfo')
           console.log('permission第35行', userInfo)
           // 2.通过身份获取权限

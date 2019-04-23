@@ -12,7 +12,6 @@ function hasPermission(view_ids, route) {
     return true
   }
 }
-
 /**
  * 递归过滤异步路由表，返回符合用户角色权限的路由表
  * @param routes asyncRoutes
@@ -45,7 +44,7 @@ const mutations = {
 }
 
 const actions = {
-  generateRoutes({ commit }, view_autohority) {
+  async generateRoutes({ commit }, view_autohority) {
     // 获取用户所有的view_id
     const view_ids = view_autohority.map(item => item.view_id)
     // 在路由里面过滤一遍 得到用户能访问的路由

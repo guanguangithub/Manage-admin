@@ -63,12 +63,15 @@ export default {
   //   Search
   // },
   computed: {
-    // userInfo
-    ...mapGetters(['sidebar', 'name', 'avatar', 'device', 'userInfo'])
+    ...mapGetters([
+      'sidebar',
+      'name',
+      'avatar',
+      'device',
+      'userInfo'
+    ])
   },
-  mounted() {
-    console.log(this.userInfo.avatar)
-  },
+
   methods: {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')

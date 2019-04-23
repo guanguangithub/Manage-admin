@@ -79,7 +79,9 @@ export default {
     classManagement: '班级管理',
     teachingManagement: '教室管理',
     studentManagement: '学生管理',
-    detail: '试题详情'
+    detail: '试题详情',
+    uploadimage: '上传图片',
+    uploadDetele: '图片详情'
   },
   navbar: {
     logOut: '退出登录',

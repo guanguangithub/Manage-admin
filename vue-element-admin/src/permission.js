@@ -28,21 +28,18 @@ router.beforeEach(async(to, from, next) => {
         next()
       } else {
         try {
-          // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
-          // 如果没有用户信息就去获取用户信息
-          const userInfo = await store.dispatch('user/getInfo')
-          console.log(userInfo)
-          // 通过身份获取权限
-          const viewAutohostiry = await store.dispatch('user/getviewAuthority')
-          // 通过权限生成路由
-          await store.dispatch('permission/generateRoutes', viewAutohostiry)
-          next({ ...to, replace: true })
-
           // get user info
-          // generate accessible routes map based on roles
-          // const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
-          // dynamically add accessible routes
-          // router.addRoutes(accessRoutes)
+          // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
+          // 1.如果没有用户信息就去获取用户信息
+          const userInfo = await store.dispatch('user/getInfo')
+          console.log('permission第35行', userInfo)
+          // 2.通过身份获取权限
+          const viewAutohostiry = await store.dispatch('user/getviewAuthority')
+          // 3.通过权限生成路由
+          const accessRoutes = await store.dispatch('permission/generateRoutes', viewAutohostiry)
+          // 4.动态添加路由到路由表
+          router.addRoutes(accessRoutes)
+
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })

@@ -1,4 +1,4 @@
-import { login, logout, getInfo, GetviewAuthority } from '@/api/user'
+import { login, logout, getInfo, GetviewAuthority, avatarUser } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
@@ -107,6 +107,11 @@ const actions = {
 
       resolve()
     })
+  },
+
+  async avatarUser(context, payload) {
+    const res = await avatarUser(payload)
+    return res
   }
 }
 // console.log(actions) //分发出去的 方法

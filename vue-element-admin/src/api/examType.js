@@ -67,14 +67,14 @@ export function updateQuestionsType(data) {
   })
 }
 //
-export function updatedata(data) { // 更新用户头像
-  console.log(data)
-  return request({
-    url: 'user/user',
-    method: 'put',
-    data
-  })
-}
+// export function updatedata(data) { // 更新用户头像
+//   console.log(data)
+//   return request({
+//     url: 'user/user',
+//     method: 'put',
+//     data
+//   })
+// }
 // /exam/delQuestionsType
 export function delQuestionsType(data) { // 删除考试类型
   console.log(data)

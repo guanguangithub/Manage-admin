@@ -144,8 +144,6 @@ export default {
       if (this.subject !== '' && this.questions !== '' && this.exam !== '') {
         const { subject, questions, exam } = this
         this.changeitemlist({ subject, questions, exam })
-      } else {
-        alert('参数不足')
       }
     }
   }

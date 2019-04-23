@@ -34,4 +34,11 @@ export function GetviewAuthority() {
     method: 'get'
   })
 }
+export function userupdata(data) {
+  return request({
+    url: '/user/user',
+    method: 'put',
+    data
+  })
+}
 

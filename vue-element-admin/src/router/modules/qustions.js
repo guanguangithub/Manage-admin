@@ -31,6 +31,12 @@ const testRouter = {
       component: () => import('@/views/qustions/looksQuetions'),
       name: 'Looks',
       meta: { title: 'looksQuetions', noCache: true }
+    },
+    {
+      path: 'usertitle',
+      component: () => import('@/views/qustions/userTitle'),
+      name: 'user',
+      meta: { title: 'usertitle', noCache: true }
     }
 
   ]

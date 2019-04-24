@@ -16,7 +16,7 @@
         <div class="content-main">
           <p>题目主题</p>
           <div class="content-box">
-            <!-- <texaImg /> -->
+
             <markdown-editor v-model="inpustem" />
 
           </div>
@@ -70,7 +70,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import MarkdownEditor from '@/components/MarkdownEditor'
-// import texaImg from '../../components/Tinymce'
+
 export default {
   components: { MarkdownEditor },
   props: {},
@@ -103,13 +103,13 @@ export default {
     this.getexamsubject()
     this.getQuestionsType()
     this.checkitems()
-    this.checkitems()
+
     const id = this.$route.query.id
     this.detailobj = this.checkitemlist.find((item, ind) => {
       return item.questions_id === id
     })
     this.getinitId()
-    if (!this.ischange) {
+    if (!this.ischange && this.detailobj) {
       this.exam = this.detailobj.exam_id
       this.questions = this.detailobj.questions_type_id
       this.subject = this.detailobj.subject_id

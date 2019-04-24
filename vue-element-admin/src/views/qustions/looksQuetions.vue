@@ -10,8 +10,8 @@
           <!-- 课程类型/exam/subject -->
           <ul class="type-course">
             <p>课程类型</p>
-            <li :class="ischeckout?'currents':''" @click="allchange">all</li>
-            <li v-for="(item,index) in subjectlist.data" :key="index" :class="(activeclass===index||ischeckout)?'currents':''" @click="changestyle(index,item.subject_id)">{{ item.subject_text }}</li>
+            <li :class="ischeckout?'liclass':''" @click="allchange">all</li>
+            <li v-for="(item,index) in subjectlist.data" :key="index" :class="(activeclass===index||ischeckout)?'liclass':''" @click="changestyle(index,item.subject_id)">{{ item.subject_text }}</li>
           </ul>
           <div class="type-exam">
             <!-- 考试类型/exam/examType    题目类型 -->
@@ -52,7 +52,7 @@
           >
             <!-- content-list是请求到的数据 渲染的 -->
             <div class="list-left">
-              <p>{{ item.questions_stem }}</p>
+              <p>{{ item.title }}</p>
               <p>
                 <el-button
                   style="color: #1890ff;background: #e6f7ff;border-color: #91d5ff;"
@@ -74,7 +74,7 @@
         </div>
       </div>
     </div>
-
+    <p>{{ checkitemlist }}</p>
   </div>
 </template>
 <script>
@@ -121,7 +121,7 @@ export default {
       condition: 'examType/condition'
     }),
     ...mapMutations({
-      changeitemlist: 'examType/changeitemlist'
+      changeitemlist: 'examType/changeitemlist'// 直接把mutation的东西获取出来
     }),
 
     getvalue(value) {
@@ -132,18 +132,21 @@ export default {
     },
     allchange() {
       this.ischeckout = !this.ischeckout
+      this.activeclass = -1
     },
-    changestyle(index, id) {
+    changestyle(index, id) { // 点击每条的时候 rang
+      this.ischeckout = false
       this.activeclass = index
       this.subject = id
     },
     changeclass(index) {
       this.activeid = index
     },
-    refer() {
+    async refer() {
+      await this.checkitems()
       if (this.subject !== '' && this.questions !== '' && this.exam !== '') {
         const { subject, questions, exam } = this
-        this.changeitemlist({ subject, questions, exam })
+        this.changeitemlist({ subject, questions, exam })// 调用这个方法
       }
     }
   }
@@ -168,7 +171,6 @@ export default {
   -webkit-justify-content: $j;
   -webkit-align-items: center;
 }
-
 .add-wraps {
   @include num(100%, 637px);
   background: #f0f2f5;
@@ -200,19 +202,17 @@ export default {
         background: #fff;
         border-radius: 10px;
         .type-course {
-          padding-left: 20px;
-          width: 80%;
-          height: 50px;
-          @include flex(space-around);
+          padding-left: 40px;
+          width:90%;
+          flex-wrap:wrap;
+          @include flex();
           margin: 25px 0;
           li {
             font-size: 12px;
-            color:#575252;
+
           }
         }
-
         .type-exam {
-          padding-left: 20px;
           @include num(70%, 55px);
           @include flex(space-around);
           & > p {
@@ -220,7 +220,7 @@ export default {
             align-items: center;
           }
           .el-button--medium {
-            padding: 8px 16px;
+            padding: 8px 26px;
             background: linear-gradient(-90deg, #4e75ff, #0139fd) !important;
           }
         }
@@ -256,5 +256,11 @@ a {
 }
 .currents {
   background: #e6f7ff;
+}
+li.liclass{
+  padding:5px 8px;
+  margin:0 2px;
+  color:#fff;
+  background-color: #0139FD;
 }
 </style>

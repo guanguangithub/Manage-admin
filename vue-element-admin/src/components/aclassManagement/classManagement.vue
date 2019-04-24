@@ -84,341 +84,6 @@
       </div>
     </div>
   </div>
-  <!-- <div>{
-  "msg": "获取学生数据成功",
-  "code": 1,
-  "data": [
-    {
-      "student_id": "151611000702",
-      "student_name": "高诗蕊",
-      "student_pwd": "Gaoshir1028*",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "151991000354",
-      "student_name": "郑伟浩",
-      "student_pwd": "Zheng5831200*",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "18382100271",
-      "student_name": "赵倩",
-      "student_pwd": "Zq@120319",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "162221000234",
-      "student_name": "董梦全",
-      "student_pwd": "@Dmq123",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "163231000105",
-      "student_name": "葛荷清",
-      "student_pwd": "Ghq123@@",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "18381100254",
-      "student_name": "张克",
-      "student_pwd": "Zk1992/*-+",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "163231001026",
-      "student_name": "张少泽",
-      "student_pwd": "Zsz0312@",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "17382100235",
-      "student_name": "祁云凯",
-      "student_pwd": "*Q1i0k8ai",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "162711000777",
-      "student_name": "刘丽霞",
-      "student_pwd": "Liu980519!",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "17356100064",
-      "student_name": "李晓凯",
-      "student_pwd": "Lxk*549426524",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "18382100095",
-      "student_name": "薛帅康",
-      "student_pwd": "Nuo1999.@",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "152221000136",
-      "student_name": "张嘉琪",
-      "student_pwd": "Zjq03251781!",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "151521000391",
-      "student_name": "宋梦磊",
-      "student_pwd": "S*l12345",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "18382100243",
-      "student_name": "刘士军",
-      "student_pwd": "Aa!11049356603",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "17382100341",
-      "student_name": "党会娟",
-      "student_pwd": "Dang&3443",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "163231001166",
-      "student_name": "郭怡凯",
-      "student_pwd": "223Guo*",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "152221000361",
-      "student_name": "肖臣",
-      "student_pwd": "07133921Xy*",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "18381100253",
-      "student_name": "张克",
-      "student_pwd": "Zk1992/*-+",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "18381100251",
-      "student_name": "张克",
-      "student_pwd": "Zk1992/*-+",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "151991000301",
-      "student_name": "李硕",
-      "student_pwd": "Li991029*",
-      "room_id": "mdj92d-jthb4h-qok0rf-5aby5j",
-      "room_text": "3",
-      "grade_id": "joyqt9-gyxsa8-fif6c-j12o0k",
-      "grade_name": "1610C",
-      "subject_id": "fyu3ln-azjkie",
-      "subject_text": "渐进式开发(react)"
-    },
-    {
-      "student_id": "162711000760",
-      "student_name": "孙佳",
-      "student_pwd": "Sj199604@",
-      "room_id": "f4p5rj-r1s7ke-dmup4-eoqda",
-      "room_text": "2",
-      "grade_id": "hg9pz-qxoiw2-8hgd8-bmtr5",
-      "grade_name": "1701B",
-      "subject_id": "wl5yk-38c0g",
-      "subject_text": "javaScript下"
-    },
-    {
-      "student_id": "163231001090",
-      "student_name": "田益莎",
-      "student_pwd": "Tian1996*",
-      "room_id": "f4p5rj-r1s7ke-dmup4-eoqda",
-      "room_text": "2",
-      "grade_id": "hg9pz-qxoiw2-8hgd8-bmtr5",
-      "grade_name": "1701B",
-      "subject_id": "wl5yk-38c0g",
-      "subject_text": "javaScript下"
-    },
-    {
-      "student_id": "18382100109",
-      "student_name": "刘敢",
-      "student_pwd": "Lg0401^",
-      "room_id": "f4p5rj-r1s7ke-dmup4-eoqda",
-      "room_text": "2",
-      "grade_id": "hg9pz-qxoiw2-8hgd8-bmtr5",
-      "grade_name": "1701B",
-      "subject_id": "wl5yk-38c0g",
-      "subject_text": "javaScript下"
-    },
-    {
-      "student_id": "163221000007",
-      "student_name": "何智博",
-      "student_pwd": "HZBqq123!",
-      "room_id": "f4p5rj-r1s7ke-dmup4-eoqda",
-      "room_text": "2",
-      "grade_id": "hg9pz-qxoiw2-8hgd8-bmtr5",
-      "grade_name": "1701B",
-      "subject_id": "wl5yk-38c0g",
-      "subject_text": "javaScript下"
-    },
-    {
-      "student_id": "18382100172",
-      "student_name": "程鹏",
-      "student_pwd": "Qq*995809742",
-      "room_id": "f4p5rj-r1s7ke-dmup4-eoqda",
-      "room_text": "2",
-      "grade_id": "hg9pz-qxoiw2-8hgd8-bmtr5",
-      "grade_name": "1701B",
-      "subject_id": "wl5yk-38c0g",
-      "subject_text": "javaScript下"
-    },
-    {
-      "student_id": "18382100177",
-      "student_name": "高炎鑫",
-      "student_pwd": "GAOgao123@",
-      "room_id": "f4p5rj-r1s7ke-dmup4-eoqda",
-      "room_text": "2",
-      "grade_id": "hg9pz-qxoiw2-8hgd8-bmtr5",
-      "grade_name": "1701B",
-      "subject_id": "wl5yk-38c0g",
-      "subject_text": "javaScript下"
-    },
-    {
-      "student_id": "162711000926",
-      "student_name": "杨丽娜",
-      "student_pwd": "YLNyln123@",
-      "room_id": "f4p5rj-r1s7ke-dmup4-eoqda",
-      "room_text": "2",
-      "grade_id": "hg9pz-qxoiw2-8hgd8-bmtr5",
-      "grade_name": "1701B",
-      "subject_id": "wl5yk-38c0g",
-      "subject_text": "javaScript下"
-    },
-    {
-      "student_id": "163231000428",
-      "student_name": "位贺",
-      "student_pwd": "Wh@03291238",
-      "room_id": "f4p5rj-r1s7ke-dmup4-eoqda",
-      "room_text": "2",
-      "grade_id": "hg9pz-qxoiw2-8hgd8-bmtr5",
-      "grade_name": "1701B",
-      "subject_id": "wl5yk-38c0g",
-      "subject_text": "javaScript下"
-    },
-    {
-      "student_id": "152121000304",
-      "student_name": "孙磊",
-      "student_pwd": "@Sl19951016",
-      "room_id": "f4p5rj-r1s7ke-dmup4-eoqda",
-      "room_text": "2",
-      "grade_id": "hg9pz-qxoiw2-8hgd8-bmtr5",
-      "grade_name": "1701B",
-      "subject_id": "wl5yk-38c0g",
-      "subject_text": "javaScript下"
-    },
-    {
-      "student_id": "163231000014",
-      "student_name": "李宁",
-      "student_pwd": "A@s12.21",
-      "room_id": "f4p5rj-r1s7ke-dmup4-eoqda",
-      "room_text": "2",
-      "grade_id": "hg9pz-qxoiw2-8hgd8-bmtr5",
-      "grade_name": "1701B",
-      "subject_id": "wl5yk-38c0g",
-      "subject_…
-    }
-}</div> -->
 </template>
 
 <script>
@@ -426,10 +91,10 @@
 import path from 'path'
 import { deepClone } from '@/utils'
 // getRoutes addRole 删除提交确定点不了 具体干什么不知道
-// getRoles 3条模拟数据：从服务器获取所有路由和角色列表
+// getGrade 3条模拟数据：从服务器获取所有路由和角色列表
 // deleteRole 删除数据
 // updateRole 修改数据
-import { getRoutes, getRoles, addRole, updateRole } from '@/api/role'
+import { getRoutes, getGrade, addGrade } from '@/api/role'
 import i18n from '@/lang'
 
 const defaultRole = {
@@ -466,7 +131,7 @@ export default {
     // Mock: get all routes and roles list from server
     // 模拟：从服务器获取所有路由和角色列表
     this.getRoutes()
-    this.getRoles()
+    this.getGrade()
   },
   methods: {
     async getRoutes() {
@@ -475,8 +140,8 @@ export default {
       const routes = this.generateRoutes(res.data)
       this.routes = this.i18n(routes)
     },
-    async getRoles() {
-      const res = await getRoles()
+    async getGrade() {
+      const res = await getGrade()
       this.rolesList = res.data
       console.log('this.rolesList.....', this.rolesList)
     },
@@ -591,35 +256,40 @@ export default {
     },
     // 确定添加
     async confirmRole() {
-      const isEdit = this.dialogType === 'edit'
-      const checkedKeys = this.$refs.tree.getCheckedKeys()
-      this.role.routes = this.generateTree(deepClone(this.serviceRoutes), '/', checkedKeys)
-      if (isEdit) {
-        await updateRole(this.role.key, this.role)
-        // console.log(this.role.key);
-        for (let index = 0; index < this.rolesList.length; index++) {
-          if (this.rolesList[index].key === this.role.key) {
-            this.rolesList.splice(index, 1, Object.assign({}, this.role))
-            break
-          }
-        }
-      } else {
-        const { data } = await addRole(this.role)
-        this.role.key = data.key
-        this.rolesList.push(this.role)
-      }
-      const { description, keys, name } = this.role
+      await addGrade(this.role)
+      console.log('this.role.......', this.role)
+      this.rolesList.push(this.role)
+
       this.dialogVisible = false
-      this.$notify({
-        title: 'Success',
-        dangerouslyUseHTMLString: true,
-        message: `
-              <div>Role Key: ${keys}</div>
-              <div>Role Nmae: ${name}</div>
-              <div>Description: ${description}</div>
-            `,
-        type: 'success'
-      })
+      // const isEdit = this.dialogType === 'edit'
+      // const checkedKeys = this.$refs.tree.getCheckedKeys()
+      // this.role.routes = this.generateTree(deepClone(this.serviceRoutes), '/', checkedKeys)
+      // if (isEdit) {
+      //   await updateRole(this.role.key, this.role)
+      //   // console.log(this.role.key);
+      //   for (let index = 0; index < this.rolesList.length; index++) {
+      //     if (this.rolesList[index].key === this.role.key) {
+      //       this.rolesList.splice(index, 1, Object.assign({}, this.role))
+      //       break
+      //     }
+      //   }
+      // } else {
+      //   const { data } = await addRole(this.role)
+      //   this.role.key = data.key
+      //   this.rolesList.push(this.role)
+      // }
+      // const { description, keys, name } = this.role
+      // this.dialogVisible = false
+      // this.$notify({
+      //   title: 'Success',
+      //   dangerouslyUseHTMLString: true,
+      //   message: `
+      //         <div>Role Key: ${keys}</div>
+      //         <div>Role Nmae: ${name}</div>
+      //         <div>Description: ${description}</div>
+      //       `,
+      //   type: 'success'
+      // })
     },
     // reference: src/view/layout/components/Sidebar/SidebarItem.vue
     onlyOneShowingChild(children = [], parent) {

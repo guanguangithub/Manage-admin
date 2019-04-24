@@ -1,15 +1,17 @@
 <template>
   <div>
-    <ClassManagement />
+    <!-- <ClassManagement /> -->
+    <Class />
   </div>
 </template>
 
 <script>
-import ClassManagement from '@/components/aclassManagement/classManagement'
-
+// import ClassManagement from '@/components/aclassManagement/classManagement'
+import Class from '@/components/aclassManagement/class'
 export default {
   components: {
-    ClassManagement
+    // ClassManagement,
+    Class
   },
   data() {
     return {

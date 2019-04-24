@@ -25,23 +25,20 @@
         </el-table>
 
         <el-dialog :visible.sync="dialogVisible" :title="dialogType==='edit'?'':'添加教室'">
-          <el-form :model="role" label-width="80px" label-position="left">
+          <el-form label-width="80px" label-position="left">
             <el-form-item label="教室号">
               <el-input
-                v-model="role.room_text"
-                placeholder="教室号"
+                v-model="role"
+                placeholder="需要添加的教室号"
               />
               <el-tree ref="tree" node-key="path" :style="{display:'none'}" />
             </el-form-item>
-            <!-- <el-form-item label="Menus">
-              <el-tree ref="tree" :check-strictly="checkStrictly" :data="routesData" :props="defaultProps" show-checkbox node-key="path" class="permission-tree" />
-            </el-form-item> -->
           </el-form>
           <div style="text-align:right;">
             <el-button type="danger" @click="dialogVisible=false">
               {{ $t('permission.cancel') }}
             </el-button>
-            <el-button type="primary" @click="confirmRole">
+            <el-button type="primary" @click="confirmRole(role)">
               {{ $t('permission.confirm') }}
             </el-button>
           </div>
@@ -57,90 +54,69 @@
 // ,getRoles addRole
 import { addRoom, deleteRoom, getRoom } from '@/api/role'
 // import i18n from '@/lang'
-
-const defaultRole = {
-  // key: '',
-  // name: '',
-  description: '',
-  routes: []
-}
-
+// import { mapState, mapActions } from 'vuex'
 export default {
   data() {
     return {
-      role: Object.assign({}, defaultRole),
+      role: '',
+      // role:[],
       routes: [],
       rolesList: [],
+      // 弹框
       dialogVisible: false,
       dialogType: 'new',
       checkStrictly: false,
       defaultProps: {
         children: 'children',
         label: 'title'
-      }
+      },
+      clearable: true
     }
   },
   computed: {
-    routesData() {
-      return this.routes
-    }
+    // routesData() {
+    //   return this.routes
+    // }
+    // ...mapState({})
   },
+  // mounted() {
+  //   this.getAllRoom().then(res => {
+  //     if (res.code === 1) {
+  //       this.rolesList = res.data
+  //     }
+  //   })
+  // },
   created() {
-    // Mock: get all routes and roles list from server
     this.getRoom()
   },
   methods: {
+    // ...mapActions({
+    //   getAllRoom: 'aclass/getAllRoom',
+    //   addRoom: 'aclass/addRoom',
+    //   DeleteRoom: 'aclass/DeleteRoom'
+    // }),
     async getRoom() {
       const res = await getRoom()
       console.log('res////////', res)
       this.rolesList = res.data
-      // console.log("this.rolesList////////",this.rolesList);
     },
-    // Reshape the routes structure so that it looks the same as the sidebar
-    // generateArr(routes) {
-    //   let data = []
-    //   routes.forEach(route => {
-    //     data.push(route)
-    //     if (route.children) {
-    //       const temp = this.generateArr(route.children)
-    //       if (temp.length > 0) {
-    //         data = [...data, ...temp]
-    //       }
-    //     }
-    //   })
-    //   return data
-    // },
     handleAddRole() {
-      // this.role = Object.assign({}, defaultRole)
-      // console.log("role../././././.",this.role);
-
       if (this.$refs.tree) {
         this.$refs.tree.setCheckedNodes([])
       }
       this.dialogType = 'new'
       this.dialogVisible = true
     },
-    // handleEdit(scope) {
-    //   this.dialogType = 'edit'
-    //   this.dialogVisible = true
-    //   this.checkStrictly = true
-    //   this.role = deepClone(scope.row)
-    //   this.$nextTick(() => {
-    //     const routes = this.generateRoutes(this.role.routes)
-    //     this.$refs.tree.setCheckedNodes(this.generateArr(routes))
-    //     // set checked state of a node not affects its father and child nodes
-    //     this.checkStrictly = false
-    //   })
-    // },
     handleDelete({ $index, row }) {
-      // console.log(',,,,,,,,,,,,,,,', $index,'............', row.room_id );
-
+      console.log(row)
       this.$confirm('确定删除吗?', {
         confirmButtonText: '确定',
         cancelButtonText: '取消'
       })
         .then(async() => {
           await deleteRoom(row.room_id)
+          // console.log(row,"row........");
+
           this.rolesList.splice($index, 1)
           this.$message({
             type: 'success',
@@ -149,65 +125,18 @@ export default {
         })
         .catch(err => { console.error(err) })
     },
-    // generateTree(routes, basePath = '/', checkedKeys) {
-    //   const res = []
-
-    //   for (const route of routes) {
-    //     const routePath = path.resolve(basePath, route.path)
-
-    //     // recursive child routes
-    //     if (route.children) {
-    //       route.children = this.generateTree(route.children, routePath, checkedKeys)
-    //     }
-
-    //     if (checkedKeys.includes(routePath) || (route.children && route.children.length >= 1)) {
-    //       res.push(route)
-    //     }
-    //   }
-    //   return res
-    // },
     async confirmRole() {
-      // const isEdit = this.dialogType === 'edit'
+      console.log(this.role, 'role,,...........')
 
-      // const checkedKeys = this.$refs.tree.getCheckedKeys()
-      // this.role.routes = this.generateTree(deepClone(this.serviceRoutes), '/', checkedKeys)
+      const res = await addRoom(this.role)
+      console.log(res)
 
-      // if (isEdit) {
-      //   await updateRole(this.role.key, this.role)
-      //   for (let index = 0; index < this.rolesList.length; index++) {
-      //     if (this.rolesList[index].key === this.role.key) {
-      //       this.rolesList.splice(index, 1, Object.assign({}, this.role))
-      //       break
-      //     }
-      //   }
-      // } else {
-      await addRoom(this.role)
-      console.log('this.role,,,,,,,,,,', this.role)
-      // this.role.key = data.key
-      this.rolesList.push(this.role)
-      // }
+      // console.log('this.role,,,,,,,,,,', this.role)
+      this.rolesList.push({ room_text: this.role, room_id: res.room_id })
+      // this.role.room_text=''
+      // this.checkStrictly = false
       this.dialogVisible = false
     }
-    // reference: src/view/layout/components/Sidebar/SidebarItem.vue
-    // onlyOneShowingChild(children = [], parent) {
-    //   let onlyOneChild = null
-    //   const showingChildren = children.filter(item => !item.hidden)
-
-    //   // When there is only one child route, the child route is displayed by default
-    //   if (showingChildren.length === 1) {
-    //     onlyOneChild = showingChildren[0]
-    //     onlyOneChild.path = path.resolve(parent.path, onlyOneChild.path)
-    //     return onlyOneChild
-    //   }
-
-    //   // Show parent if there are no child route to display
-    //   if (showingChildren.length === 0) {
-    //     onlyOneChild = { ... parent, path: '', noShowingChildren: true }
-    //     return onlyOneChild
-    //   }
-
-    //   return false
-    // }
   }
 }
 </script>

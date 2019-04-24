@@ -7,11 +7,12 @@
       <sticky :z-index="10" class-name="sub-navbar">
         <el-form :style="{float:'left','margin-left':'5px'}">
           <el-input v-model="yName" placeholder="输入学生名字" :style="{width:'200px'}" />
-          <el-select v-model="rolesList.grade_name" placeholder="请选择教室号">
+          <el-select v-model="rolesList.room_text" placeholder="请选择教室号">
+
             <el-option v-for="item in array" :key="item.value" :value="item" />
           </el-select>
-          <el-select v-model="rolesList.room_text" placeholder="班级名">
-            <el-option v-for="item in rolesList" :key="item.value" :value="item.grade_name" />
+          <el-select v-model="rolesList.grade_name" placeholder="班级名">
+            <el-option v-for="item in arrays" :key="item.value" :value="item" />
           </el-select>
           <el-tree ref="tree" node-key="path" :style="{display:'none'}" />
           <el-button>搜索</el-button>
@@ -111,7 +112,9 @@ export default {
       currpage: 1,
       yName: '',
       arr: [],
-      array: []
+      array: [],
+      arrays: [],
+      arrs: []
     }
   },
   beforeCreat() {
@@ -133,9 +136,20 @@ export default {
     //   return arrByZM
     // }
   },
+  watch: {
+    rolesList(val, vad) {
+      if (val) {
+        this.arraycq()
+        this.arraycqs()
+      }
+    }
+  },
   created() {
     this.getStudent()
-    // this.a()
+    // this.arraycq()
+  },
+  mounted() {
+    // this.arraycq()
   },
   methods: {
     handleSizeChange(val) {
@@ -150,28 +164,46 @@ export default {
       const res = await getStudent()
       this.rolesList = res.data
       this.num = res.data.length
-      console.log('res......', this.num)
+      // console.log('res......', this.num)
+      // console.log(this.rolesList,1);
+    },
+    arraycq() {
+      // console.log(this.rolesList,2);
+      // this.rolesList = res.data
+
+      this.rolesList.forEach(item => {
+        this.arr.push(item.room_text)
+        // console.log(this.arr,'item.room_text,,,,,,,,,,,,');
+      })
+      // console.log(this.rolesList.length);
+
+      for (var i = 0; i < this.arr.length; i++) {
+        if (this.array.indexOf(this.arr[i]) === -1) {
+          this.array.push(this.arr[i])
+        }
+      }
+      return this.array
+      // console.log(that.array, 'array,,,')
+    },
+    arraycqs() {
+      // console.log(this.rolesList,2);
+      // this.rolesList = res.data
+
+      this.rolesList.forEach(item => {
+        this.arrs.push(item.grade_name)
+        // console.log(this.arrs,'item.room_text,,,,,,,,,,,,');
+      })
+      // console.log(this.rolesList.length);
+
+      for (var i = 0; i < this.arrs.length; i++) {
+        if (this.arrays.indexOf(this.arrs[i]) === -1) {
+          this.arrays.push(this.arrs[i])
+        }
+      }
+      return this.arrays
+      // console.log(that.array, 'array,,,')
     }
-    // a() {
-    //   // let that = this
-    //   this.rolesList.forEach(item => {
-    //     this.arr.push(item.room_text)
-    //     // console.log(arr.length,'item.room_text,,,,,,,,,,,,');
-    //   })
-    //   // console.log(this.rolesList.length);
-
-    //   for (var i = 0; i < this.arr.length; i++) {
-    //     if (this.array.indexOf(this.arr[i]) === -1) {
-    //       this.array.push(this.arr[i])
-    //     }
-    //   }
-    //   return this.array
-    //   // console.log(this.array, 'array,,,')
-    // }
   }
-  // qc: function() {
-
-  // }
 }
 </script>
 <style lang="scss" scoped>

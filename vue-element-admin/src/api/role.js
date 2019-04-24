@@ -16,30 +16,32 @@ export function getStudent() {
 }
 
 // 获取已经分配教室的班级的接口
-export function getRoles() {
+export function getGrade() {
   return request({
     url: '/manger/grade',
     method: 'get'
   })
 }
 // 添加教室接口
-// export function addRoom(room_text) {
+// export function addRoom(id, data) {
 //   return request({
-//     url: '/manger/room',
+//     url: `/manger/room${id}`,
 //     method: 'post',
-//     data: { room_text }
+//     data
 //   })
 // }
-export function addRoom(data) {
+// export const addRoom = data => fetch('/manger/room', data, 'POST')
+export function addRoom(room_text) {
   return request({
     url: '/manger/room',
     method: 'post',
-    data
+    data: { room_text }
   })
 }
-export function updateRole(id, data) {
+// 更新教室
+export function updateRoom(id, data) {
   return request({
-    url: `/role/${id}`,
+    url: `/manger/room/update${id}`,
     method: 'put',
     data
   })
@@ -52,3 +54,12 @@ export function deleteRoom(room_id) {
     data: { room_id }
   })
 }
+// 添加班级
+export function addGrade(data) {
+  return request({
+    url: `/manger/grade`,
+    method: 'post',
+    data
+  })
+}
+// export const addGrade = data => fetch('/manger/grade', data, 'POST')

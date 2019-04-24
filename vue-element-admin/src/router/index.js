@@ -11,7 +11,7 @@ import Layout from '@/layout'
 // import chartsRouter from './modules/charts'
 // import tableRouter from './modules/table'
 // import nestedRouter from './modules/nested'
-import testRouter from './modules/qustions'
+import { testRouter, detailRouter } from './modules/qustions'
 /** 考试管理 */
 // import componentsRouter from './modules/components'
 // import chartsRouter from './modules/charts'
@@ -24,6 +24,8 @@ import usermanageRouter from './modules/UserManagement'
 /* 批卷路由 */
 import readingRouter from './modules/reading'
 import aclassManagementRouter from './modules/aclassManagement'
+/* 上传图片 */
+import uploadimageRouter from './modules/uploadimage'
 
 // import componentsRouter from './modules/components'
 // import chartsRouter from './modules/charts'
@@ -57,12 +59,13 @@ import aclassManagementRouter from './modules/aclassManagement'
  * all roles can be accessed
  */
 export const constantRoutes = [
-  examsRouter,
   testRouter,
   usermanageRouter,
-  readingRouter,
+  examsRouter,
   aclassManagementRouter,
-
+  readingRouter,
+  detailRouter,
+  uploadimageRouter,
   {
     path: '/redirect',
     component: Layout,
@@ -77,7 +80,8 @@ export const constantRoutes = [
   {
     path: '/login',
     component: () => import('@/views/login/index'),
-    hidden: true
+    hidden: true,
+    view_id: 'login'
   },
   {
     path: '/auth-redirect',
@@ -98,6 +102,7 @@ export const constantRoutes = [
     path: '',
     component: Layout,
     redirect: 'dashboard',
+    hidden: true,
     children: [
       {
         path: 'dashboard',
@@ -122,19 +127,6 @@ export const constantRoutes = [
   //   path: '/auth-redirect',
   //   component: () => import('@/views/login/authRedirect'),
   //   hidden: true
-  // },
-  // {
-  //   path: '',
-  //   component: Layout,
-  //   redirect: 'dashboard',
-  //   children: [
-  //     {
-  //       path: 'dashboard',
-  //       component: () => import('@/views/dashboard/index'),
-  //       name: 'Dashboard',
-  //       meta: { title: 'dashboard', icon: 'dashboard', noCache: true, affix: true }
-  //     }
-  //   ]
   // },
   // {
   //   path: '/documentation',
@@ -168,6 +160,18 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
+  // {
+  //   path: '/tab',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/tab/index'),
+  //       name: 'Tab',
+  //       meta: { title: 'tab', icon: 'tab' }
+  //     }
+  //   ]
+  // },
   // {
   //   path: '/permission',
   //   component: Layout,
@@ -222,7 +226,7 @@ export const asyncRoutes = [
   //   ]
   // },
 
-  /** when your routing map is too long, you can split it into small modules **/
+  // /** when your routing map is too long, you can split it into small modules **/
   // componentsRouter,
   // chartsRouter,
   // nestedRouter,
@@ -255,19 +259,6 @@ export const asyncRoutes = [
   //       component: () => import('@/views/example/list'),
   //       name: 'ArticleList',
   //       meta: { title: 'articleList', icon: 'list' }
-  //     }
-  //   ]
-  // },
-
-  // {
-  //   path: '/tab',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       component: () => import('@/views/tab/index'),
-  //       name: 'Tab',
-  //       meta: { title: 'tab', icon: 'tab' }
   //     }
   //   ]
   // },

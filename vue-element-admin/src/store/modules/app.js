@@ -55,6 +55,7 @@ const actions = {
   setSize({ commit }, size) {
     commit('SET_SIZE', size)
   }
+
 }
 
 export default {

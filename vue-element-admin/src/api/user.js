@@ -8,11 +8,10 @@ export function login(data) {
   })
 }
 
-export function getInfo(token) {
+export function getInfo() {
   return request({
-    url: '/user/info',
-    method: 'get',
-    params: { token }
+    url: '/user/userInfo',
+    method: 'get'
   })
 }
 
@@ -20,6 +19,42 @@ export function logout() {
   return request({
     url: '/user/logout',
     method: 'post'
+  })
+}
+
+export function getUserInfo() {
+  return request({
+    url: '/user/userInfo',
+    method: 'get'
+  })
+}
+export function updateUserInfo(data) {
+  console.log('data...', data)
+  return request({
+    url: '/user/user',
+    method: 'put',
+    data
+  })
+}
+export function GetviewAuthority() {
+  return request({
+    url: '/user/view_authority',
+    method: 'get'
+  })
+}
+export function userupdata(data) {
+  return request({
+    url: '/user/user',
+    method: 'put',
+    data
+  })
+}
+
+export function avatarUser(data) {
+  return request({
+    url: '/user/user',
+    method: 'put',
+    data
   })
 }
 

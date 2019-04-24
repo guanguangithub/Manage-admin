@@ -11,7 +11,6 @@ const port = 9527 // dev port
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
- 
   /**
    * You will need to set publicPath if you plan to deploy your site under a sub path,
    * for example GitHub Pages. If you plan to deploy your site to https://foo.github.io/bar/,
@@ -35,14 +34,14 @@ module.exports = {
     proxy: {
       // change xxx-api/login => mock/login
       // detail: https://cli.vuejs.org/config/#devserver-proxy
-     "/api":{
-       target:`http://169.254.12.1:7001/`,
-       changeOrigin:true,
-       pathRewrite:{
-         "/api":""
-       }
-     }
-    },
+      '/api': {
+        target: 'http://169.254.12.1:7001/',
+        changeOrigin: true,
+        pathRewrite: {
+          '/api': ''
+        }
+      }
+    }
     // after: require('./mock/mock-server.js')
   },
   configureWebpack: {
@@ -52,7 +51,7 @@ module.exports = {
     resolve: {
       alias: {
         '@': resolve('src'),
-        "vue$":"vue/dist/vue.runtime.esm.js"
+        'vue$': 'vue/dist/vue.runtime.esm.js'
       }
     }
   },

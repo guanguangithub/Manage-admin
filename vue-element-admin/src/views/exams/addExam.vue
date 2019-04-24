@@ -1,196 +1,179 @@
 <template>
   <div class="addexam-bg">
     <h5>添加考试</h5>
-    <ul class="addexam-container">
-      <li>
-        <label for="paper-type"> <span class="addexam-must">*</span> 试卷名称</label>
-        <span class="type-ipt"><el-input v-model="input" placeholder="请输入内容" size="large" /></span>
-
-      </li>
-      <li>
-        <label for="exam-type"> <span class="addexam-must">*</span> 选择考试类型</label>
-        <span>
-          <el-select v-model="examValue" placeholder="请选择" size="large">
-            <el-option
-              v-for="item in examOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
-        </span>
-
-      </li>
-      <li>
-        <label for="lesson-type"> <span class="addexam-must">*</span> 选择课程</label>
-        <span class="type-ipt">
-          <el-select v-model="lessonValue" placeholder="请选择" size="large">
-            <el-option
-              v-for="item in lessonOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
-        </span>
-
-      </li>
-      <li>
-        <label for="setting-count"> <span class="addexam-must">*</span> 设置数量：</label>
-        <span class="count-ipt">
-          <el-input v-model="Countinput" type="number" size="large" />
-        </span>
-
-      </li>
-      <li>
-        <label for="exam-time"> <span class="addexam-must">*</span> 考试时间</label>
-        <div class="block">
-          <el-date-picker
-            v-model="startValue"
-            size="large"
-            type="datetime"
-            placeholder="选择日期时间"
-            default-time="00:00:00"
-          /> -
-          <el-date-picker
-            v-model="endValue"
-            size="large"
-            type="datetime"
-            placeholder="选择日期时间"
-            default-time="12:00:00"
-          />
-        </div>
-      </li> <!--  -->
-      <li>
-        <span class="submitbtn"><el-button type="primary">创建试卷</el-button></span>
-
-      </li>
-    </ul>
+    <div class="addexam-container">
+      <el-form
+        ref="ruleForm"
+        :model="ruleForm"
+        :rules="rules"
+        size="large"
+        :label-position="labelPosition"
+        label-width="70px"
+        class="demo-ruleForm"
+      >
+        <el-form-item label="活动名称" prop="title">
+          <el-col :span="12"><el-input v-model="ruleForm.title" size="large" /></el-col>
+        </el-form-item>
+        <el-form-item label="选择考试类型" prop="exam_id">
+          <el-col :span="10">
+            <el-select v-model="ruleForm.exam_id" placeholder="选择考试类型" size="large">
+              <el-option v-for="item in this.examlist.data" :key="item.exam_id" :label="item.exam_name" :value="item.exam_id" />
+            </el-select>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="选择课程" prop="subject_id">
+          <el-col :span="10">
+            <el-select v-model="ruleForm.subject_id" placeholder="选择课程" size="large">
+              <el-option v-for="item in this.subjectlist.data" :key="item.subject_id" :label="item.subject_text" :value="item.subject_id" />
+            </el-select>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="设置题量" prop="number">
+          <el-col :span="3"> <el-input v-model="ruleForm.number" type="number" size="large" /></el-col>
+        </el-form-item>
+        <el-form-item label="考试时间" required>
+          <el-col :span="9">
+            <el-form-item prop="start_time">
+              <el-date-picker v-model="ruleForm.start_time" type="datetime" placeholder="选择日期" style="width: 100%;" size="large" />
+            </el-form-item>
+          </el-col>
+          <el-col class="line" :span="1"> &nbsp;-</el-col>
+          <el-col :span="9">
+            <el-form-item prop="end_time">
+              <el-date-picker v-model="ruleForm.end_time" type="datetime" placeholder="选择日期" style="width: 100%;" size="large" />
+            </el-form-item>
+          </el-col>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')">创建试卷</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      input: '',
-      examOptions: [{
-        value: '选项1',
-        label: ' 周考1'
-      }, {
-        value: '选项2',
-        label: '周考2'
-      }, {
-        value: '选项3',
-        label: '周考3'
-      }, {
-        value: '选项4',
-        label: '月考'
-      }],
-      examValue: '',
-      lessonOptions: [{
-        value: '选项1',
-        label: ' javascript上'
-      }, {
-        value: '选项2',
-        label: 'javascript下'
-      }, {
-        value: '选项3',
-        label: 'jquery'
-      }, {
-        value: '选项4',
-        label: 'h5'
+      labelPosition: 'top',
+      ruleForm: {
+        title: '',
+        subject_id: '',
+        exam_id: '',
+        start_time: '',
+        end_time: '',
+        delivery: false,
+        type: [],
+        resource: '',
+        desc: '',
+        number: 4
       },
-      {
-        value: '选项5',
-        label: 'nodejs'
-      }, {
-        value: '选项6',
-        label: 'vue'
-      }, {
-        value: '选项7',
-        label: 'react'
-      }, {
-        value: '选项8',
-        label: '小程序'
-      }, {
-        value: '选项9',
-        label: '实训1'
-      }, {
-        value: '选项10',
-        label: '实训2'
-      }],
-      lessonValue: '',
-      Countinput: 4,
-      startValue: '',
-      endValue: ''
+      rules: {
+        title: [
+          { required: true, message: '请输入活动名称', trigger: 'blur' },
+          { min: 3, max: 10, message: '长度在 3 到10 个字符', trigger: 'blur' }
+        ],
+        number: [
+          { required: true, message: '请输入题量', trigger: 'blur' }
+        ],
+        subject_id: [
+          { required: true, message: '请选择活动区域', trigger: 'change' }
+        ],
+        start_time: [
+          { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+        ],
+        end_time: [
+          { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
+        ],
+        type: [
+          { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
+        ],
+        resource: [
+          { required: true, message: '请选择活动资源', trigger: 'change' }
+        ],
+        desc: [
+          { required: true, message: '请填写活动形式', trigger: 'blur' }
+        ]
+      }
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'examlist',
+      'subjectlist'
+    ])
+  },
+  async created() {
+    await this.getexamtype()
+    await this.getexamsubject()
+  },
+  methods: {
+    ...mapActions({
+      addExam: 'exam/addExam',
+      getexamtype: 'examType/getexamtype',
+      getexamsubject: 'examType/getexamsubject'
+    }),
+    submitForm(formName) {
+      // console.log(this.$refs[formName].validate())
+      this.$refs[formName].validate(async(valid) => {
+        if (valid) {
+          const { title, number, start_time, end_time, exam_id, subject_id } = this.ruleForm
+          const res = await this.addExam({
+            subject_id,
+            exam_id,
+            title,
+            number: number * 1,
+            start_time: new Date(start_time) * 1,
+            end_time: new Date(end_time) * 1
+          })
+          // alert('submit!')
+          this.$router.push('/exams/editExam/' + res.data.exam_exam_id)
+        } else {
+          console.log('请输入合法信息!!')
+          return false
+        }
+      })
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields()
     }
   }
 }
 </script>
-
-<style lang="scss">
-
-    .addexam-bg{
-       height:698px;
-        background: #F0F2F5;
-        padding:0 35px;
-        overflow-y: auto;
-
-        >h5{padding:0;
-            margin:0;
-            width: 100%;
-            height: 100px;
-            line-height: 100px;
-            font-weight: normal;
-            font-size: 24px;
-            color:#242425;
-        }
-    }
-    .addexam-container{
-        padding:0;
-        margin:0;
-        box-sizing:border;
-        border-radius: 3px;
-        width: 100%;
-        background:#fff;
-        padding:10px 24px 40px 24px;
-        font-size: 16px;
-        color:#333;
-        list-style-type:none;
-        >li{
-            display:flex;
-            flex-direction: column;
-            justify-content: center;
-            margin-top:20px;
-            >label{
-                margin:15px 0;
-                font-weight: normal;
-                font-size: 18px;
-            }
-        }
-        >li:last-child{
-            margin-top:40px;
-        }
-        >li:first-child{
-            margin-top:0px;
-        }
-    }
-    .addexam-must{
-        color:#F5222D;
-        margin-right:5px;
-    }
-    .type-ipt{
-        width: 60%;
-    }
-    .count-ipt{
-        width: 10%;
-    }
-    .el-button--primary{
+<style lang="scss" scoped>
+  .addexam-bg{
+      width:100%;
+      height:698px;
+      background: #F0F2F5;
+      padding:0 35px;
+      overflow-y: auto;
+      >h5{padding:0;
+          margin:0;
+          width: 100%;
+          height: 100px;
+          line-height: 100px;
+          font-weight: normal;
+          font-size: 24pxx;
+          color:#242425;
+      }
+  }
+  .addexam-container{
+    width: 100%;
+    height: auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 10px;
+  }
+  .el-form-item--medium .el-form-item__label{
+  color:#d55;
+}
+  .el-button--primary{
+        margin-left:20px;
         background:linear-gradient(-90deg,#4e75ff,#0139fd)!important;
         border:0!important;
         width:136px!important;
-        height:35px!important;
-        // padding:0 40px!important;
-
+        height:40px!important;
+        line-height:15px!important;
     }
 </style>

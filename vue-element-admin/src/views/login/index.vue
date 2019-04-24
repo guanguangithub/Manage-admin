@@ -48,12 +48,9 @@
         </el-form-item>
       </el-tooltip>
 
-      <el-button
-        :loading="loading"
-        type="primary"
-        style="width:100%;margin-bottom:30px;"
-        @click.native.prevent="handleLogin"
-      >{{ $t('login.logIn') }}</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">
+        {{ $t('login.logIn') }}
+      </el-button>
     </el-form>
 
     <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog">
@@ -63,6 +60,7 @@
       <br>
       <social-sign />
     </el-dialog>
+
   </div>
 </template>
 
@@ -72,13 +70,14 @@ import LangSelect from '@/components/LangSelect'
 import SocialSign from './socialSignin'
 // 引入 vuex
 import { mapActions } from 'vuex'
+
 export default {
   name: 'Login',
   components: { LangSelect, SocialSign },
   data() {
     // 用户名自定义效验
     const validateUsername = (rule, value, callback) => {
-      console.log('rule------', rule)
+      // console.log('rule------', rule)
       if (!value) {
         callback(new Error('Please enter the correct user name'))
       } else {
@@ -131,15 +130,15 @@ export default {
       this.$refs.password.focus()
     }
   },
-  destroyed() {
-    // window.removeEventListener('storage', this.afterQRScan)
-  },
+
   methods: {
+
     // 引入mapActions 过后去查一下
     ...mapActions({
-      login: 'user/login',
-      generateRoutes: 'permission/generateRoutes'
+      login: 'user/login'
+
     }),
+
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -155,13 +154,13 @@ export default {
         if (valid) {
           this.loading = true
           const res = await this.login(this.loginForm)
+          // console.log('res...', res)
           if (res.code === 1) {
-            await this.generateRoutes([])
             this.$router.push({ path: this.redirect || '/' })
           }
           this.loading = false
         } else {
-          console.log('error submit!!')
+          // console.log('error submit!!')
           return false
         }
       })

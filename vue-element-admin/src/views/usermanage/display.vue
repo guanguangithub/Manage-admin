@@ -5,67 +5,226 @@
     </div>
     <div class="Dispaly_box_type">
       <ul>
-        <li>用户数据</li>
-        <li>身份数据</li>
-        <li>API接口权限</li>
-        <li>身份和API接口关系</li>
-        <li>视图接口权限</li>
-        <li>身份和视图权限关系</li>
+        <li v-for="(item,index) in tableData" :key="index" :class="inds===index?'currentlis':''" @click="liClick(index)">{{ item.names }}</li>
       </ul>
     </div>
-    <div class="Dispaly_box_text">
-      <p>用户数据</p>
-    </div>
+    <h1 class="Dispaly_box_text">
+      <span v-for="(item,index) in tableData" :key="index" :class="inds===index?'currentspans':'currentspan'" @click="liClick(index)">{{ inds===index?item.names:'' }}</span>
+    </h1>
     <div class="Dispaly_box_table">
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="name" label="用户名" width="180px" height="55px" align="center" />
-        <el-table-column prop="pwd" label="密码" height="55px" />
-        <el-table-column prop="Identity" label="身份" width="180px" height="55px" align="center" />
+      <el-table style="width:100%;" :data="data" :row-style="setClass" :header-row-style="headerClass">
+        <el-table-column v-for="(item,index) in tableData[inds].title" :key="index" :label="item.tit" :prop="item.render" />
       </el-table>
     </div>
+    <div class="Dispaly_box_pagination">
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="total"
+        :page-size="limit"
+        :page-count="Math.ceil(total/limit)"
+        :current-page.sync="toals"
+        @current-change="currentChange"
+      />
+    </div>
+
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
       tableData: [
         {
-          pwd: 'dawdawdawd',
-          name: '战士',
-          Identity: '管理员'
+          names: '用户数据',
+          id: '1',
+          title: [
+            {
+              'tit': '用户名',
+              'render': 'user_name'
+            },
+            {
+              'tit': '密码',
+              'render': 'user_pwd'
+            },
+            {
+              'tit': '身份',
+              'render': 'identity_text'
+            }
+          ]
         },
         {
-          pwd: 'grgvsdvseadawdaw',
-          name: '里斯',
-          Identity: '管理员'
+          names: '身份数据',
+          id: '2',
+          title: [
+            {
+              'tit': '身份名称',
+              'render': 'identity_text'
+            }
+          ]
         },
         {
-          pwd: 'vaefdawdawfbsrfsaef',
-          name: '马克',
-          Identity: '管理员'
+          names: 'api接口权限',
+          id: '3',
+          title: [
+            {
+              'tit': 'api权限名称',
+              'render': 'api_authority_text'
+            },
+            {
+              'tit': 'api权限url',
+              'render': 'api_authority_url'
+            },
+            {
+              'tit': 'api权限方法',
+              'render': 'api_authority_method'
+            }
+          ]
+
         },
         {
-          pwd: 'dawvawdawdawcawdaw',
-          name: '李四',
-          Identity: '管理员'
+          names: '身份和api接口关系',
+          id: '4',
+          title: [
+            {
+              'tit': '身份名称',
+              'render': 'identity_text'
+            },
+            {
+              'tit': 'api权限名称',
+              'render': 'api_authority_text'
+            },
+            {
+              'tit': 'api权限url',
+              'render': 'api_authority_url'
+            },
+            {
+              'tit': 'api权限方法',
+              'render': 'api_authority_method'
+            }
+          ]
         },
         {
-          pwd: 'dawvawdawdawcawdaw',
-          name: '大V',
-          Identity: '管理员'
+          names: '身份视图接口权限',
+          id: '5',
+          title: [
+            {
+              'tit': '视图权限名称',
+              'render': 'view_authority_text'
+            },
+            {
+              'tit': '视图id',
+              'render': 'view_id'
+            }
+          ]
         },
         {
-          pwd: 'dawvawdawdawcawdaw',
-          name: '付费',
-          Identity: '管理员'
-        },
-        {
-          pwd: 'dawvawdawdawcawdaw',
-          name: '王企鹅',
-          Identity: '管理员'
+          names: '身份和视图权限关系',
+          id: '6',
+          title: [
+            {
+              'tit': '身份',
+              'render': 'identity_text'
+            },
+            {
+              'tit': '视图名称',
+              'render': 'view_authority_text'
+            },
+            {
+              'tit': '视图id',
+              'render': 'view_id'
+            }
+          ]
         }
-      ]
+      ],
+      inds: 0,
+      list: null,
+      total: 0,
+      limit: 5,
+      data: null,
+      toals: 1
+    }
+  },
+  created() {
+    this.usermanagedele().then(res => {
+      if (res.code === 1) {
+        this.list = res.data
+        this.data = this.list.slice(0, this.limit)
+        this.total = this.list.length
+      }
+    })
+  },
+  methods: {
+    ...mapActions({
+      usermanagedele: 'usermanage/userdelete',
+      identitydele: 'usermanage/identitydelete',
+      apiperdele: 'usermanage/apipermissions',
+      Interfacedele: 'usermanage/InterfaceRelationship',
+      Viewinterdele: 'usermanage/Viewinterface',
+      Identityviewdele: 'usermanage/Identityview'
+    }),
+    liClick(ind) {
+      this.inds = ind
+      this.toals = 1
+      if (this.inds === 0) {
+        this.usermanagedele().then(res => {
+          if (res.code === 1) {
+            this.list = res.data
+            this.total = this.list.length
+            this.data = this.list.slice(0, this.limit)
+          }
+        })
+      } else if (this.inds === 1) {
+        this.identitydele().then(res => {
+          if (res.code === 1) {
+            this.list = res.data
+            this.total = this.list.length
+            this.data = this.list.slice(0, this.limit)
+          }
+        })
+      } else if (this.inds === 2) {
+        this.apiperdele().then(res => {
+          if (res.code === 1) {
+            this.list = res.data
+            this.total = this.list.length
+            this.data = this.list.slice(0, this.limit)
+          }
+        })
+      } else if (this.inds === 3) {
+        this.Interfacedele().then(res => {
+          if (res.code === 1) {
+            this.list = res.data
+            this.total = this.list.length
+            this.data = this.list.slice(0, this.limit)
+          }
+        })
+      } else if (this.inds === 4) {
+        this.Viewinterdele().then(res => {
+          if (res.code === 1) {
+            this.list = res.data
+            this.total = this.list.length
+            this.data = this.list.slice(0, this.limit)
+          }
+        })
+      } else if (this.inds === 5) {
+        this.Identityviewdele().then(res => {
+          if (res.code === 1) {
+            this.list = res.data
+            this.total = this.list.length
+            this.data = this.list.slice(0, this.limit)
+          }
+        })
+      }
+    },
+    currentChange(val) {
+      this.data = this.list.slice((val - 1) * this.limit, val * this.limit)
+    },
+    setClass() {
+      return 'height:50px;background-color:#f0f2f5;'
+    },
+    headerClass() {
+      return 'height:60px;font-size:16px;'
     }
   }
 }
@@ -78,54 +237,83 @@ export default {
 }
 .Dispaly_box {
   width: 100%;
-  height: 850px;
+  height: auto;
   display: flex;
   flex-direction: column;
   background: #f0f2f5;
-}
-.Dispaly_box_header {
-  width: 100%;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  text-indent: 50px;
-  font-size: 30px;
-}
-.Dispaly_box_type {
-  width: 100%;
-  height: 50px;
-  ul {
+  overflow-y:auto;
+  .Dispaly_box_header {
     width: 100%;
-    height: 100%;
+    height: 80px;
     display: flex;
     align-items: center;
-    li {
-      margin-left: 20px;
-      height: 70%;
-      padding: 0 10px;
-      border: 1px solid #ccc;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 12px;
-      &:nth-child(1) {
-        margin-left: 80px;
-      }
+    text-indent: 50px;
+    p{
+      font-size: 26px;
     }
   }
+  .Dispaly_box_type {
+    width: 100%;
+    height: 50px;
+    ul{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        .currentlis{
+            border-color: #0139FD;
+            box-shadow: none !important
+        }
+        li {
+          height: 70%;
+          width:180px;
+          border: 1px solid #ccc;
+          background-color: #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 12px;
+          &:nth-child(1) {
+            margin-left: 80px;
+          }
+        }
+        li:hover{
+          color: #0139FD;
+        }
+    }
+  }
+  .Dispaly_box_text{
+    width:100%;
+    height:60px;
+    font-size:26px;
+    display: flex;
+    align-items: center;
+    .currentspan{
+      display: none;
+    }
+    .currentspans{
+      display: flex;
+    }
+    span{
+      margin-left: 50px;
+      font-size:26px;
+      font-weight: normal;
+    }
+  }
+  .Dispaly_box_table{
+    margin: 0 auto;
+    width:95%;
+    height:auto;
+  }
+  .Dispaly_box_pagination{
+    margin: 20px auto;
+    width:95%;
+    height:60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
 }
-.Dispaly_box_text {
-  width: 100%;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  text-indent: 50px;
-  font-size: 26px;
-}
-.Dispaly_box_table {
-  margin: 0 auto;
-  width: 90%;
-  height: auto;
-}
+
 </style>
 

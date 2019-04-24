@@ -81,7 +81,8 @@ export default {
     studentManagement: '学生管理',
     detail: '试题详情',
     uploadimage: '上传图片',
-    uploadDetele: '图片详情'
+    uploadDetele: '图片详情',
+    usertitle: '用户头像更改'
   },
   navbar: {
     logOut: '退出登录',

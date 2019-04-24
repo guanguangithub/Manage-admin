@@ -27,6 +27,7 @@ const getters = {
   InterArr: state => state.usermanage.InterArr,
   ViewinterArr: state => state.usermanage.ViewinterArr,
   IdentityviewArr: state => state.usermanage.IdentityviewArr,
-  userInfo: state => state.user.userInfo
+  userInfo: state => state.user.userInfo,
+  studentArr: state => state.Testmanagement.studentArr
 }
 export default getters

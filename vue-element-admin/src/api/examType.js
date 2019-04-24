@@ -49,6 +49,14 @@ export function checkitems() {
     method: 'get'
   })
 }
+// /exam/questions/condition按条件获取试题
+export function condition() {
+  return request({
+    url: 'exam/questions/condition',
+    method: 'get'
+  })
+}
+
 // exam/questions/update //更新试题
 export function updateQuestionsType(data) {
   console.log(data)
@@ -59,3 +67,20 @@ export function updateQuestionsType(data) {
   })
 }
 //
+// export function updatedata(data) { // 更新用户头像
+//   console.log(data)
+//   return request({
+//     url: 'user/user',
+//     method: 'put',
+//     data
+//   })
+// }
+// /exam/delQuestionsType
+export function delQuestionsType(data) { // 删除考试类型
+  console.log(data)
+  return request({
+    url: 'exam/delQuestionsType',
+    method: 'post',
+    data
+  })
+}

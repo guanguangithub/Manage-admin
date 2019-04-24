@@ -16,14 +16,9 @@
         <div class="content-main">
           <p>题目主题</p>
           <div class="content-box">
-            <texaImg />
-            <textarea
-              v-model="title"
-              cols="30"
-              rows="10"
-              placeholder="请输入内容..."
-              @input="titleTheme($event)"
-            />
+            <!-- <texaImg /> -->
+            <markdown-editor v-model="contenttitle" />
+
           </div>
           <div class="select-check">
             <p>请选择考试类型</p>
@@ -58,17 +53,10 @@
               />
             </el-select>
           </div>
+          <p>答案信息</p>
           <div class="content-box">
-            <texaImg />
-            <textarea
-              id
-              v-model="answer"
-              name
-              cols="30"
-              rows="10"
-              placeholder="请输入内容..."
-              @input="answerinfo($event)"
-            />
+
+            <markdown-editor v-model="content" />
           </div>
         </div>
         <!-- 提交时请求接口 /exam/questions 参数questions_type_id(试题类型id)  questions_stem(题干) subject_id(课程id) exam_id(考试类型id) user_id(用户id) questions_answer(题目答案) title(试题的标题)-->
@@ -81,9 +69,10 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import texaImg from '../../components/Tinymce'
+import MarkdownEditor from '@/components/MarkdownEditor'
+// import texaImg from '../../components/Tinymce'
 export default {
-  components: { texaImg },
+  components: { MarkdownEditor },
   props: {},
   data() {
     return {
@@ -91,11 +80,13 @@ export default {
       questions: '',
       subject: '',
       inpustem: '', // 题干
-      title: '', // 题目
-      answer: '', // 答案
+      // title: '', // 题目
+      // answer: '', // 答案
       ischange: true,
       hasid: '',
-      detailobj: {}
+      detailobj: {},
+      content: '',
+      contenttitle: ''
     }
   },
   computed: {
@@ -122,9 +113,9 @@ export default {
       this.exam = this.detailobj.exam_id
       this.questions = this.detailobj.questions_type_id
       this.subject = this.detailobj.subject_id
-      this.inpustem = this.detailobj.title
-      this.title = this.detailobj.questions_stem
-      this.answer = this.detailobj.questions_answer
+      this.contenttitle = this.detailobj.title
+      this.inpustem = this.detailobj.questions_stem
+      this.content = this.detailobj.questions_answer
     }
   },
   methods: {
@@ -156,15 +147,10 @@ export default {
     getinp(e) {
       this.inpustem = e.target.value
     },
-    titleTheme(e) {
-      this.title = e.target.value
-    },
-    answerinfo(e) {
-      this.answer = e.target.value
-    },
+
     sub() {
       if (this.ischange) { // 如果是添加试题 就发送添加试题的接口
-        if (this.inpustem !== '' && this.title !== '' && this.answer !== '' && this.exam !== '' && this.questions !== '' && this.subject !== '') {
+        if (this.inpustem !== '' && this.contenttitle !== '' && this.content !== '' && this.exam !== '' && this.questions !== '' && this.subject !== '') {
           this.$confirm('确定要添加是试题吗？', '真的要添加吗', {
             configtext: '确定',
             deteleconfig: '取消'
@@ -176,8 +162,8 @@ export default {
                 subject_id: this.subject,
                 exam_id: this.exam,
                 user_id: 'w6l6n-cbvl6s',
-                questions_answer: this.answer,
-                title: this.title
+                questions_answer: this.content,
+                title: this.contenttitle
               })
               this.$message({
                 type: 'success',
@@ -187,8 +173,8 @@ export default {
               this.questions = ''
               this.subject = ''
               this.inpustem = '' // 题干
-              this.title = '' // 题目
-              this.answer = '' // 答案
+              this.contenttitle = '' // 题目
+              this.content = '' // 答案
             })
             .catch(() => {
               this.$message({
@@ -200,7 +186,7 @@ export default {
           alert('您的参数不足')
         }
       } else { // 如果是更新试题  就发送更新试题的接口
-        if (this.inpustem !== '' && this.title !== '' && this.answer !== '' && this.exam !== '' && this.questions !== '' && this.subject !== '') {
+        if (this.inpustem !== '' && this.contenttitle !== '' && this.content !== '' && this.exam !== '' && this.questions !== '' && this.subject !== '') {
           this.$confirm('确定要修改试题吗？', '真的要修改吗', {
             configtext: '确定',
             deteleconfig: '取消'
@@ -214,8 +200,8 @@ export default {
                 subject_id: this.subject,
                 exam_id: this.exam,
                 user_id: 'w6l6n-cbvl6s',
-                questions_answer: this.answer,
-                title: this.title
+                questions_answer: this.content,
+                title: this.contenttitle
               }).then((res) => {
                 if (res) {
                   if (res.code === 1) {
@@ -245,6 +231,7 @@ export default {
   padding: 0;
   margin: 0;
   list-style: none;
+  font-size:16px;
 }
 @mixin num($w, $h) {
   width: $w;
@@ -308,15 +295,10 @@ export default {
 .content-box {
   position: relative;
   width: 96%;
-  height: 498px;
+  height: 500px;
   overflow: hidden;
-  textarea {
-    position: absolute;
-    left: 0;
-    top: 110px;
-    outline: none;
-    @include num(100%, 70%);
-  }
+  border:1.5px solid #ccc;
+
 }
 .select-check {
   @include num(100%, 100px);
@@ -331,8 +313,5 @@ export default {
   @include num(111px, 40px);
   background: linear-gradient(-90deg, #4e75ff, #0139fd) !important;
 }
-textarea {
-  border-top: none;
-  border-bottom: none;
-}
+
 </style>

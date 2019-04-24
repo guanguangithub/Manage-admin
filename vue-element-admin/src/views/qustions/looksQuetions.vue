@@ -52,7 +52,7 @@
           >
             <!-- content-list是请求到的数据 渲染的 -->
             <div class="list-left">
-              <p>{{ item.title }}</p>
+              <p>{{ item.questions_stem }}</p>
               <p>
                 <el-button
                   style="color: #1890ff;background: #e6f7ff;border-color: #91d5ff;"
@@ -78,7 +78,7 @@
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
   components: {},
   props: {},
@@ -117,7 +117,11 @@ export default {
       getexamsubject: 'examType/getexamsubject',
       getQuestionsType: 'examType/getquestionstype',
       addquestions: 'examType/addquestionstype',
-      checkitems: 'examType/checkitems'
+      checkitems: 'examType/checkitems',
+      condition: 'examType/condition'
+    }),
+    ...mapMutations({
+      changeitemlist: 'examType/changeitemlist'
     }),
 
     getvalue(value) {
@@ -136,14 +140,10 @@ export default {
     changeclass(index) {
       this.activeid = index
     },
-    refer() { // 查询
-      this.checkitems()
+    refer() {
       if (this.subject !== '' && this.questions !== '' && this.exam !== '') {
-        this.newarr = this.checkitemlist.filter((item, ind) => {
-          return item.subject_id === this.subject || item.questions_type_id === this.questions || item.exam_id === this.exam
-        })
-      } else {
-        this.newarr = this.checkitemlist
+        const { subject, questions, exam } = this
+        this.changeitemlist({ subject, questions, exam })
       }
     }
   }

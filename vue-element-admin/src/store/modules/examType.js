@@ -1,4 +1,4 @@
-import { getexamtype, getexamsubject, getquestionstype, addquestionstype, insertQuestionsType, checkitems, updateQuestionsType } from '@/api/examType' // 是获取数据的方法名
+import { getexamtype, getexamsubject, getquestionstype, addquestionstype, insertQuestionsType, checkitems, updateQuestionsType, updatedata, delQuestionsType, condition } from '@/api/examType' // 是获取数据的方法名
 const state = {
   examlist: [],
   subjectlist: [],
@@ -25,6 +25,11 @@ const mutations = {
   // checlitemlist查看试题
   checkitemlist: (state, getdata) => {
     state.checkitemlist = getdata
+  },
+  changeitemlist: (state, payload) => {
+    state.checkitemlist = state.checkitemlist.filter((item, ind) => {
+      return item.subject_id === payload.subject && item.questions_type_id === payload.questions && item.exam_id === payload.exam
+    })
   }
 
 }
@@ -61,7 +66,23 @@ const actions = {
   async updateQuestionsType(context, payload) { // 更新试题   payload是传过去的参数
     const res = await updateQuestionsType(payload)
     return res
+  },
+  async updatedata(context, payload) { // 用户更新头像
+    const res = await updatedata(payload)
+    return res
+  },
+  async condition(context) { // 按条件查询试题
+    const res = await condition()
+    console.log(res)
+    return res
+  },
+
+  async delQuestionsType(context, payload) { // 删除试题类型
+    const res = await delQuestionsType(payload)
+    console.log(payload)
+    return res
   }
+
 }
 
 export default {

@@ -33,6 +33,13 @@ const testRouter = {
       meta: { title: 'looksQuetions', noCache: true }
     }
 
+    // { 用户头像
+    //   path: 'usertitle',
+    //   component: () => import('@/views/qustions/userTitle'),
+    //   name: 'user',
+    //   meta: { title: 'usertitle', noCache: true }
+    // }
+
   ]
 }
 

@@ -1,15 +1,5 @@
 import { Testdelete, Batchdetails, studentDeleta } from '@/api/Testmanagement'
 
-const state = {
-  studentArr: []
-}
-
-const mutations = {
-  STUDENTDELETA: (state, studentDeletaArr) => {
-    state.studentArr = studentDeletaArr
-  }
-}
-
 const actions = {
   async Testdelete() {
     const res = await Testdelete()
@@ -17,23 +7,25 @@ const actions = {
       return res.data
     }
   },
-  async Batchdetails() {
-    const res = await Batchdetails()
-    if (res.code === 1) {
+  async Batchdetails(context, examId) {
+    const res = await Batchdetails(examId)
+    if (res) {
       return res.exam
+    } else {
+      return ''
     }
   },
   async studentDeleta(context, examId) {
     const res = await studentDeleta(examId)
-    console.log(res)
-    context.commit('STUDENTDELETA', res.data)
-    return res.data
+    if (res.code === 1) {
+      return res.data
+    } else if (res.ENOENT) {
+      return res.message
+    }
   }
 }
 
 export default {
   namespaced: true,
-  state,
-  mutations,
   actions
 }

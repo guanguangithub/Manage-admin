@@ -1,53 +1,11 @@
-import { fatchExamList } from '@/api/exam.js'
+import { fatchExamList, addExam, getDetailPaper, updateDetailPaper, getallPapers } from '@/api/exam.js'
+import { updateUserInfo } from '@/api/user.js'
 import moment from 'moment'
-// console.log(fatchExamList())
 const state = {
   table: [],
-  examOptions: [{
-    value: '选项1',
-    label: ' 周考1'
-  }, {
-    value: '选项2',
-    label: '周考2'
-  }, {
-    value: '选项3',
-    label: '周考3'
-  }, {
-    value: '选项4',
-    label: '月考'
-  }],
-  lessonOptions: [{
-    value: '选项1',
-    label: ' javascript上'
-  }, {
-    value: '选项2',
-    label: 'javascript下'
-  }, {
-    value: '选项3',
-    label: 'jquery'
-  }, {
-    value: '选项4',
-    label: 'h5'
-  },
-  {
-    value: '选项5',
-    label: 'nodejs'
-  }, {
-    value: '选项6',
-    label: 'vue'
-  }, {
-    value: '选项7',
-    label: 'react'
-  }, {
-    value: '选项8',
-    label: '小程序'
-  }, {
-    value: '选项9',
-    label: '实训1'
-  }, {
-    value: '选项10',
-    label: '实训2'
-  }]
+  newPaper: {},
+  detailPaper: [],
+  allPapers: []
 }
 const mutations = {
   GETTABLEDATE: (state, payload) => {
@@ -56,6 +14,29 @@ const mutations = {
       item.end_time = moment(item.end_time * 1).format('YYYY-MM-DD HH:mm:ss')
       return item
     })
+  },
+  GETCONDITIONPAPER: (state, payload) => {
+    // state.table = state.table.filter(item => item.exam_id ==payload.exam_id && item.subject_id = payload.subject_id)
+    state.table = state.table.filter(item => {
+      if (item.exam_id === payload.exam_id && item.subject_id === payload.subject_id) {
+        return item
+      }
+    })
+  },
+  SETQUESTION: (state, payload) => {
+    state.newPaper = payload
+  },
+  SETDETAILPAPER: (state, payload) => {
+    state.detailPaper = payload
+  },
+  DELETEPAPER: (state, payload) => {
+    state.newPaper.questions.splice(payload, 1)
+  },
+  ALLPAPERS: (state, payload) => {
+    state.allPapers = payload
+  },
+  ADDNEWPAPER: (state, payload) => {
+    state.newPaper.questions.unshift(payload)
   }
 }
 const actions = {
@@ -64,7 +45,46 @@ const actions = {
     if (res.code === 1) {
       return commit('GETTABLEDATE', res.exam)
     }
+    return res.exam
+  },
+  async addExam({ commit }, payload) {
+    const res = await addExam(payload)
+    commit('SETQUESTION', res.data)
+    return res
+  },
+  async getDetailPaper(context, examId) {
+    const res = await getDetailPaper(examId)
+    context.commit('SETDETAILPAPER', res.data)
+    return res.data
+  },
+  async updateDetailPaper(context, payload) {
+    console.log(payload)
+    console.log(updateDetailPaper)
+    const res = await updateDetailPaper(payload.id, { question_ids: payload.question_ids })
+    return res
+  },
+  async updateUserInfo(context, payload) {
+    const res = await updateUserInfo(payload)
+    return res
+  },
+  async getallPapers(context) {
+    const res = await getallPapers()
+    context.commit('ALLPAPERS', res.data)
+    return res
   }
+  //
+  // async getConditionPaper({ commit }, payload) {
+  //   const res = await getConditionPaper(payload)
+  //   console.log(res)
+  //   if (res.code === 1) {
+  //     commit('GETCONDITIONPAPER', res.data)
+  //   }
+  //   return res
+  // }
+  // async deletePaper(context, examId) {
+  //   const res = await deletePaper(examId)
+  //   return res.data
+  // },
 }
 export default {
   namespaced: true,

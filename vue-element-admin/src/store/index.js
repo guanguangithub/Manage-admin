@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import getters from './getters'
-
+// import createPersistedState from 'vuex-persistedstate'
+// import createLogger from "vuex/dist/logger" //打印日志
 Vue.use(Vuex)
 
 // https://webpack.js.org/guides/dependency-management/#requirecontext
@@ -21,6 +22,7 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
 const store = new Vuex.Store({
   modules,
   getters
+  // plugins: [createPersistedState()]//数据持久化
 })
 
 export default store

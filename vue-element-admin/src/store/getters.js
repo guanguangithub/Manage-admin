@@ -14,10 +14,20 @@ const getters = {
   addRoutes: state => state.permission.addRoutes,
   errorLogs: state => state.errorLog.logs,
   examlist: state => state.examType.examlist,
-  subjectlist: state => state.examType.subjectlist, // 这些都是命名空间中state中的属性
-  getquestionslist: state => state.examType.getquestionslist, // 这些都是命名空间中state中的属性
+  subjectlist: state => state.examType.subjectlist,
+  getquestionslist: state => state.examType.getquestionslist,
+  checkitemlist: state => state.examType.checkitemlist,
   table: state => state.exam.table,
-  examOptions: state => state.exam.examOptions,
-  lessonOptions: state => state.exam.lessonOptions
+  newPaper: state => state.exam.newPaper,
+  allPapers: state => state.exam.allPapers,
+  detailPaper: state => state.exam.detailPaper,
+  userarr: state => state.usermanage.userarr,
+  identityarr: state => state.usermanage.identityarr,
+  apiperArr: state => state.usermanage.apiperArr,
+  InterArr: state => state.usermanage.InterArr,
+  ViewinterArr: state => state.usermanage.ViewinterArr,
+  IdentityviewArr: state => state.usermanage.IdentityviewArr,
+  userInfo: state => state.user.userInfo,
+  studentArr: state => state.Testmanagement.studentArr
 }
 export default getters

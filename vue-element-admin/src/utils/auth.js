@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie'
 // 登录态
 const TokenKey = 'authorization'
+
 export function getToken() {
   return Cookies.get(TokenKey)
 }

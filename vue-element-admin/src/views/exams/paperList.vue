@@ -6,10 +6,10 @@
       <span>
         <el-select v-model="examValue" placeholder="请选择" size="large">
           <el-option
-            v-for="item in this.examOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="item in this.examlist.data"
+            :key="item.exam_id"
+            :label="item.exam_name"
+            :value="item.exam_id"
           />
         </el-select>
       </span>
@@ -18,14 +18,16 @@
       <span class="type-ipt">
         <el-select v-model="lessonValue" placeholder="请选择" size="large">
           <el-option
-            v-for="item in this.lessonOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="item in this.subjectlist.data"
+            :key="item.subject_id"
+            :label="item.subject_text"
+            :value="item.subject_id"
           />
         </el-select>
       </span>
-      <span class="searchPaperBtn"><span class="search-icon"><svg-icon icon-class="search" /></span><el-button type="primary">搜索</el-button></span>
+      <span class="searchPaperBtn">
+        <span class="search-icon"><svg-icon icon-class="search" /></span>
+        <el-button type="primary" @click="searchBtn">搜索</el-button></span>
 
     </div>
     <div class="paperList-container">
@@ -82,17 +84,17 @@
             prop="operate"
             label="操作"
           >
-            <a href="#" class="detail">详情</a>
+            <template slot-scope="scope">
+              <span href="#" class="detail" @click="handleClick(scope.row)">详情</span>
+            </template>
           </el-table-column>
         </el-table>
-        <!-- <p>{{this.table}}</p> -->
       </div>
-
     </div>
   </div>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 // console.log({...mapActions()})
 export default {
   data() {
@@ -108,15 +110,24 @@ export default {
   computed: {
     ...mapGetters([
       'table',
-      'lessonOptions',
-      'examOptions'
+      'examlist',
+      'subjectlist'
     ])
   },
   created() {
+    this.getexamtype()
+    this.getexamsubject()
     this.fatchExamList()
-    // console.log({...mapActions()})
   },
   methods: {
+    ...mapMutations({
+      getConditionPaper: 'exam/GETCONDITIONPAPER'
+    }),
+    async searchBtn() {
+      // await this.getConditionPaper({exam_id:this.examValue,subject_id:this.lessonValue})
+      await this.fatchExamList()
+      this.getConditionPaper({ exam_id: this.examValue, subject_id: this.lessonValue })
+    },
     getRowClass({ row, column, rowIndex, columnIndex }) {
       if (rowIndex === 0) {
         return 'background:#F4F7F9;height:70px;font-size:18px;color:#242525;font-weight:normal'
@@ -128,15 +139,20 @@ export default {
       return 'height:100px'
     },
     ...mapActions({
-      fatchExamList: 'exam/fatchExamList'
-    })
+      fatchExamList: 'exam/fatchExamList',
+      getexamtype: 'examType/getexamtype',
+      getexamsubject: 'examType/getexamsubject'
+    }),
+    handleClick(row) {
+      this.$router.push('/exams/paperDetail/' + row.exam_exam_id)
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
     .paperList-bg{
-       height:698px;
+        height:698px;
         background: #F0F2F5;
         padding:0 35px;
         overflow-y: auto;

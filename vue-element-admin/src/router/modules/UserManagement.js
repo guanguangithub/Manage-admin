@@ -16,13 +16,13 @@ const usermanageRouter = {
       path: 'add',
       component: () => import('@/views/usermanage/add'),
       name: 'addUserManage',
-      meta: { title: 'AddUser', noCache: true }
+      meta: { title: 'AddUser', noCache: true, view_id: 'main-addUser' }
     },
     {
       path: 'display',
       component: () => import('@/views/usermanage/display'),
       name: 'displayUserManage',
-      meta: { title: 'UserDisplay', noCache: true }
+      meta: { title: 'UserDisplay', noCache: true, view_id: 'main-showUser' }
     }
   ]
 }

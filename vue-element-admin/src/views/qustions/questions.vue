@@ -17,13 +17,13 @@
           >javascript</el-button>
           <el-button style="color: #fa8c16;background: #fff7e6;border-color: #ffd591;">周考1</el-button>
           <p>{{ detailobj.title }}</p>
-          <!-- <div class="leftcode"><code>{{ detailobj.questions_stem }}</code></div> -->
-          <markdown-editor v-model="content" height="400px" :options="{hideModeSwitch:true,previewStyle:'tab'}" />
+
+          <markdown-editor v-model="content" height="400px" :options="{hideModeSwitch:false,previewStyle:false,toolbarItems:[]}" />
         </div>
         <div class="right">
           <p class="emitor" style="width:100% height:50px lineHeight:50px">答案信息</p>
-          <markdown-editor v-model="contentanswer" :options="{hideModeSwitch:true,previewStyle:'tab'}" height="400px" />
-          <!-- <div class="rightcode"><code>{{ detailobj.questions_answer }}</code></div> -->
+          <markdown-editor v-model="contentanswer" :options="{hideModeSwitch:false,previewStyle:false,toolbarItems:[]}" height="400px" />
+
         </div>
 
       </div>
@@ -55,8 +55,12 @@ export default {
     this.detailobj = this.checkitemlist.find((item, ind) => {
       return item.questions_id === id
     })
-    this.content = this.detailobj.questions_stem
-    this.contentanswer = this.detailobj.questions_answer
+    if (this.detailobj) { // 一进页面 试题详情这一条没有 所以要做下判断  不然会刷新会报错
+      this.content = this.detailobj.questions_stem
+      this.contentanswer = this.detailobj.questions_answer
+    } else {
+      this.detailobj = {}
+    }
   },
   methods: {
     ...mapActions({
@@ -157,6 +161,9 @@ export default {
         }
       }
     }
+  }
+  .mark /deep/.te-toolbar-section{ //前面要改的原组件的大盒子类名  后面是 在这边的类名
+    border:none;
   }
 
 </style>

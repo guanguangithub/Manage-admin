@@ -9,6 +9,7 @@ const state = {
 }
 const mutations = {
   GETTABLEDATE: (state, payload) => {
+    // console.log(payload)
     state.table = payload.map(item => {
       item.start_time = moment(item.start_time * 1).format('YYYY-MM-DD HH:mm:ss')
       item.end_time = moment(item.end_time * 1).format('YYYY-MM-DD HH:mm:ss')
@@ -36,7 +37,9 @@ const mutations = {
     state.allPapers = payload
   },
   ADDNEWPAPER: (state, payload) => {
+    console.log(state.newPaper.questions, payload)
     state.newPaper.questions.unshift(payload)
+    // return payload.question_
   }
 }
 const actions = {
@@ -49,6 +52,7 @@ const actions = {
   },
   async addExam({ commit }, payload) {
     const res = await addExam(payload)
+    console.log(res.data)
     commit('SETQUESTION', res.data)
     return res
   },
@@ -58,8 +62,8 @@ const actions = {
     return res.data
   },
   async updateDetailPaper(context, payload) {
-    console.log(payload)
-    console.log(updateDetailPaper)
+    // console.log(payload)
+    // console.log(updateDetailPaper)
     const res = await updateDetailPaper(payload.id, { question_ids: payload.question_ids })
     return res
   },

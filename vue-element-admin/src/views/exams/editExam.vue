@@ -21,7 +21,7 @@
     <div :class="allQues">
       <ul class="addList">
         <li v-for="(item,i) in this.allPapers" :key="i">
-          <span>{{ item.questions_stem }}</span>
+          <span>{{ item.title }}</span>
           <b class="addbtn" @click="addPaper(item)">添加</b></li>
       </ul>
     </div>
@@ -56,6 +56,7 @@ export default {
       this.flag = false
       this.className = this.flag ? 'editexam-container' : 'editexam-container none'
       this.allQues = this.flag ? 'editexam-container none' : 'editexam-container'
+      console.log(this.newPaper)
       this.getallPapers()
     },
     async jump() {
@@ -86,7 +87,6 @@ export default {
       })
     },
     addPaper(item) {
-      console.log(item)
       this.flag = true
       this.className = this.flag ? 'editexam-container' : 'editexam-container none'
       this.allQues = this.flag ? 'editexam-container none' : 'editexam-container'

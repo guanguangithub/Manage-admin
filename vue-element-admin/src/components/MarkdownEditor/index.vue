@@ -1,5 +1,5 @@
 <template>
-  <div :id="id" />
+  <div :id="id" class="mymarkdown" />
 </template>
 
 <script>

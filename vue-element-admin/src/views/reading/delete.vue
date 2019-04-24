@@ -91,6 +91,4 @@ export default {
       }
     }
   }
-
 </style>
-

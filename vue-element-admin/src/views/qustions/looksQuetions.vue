@@ -74,7 +74,7 @@
         </div>
       </div>
     </div>
-    <p>{{ checkitemlist }}</p>
+
   </div>
 </template>
 <script>

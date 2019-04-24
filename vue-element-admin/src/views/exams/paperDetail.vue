@@ -3,23 +3,38 @@
     <h5>试卷详情</h5>
     <div class="wrap">
       <div class="detail-container">
-        <div v-for="(item,i) in this.detailPaper.questions" :key="item.questions_id" class="markdown">
+        <!-- <div v-for="(item,i) in this.detailPaper.questions" :key="item.questions_id" class="markdown">
           <h5>{{ i+1 }} : {{ item.title }}</h5>
           <pre>
               <code>
               {{ item.questions_stem }}
               </code>
           </pre>
+        </div> -->
+        <div v-if="flag">
+          <div v-for="(item,i) in this.detailPaper.questions" :key="item.questions_id" class="markdown">
+            <h5>{{ i+1 }} : {{ item.title }}</h5>
+            <markdown-editor ref="markdownEditor" v-model="markdowns[i].content" :options="{hideModeSwitch:true,previewStyle:'tab'}" height="200px" />
+          </div>
         </div>
-      </div>
-      <div class="detail-container1" />
-    </div>
 
+      </div>
+      <!-- <div class="detail-container1" /> -->
+    </div>
   </div>
 </template>
 <script>
+import MarkdownEditor from '@/components/MarkdownEditor'
 import { mapGetters, mapActions } from 'vuex'
 export default {
+  components: { MarkdownEditor },
+  data() {
+    return {
+      flag: false,
+      markdowns: [
+      ]
+    }
+  },
   computed: {
     ...mapGetters([
       'detailPaper'
@@ -27,6 +42,11 @@ export default {
   },
   async created() {
     await this.getDetailPaper(this.$route.params.id)
+    this.detailPaper.questions.forEach(item => {
+      this.markdowns.push({ content: item.questions_stem })
+      this.flag = true
+    })
+    console.log(this.markdowns)
   },
   beforeRouteUpdate(to, from, next) {
     this.getDetailPaper(this.$route.params.id)
@@ -55,12 +75,13 @@ export default {
     }
 }
 .detail-container{
-    width: 60%;
+    width: 80%;
     flex-shrink: 0;
     min-height: 400px;
     background:#fff;
     margin:20px;
     box-sizing: border-box;
+    border-radius: 10px;
     padding:20px;
 }
 .detail-container1{
@@ -73,6 +94,9 @@ export default {
     padding:20px;
 
 }
+.mymarkdown /deep/ .te-toolbar-section{
+  display:none;
+}
 .markdown{
     width: 100%;
     height:auto;
@@ -84,20 +108,7 @@ export default {
     margin:15px 0;
     >h5{
         font-size: 18px;color:#555;
-    }
-    >pre{
-        background:#fff;
-        padding:20px;
-        width: 100%;
-        min-height:100px;
-        margin:20px 0;
-        >code{
-            width:100%;
-            white-space: normal;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-
-        }
+        margin:10px 0;
     }
 }
 .wrap{

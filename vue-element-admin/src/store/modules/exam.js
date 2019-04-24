@@ -15,6 +15,14 @@ const mutations = {
       return item
     })
   },
+  GETCONDITIONPAPER: (state, payload) => {
+    // state.table = state.table.filter(item => item.exam_id ==payload.exam_id && item.subject_id = payload.subject_id)
+    state.table = state.table.filter(item => {
+      if (item.exam_id === payload.exam_id && item.subject_id === payload.subject_id) {
+        return item
+      }
+    })
+  },
   SETQUESTION: (state, payload) => {
     state.newPaper = payload
   },
@@ -64,6 +72,15 @@ const actions = {
     context.commit('ALLPAPERS', res.data)
     return res
   }
+  //
+  // async getConditionPaper({ commit }, payload) {
+  //   const res = await getConditionPaper(payload)
+  //   console.log(res)
+  //   if (res.code === 1) {
+  //     commit('GETCONDITIONPAPER', res.data)
+  //   }
+  //   return res
+  // }
   // async deletePaper(context, examId) {
   //   const res = await deletePaper(examId)
   //   return res.data

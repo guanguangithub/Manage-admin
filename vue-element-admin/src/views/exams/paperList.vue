@@ -94,7 +94,7 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 // console.log({...mapActions()})
 export default {
   data() {
@@ -120,8 +120,13 @@ export default {
     this.fatchExamList()
   },
   methods: {
-    searchBtn() {
-      console.log(this.lessonValue, this.examValue)
+    ...mapMutations({
+      getConditionPaper: 'exam/GETCONDITIONPAPER'
+    }),
+    async searchBtn() {
+      // await this.getConditionPaper({exam_id:this.examValue,subject_id:this.lessonValue})
+      await this.fatchExamList()
+      this.getConditionPaper({ exam_id: this.examValue, subject_id: this.lessonValue })
     },
     getRowClass({ row, column, rowIndex, columnIndex }) {
       if (rowIndex === 0) {

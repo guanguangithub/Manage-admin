@@ -8,9 +8,9 @@ export function Testdelete() {
   })
 }
 
-export function Batchdetails() {
+export function Batchdetails(params) {
   return request({
-    url: '/exam/student',
+    url: '/exam/student?grade_id=' + params,
     method: 'get'
   })
 }
@@ -18,8 +18,7 @@ export function Batchdetails() {
 export function studentDeleta(params) {
   return request({
     url: '/exam/student/' + params,
-    method: 'get',
-    params
+    method: 'get'
   })
 }
 

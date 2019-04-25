@@ -1,5 +1,5 @@
 <template>
-  <div :id="id" />
+  <div :id="id" class="mark" />
 </template>
 
 <script>
@@ -33,12 +33,12 @@ export default {
     },
     mode: {
       type: String,
-      default: 'markdown'
+      default: 'wysiwyg'
     },
     height: {
       type: String,
       required: false,
-      default: '500px'
+      default: 'auto'
     },
     language: {
       type: String,

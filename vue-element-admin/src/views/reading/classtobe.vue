@@ -12,7 +12,7 @@
         <el-table-column prop="room_text" label="成才率" width="120" align="center" />
         <el-table-column prop="grade_id" label="操作" width="120" align="center">
           <template slot-scope="{row}">
-            <span @click="pushLoca(row)">批卷</span>
+            <span style="color:#0139FD" @click="pushLoca(row)">批卷</span>
           </template>
         </el-table-column>
       </el-table>
@@ -38,7 +38,7 @@ export default {
     return {
       textBorder: [],
       Batchdelete: [],
-      limit: 5,
+      limit: 10,
       total: 0,
       cuurrentpage: 1,
       page: 1,
@@ -50,17 +50,11 @@ export default {
     this.testmanagement().then((res) => {
       this.total = res.length
       this.textBorder = res
-      console.log(this.textBorder)
-    })
-    this.Batchdetails().then((res) => {
-      this.Batchdelete = res
-      console.log(this.Batchdelete)
     })
   },
   methods: {
     ...mapActions({
-      testmanagement: 'Testmanagement/Testdelete',
-      Batchdetails: 'Testmanagement/Batchdetails'
+      testmanagement: 'Testmanagement/Testdelete'
     }),
     currentChange(val) {
       this.cuurrentpage = val
@@ -75,15 +69,7 @@ export default {
       return 'height:60px;font-size:16px;'
     },
     pushLoca(row) {
-      this.Batchdelete.map((item) => {
-        if (row.grade_id === item.grade_id) {
-          item.classname = row.grade_name
-          this.Studentpaperdetele.push(item)
-          this.$router.push({ path: '/reading/readelete', query: { ids: item.grade_id, sundentdelte: this.Studentpaperdetele }})
-        } else {
-          // this.$router.push('/reading/readelete',{params:{const:"暂无待批试卷"}})
-        }
-      })
+      this.$router.push({ path: '/reading/readelete', query: { className: row.grade_name, ids: row.grade_id }})
     }
   }
 }

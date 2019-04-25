@@ -146,8 +146,8 @@ export default {
     handleClick(row) {
       this.$router.push('/exams/paperDetail/' + row.exam_exam_id)
     },
-    tab() {
-
+    tab(a) {
+      console.log(a)
     }
   }
 }

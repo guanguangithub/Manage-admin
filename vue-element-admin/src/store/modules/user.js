@@ -55,14 +55,13 @@ const actions = {
   },
 
   async getviewAuthority({ commit }, payload) {
-    const userAutohostiry = await GetviewAuthority()
-    console.log('userAutohostiry...', userAutohostiry)
+    const userAutohostiry = await GetviewAuthority(payload)
+    // console.log('userAutohostiry...', userAutohostiry)
     if (userAutohostiry.code === 1) {
       commit('SET_VIEWAUTOHOSTIRY', userAutohostiry.data)
       return userAutohostiry.data
-    } else {
-      return []
     }
+    return []
   },
 
   // user logout

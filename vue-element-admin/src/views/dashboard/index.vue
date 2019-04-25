@@ -23,8 +23,8 @@ export default {
     ])
   },
   created() {
-    console.log('userInfo', this.userInfo)
-    if (this.userInfo.identity_text === '管理员') {
+    // console.log('userInfo', this.userInfo)
+    if (this.userInfo.identity_text !== '管理员') {
       this.currentRole = 'editorDashboard'
     }
   }

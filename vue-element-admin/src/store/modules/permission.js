@@ -6,9 +6,12 @@ import { asyncRoutes, constantRoutes } from '@/router'
  * @param route
  */
 function hasPermission(view_ids, route) {
-  if (route.meta && route.meta.view_ids) {
-    return view_ids.some(item => item === route.meta.view_id)
+  // console.log(route,'888')
+  if (route.meta && route.meta.view_id) {
+    // console.log(view_ids.some(item => item === route.meta.view_id), 'is')
+    return view_ids.some(item => route.meta.view_id.includes(item))
   } else {
+    console.log(111)
     return true
   }
 }
@@ -29,6 +32,7 @@ export function filterAsyncRoutes(routes, view_ids) {
       res.push(tmp)
     }
   })
+  // console.log('过滤后的路由', res)
   return res
 }
 const state = {
@@ -49,13 +53,13 @@ const actions = {
     // console.log('view_autohority....', view_autohority)
     // console.log(view_autohority)
     const view_ids = view_autohority.map(item => item.view_id)
-    console.log('view_ids', view_ids)
+    // console.log('view_ids', view_ids)
     // 在路由里面过滤一遍 得到用户能访问的路由
     // console.log(view_ids)
     const accessedRoutes = filterAsyncRoutes(asyncRoutes, view_ids)
     // 更新路由
-    commit('SET_ROUTES', accessedRoutes)
     console.log('accessedRoutes...', accessedRoutes)
+    commit('SET_ROUTES', accessedRoutes)
     return accessedRoutes
     // return new Promise(resolve => {
     //   let accessedRoutes

@@ -129,8 +129,6 @@ export default {
     async getGrade() {
       const res = await getGrade()
       this.rolesList = res.data
-      console.log(this.rolesList, '......')
-      console.log(res, '....res..')
     },
     async getRoom() {
       const res = await getRoom()
@@ -161,29 +159,33 @@ export default {
       //   room_id: this.role.room_id,
       //   subject_id: this.role.subject_id
       // }
-      if (this.btnType === 'add') {
-        await addGrade(
-          {
+      if (this.role.grade_name && this.roomVal && this.subjectVal) {
+        if (this.btnType === 'add') {
+          await addGrade(
+            {
+              grade_name: this.role.grade_name,
+              room_id: this.roomVal,
+              subject_id: this.subjectVal
+            }
+          )
+          this.rolesList.push({ grade_name: this.role.grade_name, room_id: this.roomVal, subject_id: this.subjectVal })
+        } else {
+          const { grade_id } = this.btnType
+          await upGrade({
+            grade_id,
             grade_name: this.role.grade_name,
             room_id: this.roomVal,
             subject_id: this.subjectVal
-          }
-        )
-        this.rolesList.push({ grade_name: this.role.grade_name, room_id: this.roomVal, subject_id: this.subjectVal })
-      } else {
-        const { grade_id } = this.btnType
-        await upGrade({
-          grade_id,
-          grade_name: this.role.grade_name,
-          room_id: this.roomVal,
-          subject_id: this.subjectVal
-        })
-      }
+          })
+        }
 
-      this.getGrade()
-      this.roomVal = ''
-      this.subjectVal = ''
-      this.dialogVisible = false
+        this.getGrade()
+        this.roomVal = ''
+        this.subjectVal = ''
+        this.dialogVisible = false
+      } else {
+        alert('请输入信息')
+      }
     },
     handleDelete({ $index, row }) {
       // console.log(row.grade_id)

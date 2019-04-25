@@ -33,12 +33,12 @@ export default {
     },
     mode: {
       type: String,
-      default: 'markdown'
+      default: 'wysiwyg'
     },
     height: {
       type: String,
       required: false,
-      default: '500px'
+      default: 'auto'
     },
     language: {
       type: String,

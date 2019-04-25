@@ -38,32 +38,32 @@
           </el-table-column>
         </el-table>
 
-        <el-dialog :visible.sync="dialogVisible" :title="dialogType==='edit'?'Edit Role':'添加班级'">
+        <el-dialog :visible.sync="dialogVisible" :title="dialogType==='edit'?'修改班级':'添加班级'">
           <el-form :model="role" label-width="80px" label-position="left">
             <el-form-item label="班级名">
               <el-input v-model="role.grade_name" placeholder="班级名" />
             </el-form-item>
             <el-form-item label="课程名">
               <!-- <el-input v-model="role.name" placeholder="课程名" /> -->
-              <el-select v-model="role.subject_text" placeholder="请选择">
+              <el-select v-model="subjectVal" placeholder="请选择">
                 <el-option
-                  v-for="item in rolesList"
-                  :id="item.subject_id"
-                  :key="item.value"
-                  :value="item.subject_text"
+                  v-for="item in subjectList"
+                  :key="item.subject_id"
+                  :label="item.subject_text"
+                  :value="item.subject_id"
                 />
               </el-select>
             </el-form-item>
-            <el-form-item label="教师号">
-              <el-select ref="tree" v-model="role.room_text" placeholder="请选择">
+            <el-form-item label="教室号">
+              <el-select ref="tree" v-model="roomVal" placeholder="请选择">
                 <el-option
-                  v-for="item in rolesList"
-                  :id="item.room_id"
-                  :key="item.value"
-                  :value="item.room_text"
+                  v-for="item in roomList"
+                  :key="item.room_id"
+                  :label="item.room_text"
+                  :value="item.room_id"
                 />
               </el-select>
-              <el-tree ref="tree" node-key="path" />
+              <el-tree ref="tree" node-key="path" :style="{display:'none'}" />
             </el-form-item>
 
             <!-- <el-form-item label="Menus">
@@ -75,7 +75,7 @@
             <el-button type="danger" @click="dialogVisible=false">
               {{ $t('permission.cancel') }}
             </el-button>
-            <el-button type="primary" @click="confirmRole()">
+            <el-button type="primary" @click="confirmRole(role.grade_name)">
               {{ $t('permission.confirm') }}
             </el-button>
           </div>
@@ -88,7 +88,7 @@
 <script>
 // import path from 'path'
 // import { deepClone } from '@/utils'
-import { getGrade, addGrade } from '@/api/role'
+import { getGrade, addGrade, getRoom, getSubject, deleteGrade, upGrade } from '@/api/role'
 // import i18n from '@/lang'
 
 export default {
@@ -97,6 +97,10 @@ export default {
       role: {},
       routes: [],
       rolesList: [],
+      subjectList: [],
+      subjectVal: '',
+      roomVal: '',
+      roomList: [],
       dialogVisible: false,
       dialogType: 'new',
       checkStrictly: false,
@@ -112,55 +116,93 @@ export default {
     // Mock: get all routes and roles list from server
     // 模拟：从服务器获取所有路由和角色列表
     this.getGrade()
+    this.getRoom()
+    this.getSubject()
   },
   methods: {
     // 获取数据
     async getGrade() {
       const res = await getGrade()
       this.rolesList = res.data
-      console.log(this.rolesList, '......')
+      // console.log(this.rolesList, '......')
+    },
+    async getRoom() {
+      const res = await getRoom()
+      this.roomList = res.data
+      // console.log(this.roomList,"this.roomList....");
+    },
+    async getSubject() {
+      const res = await getSubject()
+      this.subjectList = res.data
+      // console.log(this.subjectList,"this.subjectList....");
     },
     // 添加班级
     handleAddRole() {
       this.role = {}
-      // if (this.$refs.tree) {
-      //   console.log("this.$refs.tree....",this.$refs.tree);
-
-      //   this.$refs.tree.setCheckedNodes([])
-      // }
-      // await addGrade()
       this.dialogType = 'new'
       this.dialogVisible = true
     },
-    async confirmRole() {
-      const data = {
-        ...this.role,
-        grade_name: this.role.grade_name,
-        room_id: this.role.room_id,
-        subject_id: this.role.subject_id
-      }
-      await addGrade(data)
-      console.log('this.role...', this.role)
+    // dialogVisible(){
+    //   this.roomVal=''
+    //   this.subjectVal=''
+    // },
+    async confirmRole(role) {
+      // console.log(role,this.roomVal,this.subjectVal);
 
-      this.rolesList.push(this.role)
-      this.dialogVisible = false
-      // const isEdit = this.dialogType === 'edit'
-      // const checkedKeys = this.$refs.tree.getCheckedKeys()
-      // this.role.routes = this.generateTree(deepClone(this.serviceRoutes), '/', checkedKeys)
-      // if (isEdit) {
-      //   await updateRole(this.role.key, this.role)
-      //   // console.log(this.role.key);
-      //   for (let index = 0; index < this.rolesList.length; index++) {
-      //     if (this.rolesList[index].key === this.role.key) {
-      //       this.rolesList.splice(index, 1, Object.assign({}, this.role))
-      //       break
-      //     }
-      //   }
-      // } else {
-      //   const { data } = await addGrade(this.role)
-      //   this.role.key = data.key
-      //   this.rolesList.push(this.role)
+      // const data = {
+      //   ...this.role,
+      //   grade_name: this.role.grade_name,
+      //   room_id: this.role.room_id,
+      //   subject_id: this.role.subject_id
       // }
+      await addGrade(
+        {
+          grade_name: this.role.grade_name,
+          room_id: this.roomVal,
+          subject_id: this.subjectVal
+        }
+      )
+      // console.log('this.role...', res)
+      // console.log('grade_name...', this.role.grade_name)
+      // console.log('grade_name...', this.role.room_text)
+      // console.log('grade_name...', this.role.subject_text)
+      this.rolesList.push({ grade_name: this.role.grade_name, room_id: this.roomVal, subject_id: this.subjectVal })
+      // console.log(this.rolesList  )
+      this.getGrade()
+      this.roomVal = ''
+      this.subjectVal = ''
+      this.dialogVisible = false
+    },
+    handleDelete({ $index, row }) {
+      // console.log(row.grade_id)
+      this.$confirm('确定删除吗?', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      })
+        .then(async() => {
+          await deleteGrade(row.grade_id)
+          // console.log(row,"row........");
+          this.rolesList.splice($index, 1)
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+        })
+        .catch(err => { console.error(err) })
+    },
+    handleEdit(scope) {
+      console.log(scope.row)
+
+      this.dialogType = 'edit'
+      this.dialogVisible = true
+      this.checkStrictly = true
+      const res = upGrade({
+        grade_id: scope.row.grade_id,
+        grade_name: scope.row.grade_name,
+        subject_id: scope.row.subject_id,
+        room_id: scope.row.room_id
+      })
+      console.log('res....', res)
     }
   }
 }

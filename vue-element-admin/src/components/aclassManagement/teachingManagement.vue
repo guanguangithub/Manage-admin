@@ -133,7 +133,7 @@ export default {
 
       // console.log('this.role,,,,,,,,,,', this.role)
       this.rolesList.push({ room_text: this.role, room_id: res.room_id })
-      // this.role.room_text=''
+      this.role = ''
       // this.checkStrictly = false
       this.dialogVisible = false
     }

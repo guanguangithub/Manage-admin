@@ -7,16 +7,18 @@
       <sticky :z-index="10" class-name="sub-navbar">
         <el-form :style="{float:'left','margin-left':'5px'}">
           <el-input v-model="yName" placeholder="输入学生名字" :style="{width:'200px'}" />
-          <el-select v-model="rolesList.room_text" placeholder="请选择教室号">
 
+          <el-select v-model="rolesList.room_text" placeholder="请选择教室号">
             <el-option v-for="item in array" :key="item.value" :value="item" />
           </el-select>
+
           <el-select v-model="rolesList.grade_name" placeholder="班级名">
             <el-option v-for="item in arrays" :key="item.value" :value="item" />
           </el-select>
+
           <el-tree ref="tree" node-key="path" :style="{display:'none'}" />
-          <el-button>搜索</el-button>
-          <el-button>重置</el-button>
+          <el-button @click="Search">搜索</el-button>
+          <el-button @click="Reset">重置</el-button>
         </el-form>
       </sticky>
       <div class="components-container">
@@ -96,7 +98,7 @@
 // import path from 'path'
 // import i18n from '@/lang'
 import Sticky from '@/components/Sticky'
-import { getStudent } from '@/api/role'
+import { getStudent, deleteStudent } from '@/api/role'
 // import { async } from 'q';
 export default {
   name: 'StickyDemo',
@@ -107,6 +109,7 @@ export default {
     return {
       currentPage4: 4,
       rolesList: [],
+      newList: '',
       num: 0,
       pagesize: 10,
       currpage: 1,
@@ -114,7 +117,8 @@ export default {
       arr: [],
       array: [],
       arrays: [],
-      arrs: []
+      arrs: [],
+      newData: []
     }
   },
   beforeCreat() {
@@ -163,45 +167,88 @@ export default {
     async getStudent() {
       const res = await getStudent()
       this.rolesList = res.data
+      this.newList = res.data
       this.num = res.data.length
-      // console.log('res......', this.num)
-      // console.log(this.rolesList,1);
     },
     arraycq() {
-      // console.log(this.rolesList,2);
-      // this.rolesList = res.data
-
       this.rolesList.forEach(item => {
         this.arr.push(item.room_text)
-        // console.log(this.arr,'item.room_text,,,,,,,,,,,,');
       })
-      // console.log(this.rolesList.length);
-
       for (var i = 0; i < this.arr.length; i++) {
         if (this.array.indexOf(this.arr[i]) === -1) {
           this.array.push(this.arr[i])
         }
       }
       return this.array
-      // console.log(that.array, 'array,,,')
     },
     arraycqs() {
-      // console.log(this.rolesList,2);
-      // this.rolesList = res.data
-
       this.rolesList.forEach(item => {
         this.arrs.push(item.grade_name)
-        // console.log(this.arrs,'item.room_text,,,,,,,,,,,,');
       })
-      // console.log(this.rolesList.length);
-
       for (var i = 0; i < this.arrs.length; i++) {
         if (this.arrays.indexOf(this.arrs[i]) === -1) {
           this.arrays.push(this.arrs[i])
         }
       }
       return this.arrays
-      // console.log(that.array, 'array,,,')
+    },
+    // 搜索
+    Search() {
+      // console.log("this.rolesList.room_text",this.rolesList.room_text);
+      const nameList = [] // 姓名暂存数组
+      const roomList = [] // 教室号暂存数组
+      const classList = [] // 班级暂存数组
+      // if(this.rolesList.room_text === undefined){
+      //   console.log('请输入名字');
+      //   // this.rolesList
+      // }
+      this.newList.forEach(item => {
+        // && this.rolesList.room_text === '' && this.rolesList.grade_name === ''
+        if (this.yName === '' && this.rolesList.room_text === undefined && this.rolesList.grade_name === undefined) {
+          this.newData = this.newList
+          console.log('请输入名字')
+        } else {
+          if (item.student_name === this.yName) {
+            nameList.push(item)
+            this.newData = nameList
+          }
+
+          if (item.room_text === this.rolesList.room_text) {
+            roomList.push(item)
+            this.newData = roomList
+          }
+
+          if (item.grade_name === this.rolesList.grade_name) {
+            classList.push(item)
+            this.newData = classList
+          }
+        }
+      })
+      this.rolesList = this.newData
+      this.newData = []
+    },
+    Reset() {
+      this.yName = ''
+      this.rolesList.room_text = ''
+      this.rolesList.grade_name = ''
+    },
+    handleDelete({ $index, row }) {
+      console.log(row)
+      this.$confirm('确定删除吗?', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      })
+        .then(async() => {
+          await deleteStudent(row.student_id)
+          // console.log(row,"row........");
+
+          this.rolesList.splice($index, 1)
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+        })
+        .catch(err => { console.error(err) })
     }
   }
 }

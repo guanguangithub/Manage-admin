@@ -7,6 +7,13 @@ export function getRoom() {
     method: 'get'
   })
 }
+// 获取课程名/exam/subject
+export function getSubject() {
+  return request({
+    url: '/exam/subject',
+    method: 'get'
+  })
+}
 // 获取所有已经分班的学生的接口
 export function getStudent() {
   return request({
@@ -39,9 +46,17 @@ export function addRoom(room_text) {
   })
 }
 // 更新教室
-export function updateRoom(id, data) {
+export function upStudent(id, data) {
   return request({
-    url: `/manger/room/update${id}`,
+    url: `/manger/student/edit${id}`,
+    method: 'put',
+    data
+  })
+}
+// 更新班级/manger/grade/update
+export function upGrade(id, data) {
+  return request({
+    url: `/manger/grade/update${id}`,
     method: 'put',
     data
   })
@@ -52,6 +67,21 @@ export function deleteRoom(room_id) {
     url: `/manger/room/delete`,
     method: 'delete',
     data: { room_id }
+  })
+}
+// 删除学生/manger/student
+export function deleteStudent(id) {
+  return request({
+    url: `/manger/student/${id}`,
+    method: 'delete'
+  })
+}
+// 删除班级
+export function deleteGrade(grade_id) {
+  return request({
+    url: `/manger/grade/delete`,
+    method: 'delete',
+    data: { grade_id }
   })
 }
 // 添加班级

@@ -59,13 +59,7 @@ import uploadimageRouter from './modules/uploadimage'
  * all roles can be accessed
  */
 export const constantRoutes = [
-  testRouter,
-  usermanageRouter,
-  examsRouter,
-  aclassManagementRouter,
-  readingRouter,
-  detailRouter,
-  uploadimageRouter,
+
   {
     path: '/redirect',
     component: Layout,
@@ -160,7 +154,14 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
-  testRouter
+
+  testRouter,
+  usermanageRouter,
+  examsRouter,
+  aclassManagementRouter,
+  readingRouter,
+  detailRouter,
+  uploadimageRouter
   // {
   //   path: '/tab',
   //   component: Layout,

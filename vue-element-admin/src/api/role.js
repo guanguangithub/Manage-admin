@@ -54,9 +54,9 @@ export function upStudent(id, data) {
   })
 }
 // 更新班级/manger/grade/update
-export function upGrade(id, data) {
+export function upGrade(data) {
   return request({
-    url: `/manger/grade/update${id}`,
+    url: `/manger/grade/update`,
     method: 'put',
     data
   })

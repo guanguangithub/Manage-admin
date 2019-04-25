@@ -5,7 +5,7 @@
     </div>
     <div class="main">
       <div class="app-container">
-        <el-button type="primary" @click="handleAddRole">
+        <el-button type="primary" @click="handleAddRole('add')">
           {{ $t('permission.addRole') }}
         </el-button>
 
@@ -28,9 +28,11 @@
           </el-table-column>
           <el-table-column align="center" label="操作">
             <template slot-scope="scope">
-              <el-button type="primary" size="small" @click="handleEdit(scope)">
+              <!-- 修改按钮 -->
+              <el-button type="primary" size="small" @click="handleAddRole({type:'edit',grade_id:scope.row.grade_id})">
                 {{ $t('permission.editPermission') }}
               </el-button>
+              <!-- 删除按钮 -->
               <el-button type="danger" size="small" @click="handleDelete(scope)">
                 {{ $t('permission.delete') }}
               </el-button>
@@ -38,7 +40,7 @@
           </el-table-column>
         </el-table>
 
-        <el-dialog :visible.sync="dialogVisible" :title="dialogType==='edit'?'修改班级':'添加班级'">
+        <el-dialog :visible.sync="dialogVisible">
           <el-form :model="role" label-width="80px" label-position="left">
             <el-form-item label="班级名">
               <el-input v-model="role.grade_name" placeholder="班级名" />
@@ -73,8 +75,10 @@
           </el-form>
           <div style="text-align:right;">
             <el-button type="danger" @click="dialogVisible=false">
+              <!-- 取消按钮 -->
               {{ $t('permission.cancel') }}
             </el-button>
+            <!-- 确认按钮 -->
             <el-button type="primary" @click="confirmRole(role.grade_name)">
               {{ $t('permission.confirm') }}
             </el-button>
@@ -102,8 +106,9 @@ export default {
       roomVal: '',
       roomList: [],
       dialogVisible: false,
-      dialogType: 'new',
       checkStrictly: false,
+      // 按钮类型
+      btnType: '',
       defaultProps: {
         // children: 'children',
         label: 'title'
@@ -124,7 +129,8 @@ export default {
     async getGrade() {
       const res = await getGrade()
       this.rolesList = res.data
-      // console.log(this.rolesList, '......')
+      console.log(this.rolesList, '......')
+      console.log(res, '....res..')
     },
     async getRoom() {
       const res = await getRoom()
@@ -137,10 +143,10 @@ export default {
       // console.log(this.subjectList,"this.subjectList....");
     },
     // 添加班级
-    handleAddRole() {
+    handleAddRole(type) {
       this.role = {}
-      this.dialogType = 'new'
       this.dialogVisible = true
+      this.btnType = type
     },
     // dialogVisible(){
     //   this.roomVal=''
@@ -155,19 +161,25 @@ export default {
       //   room_id: this.role.room_id,
       //   subject_id: this.role.subject_id
       // }
-      await addGrade(
-        {
+      if (this.btnType === 'add') {
+        await addGrade(
+          {
+            grade_name: this.role.grade_name,
+            room_id: this.roomVal,
+            subject_id: this.subjectVal
+          }
+        )
+        this.rolesList.push({ grade_name: this.role.grade_name, room_id: this.roomVal, subject_id: this.subjectVal })
+      } else {
+        const { grade_id } = this.btnType
+        await upGrade({
+          grade_id,
           grade_name: this.role.grade_name,
           room_id: this.roomVal,
           subject_id: this.subjectVal
-        }
-      )
-      // console.log('this.role...', res)
-      // console.log('grade_name...', this.role.grade_name)
-      // console.log('grade_name...', this.role.room_text)
-      // console.log('grade_name...', this.role.subject_text)
-      this.rolesList.push({ grade_name: this.role.grade_name, room_id: this.roomVal, subject_id: this.subjectVal })
-      // console.log(this.rolesList  )
+        })
+      }
+
       this.getGrade()
       this.roomVal = ''
       this.subjectVal = ''
@@ -189,21 +201,21 @@ export default {
           })
         })
         .catch(err => { console.error(err) })
-    },
-    handleEdit(scope) {
-      // console.log(scope.row)
-
-      this.dialogType = 'edit'
-      this.dialogVisible = true
-      this.checkStrictly = true
-      const res = upGrade({
-        grade_id: scope.row.grade_id,
-        grade_name: scope.row.grade_name,
-        subject_id: scope.row.subject_id,
-        room_id: scope.row.room_id
-      })
-      console.log('res....', res)
     }
+    // handleEdit(scope) {
+    //   // console.log(scope.row)
+
+    //   this.dialogType = 'edit'
+    //   this.dialogVisible = true
+    //   this.checkStrictly = true
+    //   const res = upGrade({
+    //     grade_id: scope.row.grade_id,
+    //     grade_name: scope.row.grade_name,
+    //     subject_id: scope.row.subject_id,
+    //     room_id: scope.row.room_id
+    //   })
+    //   console.log('res....', res)
+    // }
   }
 }
 </script>

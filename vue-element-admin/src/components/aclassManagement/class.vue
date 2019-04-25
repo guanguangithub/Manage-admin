@@ -191,7 +191,7 @@ export default {
         .catch(err => { console.error(err) })
     },
     handleEdit(scope) {
-      console.log(scope.row)
+      // console.log(scope.row)
 
       this.dialogType = 'edit'
       this.dialogVisible = true

@@ -55,6 +55,8 @@ const actions = {
 
   async getviewAuthority({ commit }, payload) {
     const userAutohostiry = await GetviewAuthority()
+    console.log('userAutohostiry-----------', userAutohostiry)
+
     if (userAutohostiry.code === 1) {
       commit('SET_VIEWAUTOHOSTIRY', userAutohostiry.data)
       return userAutohostiry.data

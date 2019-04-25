@@ -1,9 +1,9 @@
 <template>
   <div class="dashboard-editor-container">
     <div class=" clearfix">
-      <pan-thumb :image="avatar" style="float: left">
+      <pan-thumb :image="userInfo.avatar" style="float: left">
         Your roles:
-        <span v-for="item in roles" :key="item" class="pan-info-roles">{{ item }}</span>
+        <span class="pan-info-roles">{{ userInfo.identity_text }}</span>
       </pan-thumb>
       <github-corner style="position: absolute; top: 0px; border: 0; right: 0;" />
       <div class="info-container">
@@ -12,7 +12,7 @@
       </div>
     </div>
     <div>
-      <img :src="emptyGif" class="emptyGif">
+      <img :src="userInfo.avatar" class="emptyGif">
     </div>
   </div>
 </template>
@@ -34,7 +34,8 @@ export default {
     ...mapGetters([
       'name',
       'avatar',
-      'roles'
+      'roles',
+      'userInfo'
     ])
   }
 }

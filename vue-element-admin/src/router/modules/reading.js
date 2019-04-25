@@ -17,21 +17,21 @@ const readingRouter = {
       path: 'classtobe',
       component: () => import('@/views/reading/classtobe'),
       name: 'ClassToBeApproved',
-      meta: { title: 'ClassToBeApproved', noCache: true, view_id: 'main-examPaperClassList' }
+      meta: { title: 'ClassToBeApproved', noCache: true, view_id: 'main-examinationPapers' }
     },
     {
       path: 'readelete',
       component: () => import('@/views/reading/readelete'),
       name: 'MarkDelete',
       hidden: true,
-      meta: { noCache: true, breadcrumb: false }
+      meta: { noCache: true, breadcrumb: false, view_id: 'main-examPaperClassList' }
     },
     {
       path: 'delete',
       component: () => import('@/views/reading/delete'),
       name: 'MarkDelete',
       hidden: true,
-      meta: { noCache: true, breadcrumb: false }
+      meta: { noCache: true, breadcrumb: false, view_id: 'main-examPaperClassmate' }
     }
   ]
 }

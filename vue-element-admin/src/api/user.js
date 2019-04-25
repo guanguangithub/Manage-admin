@@ -29,7 +29,7 @@ export function getUserInfo() {
   })
 }
 export function updateUserInfo(data) {
-  console.log('data...', data)
+  // console.log('data...', data)
   return request({
     url: '/user/user',
     method: 'put',

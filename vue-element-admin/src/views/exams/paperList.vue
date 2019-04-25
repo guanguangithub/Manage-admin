@@ -6,7 +6,7 @@
       <span>
         <el-select v-model="examValue" placeholder="请选择" size="large">
           <el-option
-            v-for="item in this.examlist.data"
+            v-for="item in examlist.data"
             :key="item.exam_id"
             :label="item.exam_name"
             :value="item.exam_id"
@@ -18,7 +18,7 @@
       <span class="type-ipt">
         <el-select v-model="lessonValue" placeholder="请选择" size="large">
           <el-option
-            v-for="item in this.subjectlist.data"
+            v-for="item in subjectlist.data"
             :key="item.subject_id"
             :label="item.subject_text"
             :value="item.subject_id"
@@ -34,16 +34,16 @@
       <div class="paper-listop">
         <p>试卷列表</p>
         <p>
-          <el-button plain>全部</el-button>
-          <el-button plain>进行中</el-button>
-          <el-button plain>已结束</el-button>
+          <el-button plain @click="this.tab('all')">全部</el-button>
+          <el-button plain @click="this.tab('pending')">进行中</el-button>
+          <el-button plain @click="this.tab('done')">已结束</el-button>
         </p>
 
       </div>
       <div class="paper-list">
         <el-table
           size="large"
-          :data="this.table"
+          :data="table"
           :row-style="getRowStyle"
           style="width: 100%"
           :header-cell-style="getRowClass"
@@ -145,6 +145,9 @@ export default {
     }),
     handleClick(row) {
       this.$router.push('/exams/paperDetail/' + row.exam_exam_id)
+    },
+    tab() {
+
     }
   }
 }

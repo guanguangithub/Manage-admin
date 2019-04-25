@@ -1,18 +1,18 @@
 <template>
   <div class="dashboard-editor-container">
     <div class=" clearfix">
-      <pan-thumb :image="avatar" style="float: left">
+      <pan-thumb :image="userInfo.avatar" style="float: left">
         Your roles:
-        <span v-for="item in roles" :key="item" class="pan-info-roles">{{ item }}</span>
+        <span class="pan-info-roles">{{ userInfo.identity_text }}</span>
       </pan-thumb>
       <github-corner style="position: absolute; top: 0px; border: 0; right: 0;" />
       <div class="info-container">
         <span class="display_name">{{ name }}</span>
-        <span style="font-size:20px;padding-top:20px;display:inline-block;">Editor's Dashboard</span>
+        <span style="font-size:20px;padding-top:20px;display:inline-block;">欢迎您！亲爱的{{ userInfo.identity_text }}</span>
       </div>
     </div>
     <div>
-      <img :src="emptyGif" class="emptyGif">
+      <!-- <img :src="emptyGif" class="emptyGif"> -->
     </div>
   </div>
 </template>
@@ -34,7 +34,8 @@ export default {
     ...mapGetters([
       'name',
       'avatar',
-      'roles'
+      'roles',
+      'userInfo'
     ])
   }
 }

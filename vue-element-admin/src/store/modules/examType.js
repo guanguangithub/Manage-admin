@@ -11,11 +11,9 @@ const mutations = {
     state.examlist = getdata
   },
   getsubjectlist: (state, getdata) => {
-    // console.log(state) //state就是上面state的
     state.subjectlist = getdata
   },
   gettype: (state, getdata) => {
-    // console.log(state) //state就是上面state的
     state.getquestionslist = getdata
   },
   // 添加试题
@@ -37,14 +35,14 @@ const actions = {
   // aync 后面的getexamtype是自由命名的 await是请求数据那边的方法名 context里面有commit dispatch
   async getexamtype(context) {
     const res = await getexamtype()
-    console.log(res)
+
     if (res && res.code === 1) {
       return context.commit('getlist', res)
     }
   },
   async getexamsubject(context) {
     const res = await getexamsubject()
-    console.log(res)
+
     if (res && res.code === 1) {
       return context.commit('getsubjectlist', res)
     }
@@ -52,7 +50,7 @@ const actions = {
 
   async getquestionstype(context) { // 获取考试类型
     const res = await getquestionstype()
-    console.log(res)
+
     if (res && res.code === 1) {
       return context.commit('gettype', res)
     }
@@ -82,13 +80,13 @@ const actions = {
   },
   async condition(context) { // 按条件查询试题
     const res = await condition()
-    console.log(res)
+
     return res
   },
 
   async delQuestionsType(context, payload) { // 删除试题类型
     const res = await delQuestionsType(payload)
-    console.log(payload)
+
     return res
   }
 

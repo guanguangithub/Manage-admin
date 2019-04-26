@@ -11,7 +11,7 @@ const testRouter = {
   name: 'Charts',
   meta: {
     title: 'quetions',
-    icon: 'chart',
+    icon: 'question',
     view_id: ['main-addQuestions', 'main-watchQuestions', 'main-questionsType']
   },
   children: [

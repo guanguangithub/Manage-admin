@@ -9,7 +9,7 @@ const examsRouter = {
   name: 'Administration',
   meta: {
     title: 'aclassManagement',
-    icon: 'chart',
+    icon: 'classmanagament',
     view_id: ['main-grade', 'main-room', 'main-student']
   },
   children: [

@@ -15,6 +15,7 @@
           </select>
         </p>
         <el-button type="primary"><i class="el-icon-search" />查询</el-button>
+        <el-button type="primary" @click="excelEvnet">导出</el-button>
       </div>
     </div>
     <div class="readelete_box_content">
@@ -84,6 +85,22 @@ export default {
     }),
     setDelte(row) {
       this.$router.push({ path: '/reading/delete', query: { ids: row.exam_student_id }})
+    },
+    excelEvnet() {
+      const header = Object.keys(this.deleteArr[0])
+      const list = this.deleteArr.map((item) => {
+        const arrs = Object.values(item)
+        return arrs.map(item => JSON.stringify(item))
+      })
+      console.log(list)
+      import('@/vendor/Export2Excel').then(excel => {
+        excel.export_json_to_excel({
+          header: header,
+          data: list,
+          filename: '试卷列表',
+          bookType: 'xlsx' // 后缀名
+        })
+      })
     }
   }
 }

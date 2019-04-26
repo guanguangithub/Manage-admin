@@ -11,26 +11,27 @@ const testRouter = {
   name: 'Charts',
   meta: {
     title: 'quetions',
-    icon: 'chart'
+    icon: 'chart',
+    view_id: ['main-addQuestions', 'main-watchQuestions', 'main-questionsType']
   },
   children: [
     {
       path: 'adds',
       component: () => import('@/views/qustions/addQuetions'),
       name: 'KeyboardChart',
-      meta: { title: 'addQuetions', noCache: true }
+      meta: { title: 'addQuetions', noCache: true, view_id: 'main-addQuestions' }
     },
     {
       path: 'types',
       component: () => import('@/views/qustions/typesQuetions'),
       name: 'Types',
-      meta: { title: 'typesQuetions', noCache: true }
+      meta: { title: 'typesQuetions', noCache: true, view_id: 'main-questionsType' }
     },
     {
       path: 'looks',
       component: () => import('@/views/qustions/looksQuetions'),
       name: 'Looks',
-      meta: { title: 'looksQuetions', noCache: true }
+      meta: { title: 'looksQuetions', noCache: true, view_id: 'main-watchQuestions' }
     }
 
     // { 用户头像

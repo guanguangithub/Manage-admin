@@ -135,9 +135,7 @@ export default {
     // 引入mapActions 过后去查一下
     ...mapActions({
       login: 'user/login'
-
     }),
-
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''

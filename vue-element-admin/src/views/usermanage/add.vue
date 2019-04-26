@@ -73,16 +73,16 @@
           <span>添加API接口权限</span>
         </p>
         <p>
-          <input type="text" placeholder="请输入API接口权限名称">
+          <input v-model="api_Name" type="text" placeholder="请输入API接口权限名称" @change="apiName($event)">
         </p>
         <p>
-          <input type="text" placeholder="请输入API接口权限url">
+          <input v-model="api_Url" type="text" placeholder="请输入API接口权限url" @change="apiUrl($event)">
         </p>
         <p>
-          <input type="text" placeholder="请输入API接口权限方法">
+          <input v-model="api_Func" type="text" placeholder="请输入API接口权限方法" @change="apiFunc($event)">
         </p>
         <p>
-          <el-button type="primary">确定</el-button>
+          <el-button type="primary" @click="addApiAuthority">确定</el-button>
           <el-button plain>重置</el-button>
         </p>
       </div>
@@ -92,13 +92,13 @@
           <span>添加视图接口权限</span>
         </p>
         <p>
-          <select>
-            <option value="" selected disabled>请选择已有视图</option>
-            <option v-for="(item,index) in ViewinterArr" :key="index" value="">{{ item.view_authority_text }}</option>
+          <select @change="AuthoritySeletce($event)">
+            <option selected disabled>请选择已有视图</option>
+            <option v-for="(item,index) in ViewinterArr" :key="index" :value="item.view_id">{{ item.view_authority_text }}</option>
           </select>
         </p>
         <p>
-          <el-button type="primary">确定</el-button>
+          <el-button type="primary" @click="addAuthorityView">确定</el-button>
           <el-button plain>重置</el-button>
         </p>
       </div>
@@ -174,7 +174,14 @@ export default {
       user_info: {},
       // 添加身份
       Identity_add: '',
-      Identity_info: {}
+      Identity_info: {},
+      // 添加API权限
+      api_Name: '',
+      api_Url: '',
+      api_Func: '',
+      AuthorityApi_info: {},
+      // 添加视图权限
+      authorityView_info: {}
     }
   },
   created() {
@@ -219,7 +226,9 @@ export default {
       Identityviewdele: 'usermanage/Identityview',
       // 添加数据AIP
       addToMockUser: 'addToMock/addToMockUser',
-      addToMockIdentity: 'addToMock/addToMockIdentity'
+      addToMockIdentity: 'addToMock/addToMockIdentity',
+      addToauthorityView: 'addToMock/addToauthorityView',
+      addToAuthorityApi: 'addToMock/addToAuthorityApi'
     }),
     // 添加用户的
     ClickAdduser() {
@@ -279,6 +288,56 @@ export default {
     },
     IdentityAdd(event) {
       this.Identity_add = event.target.value
+    },
+    // 添加视图权限
+    addAuthorityView() {
+      this.addToauthorityView(this.authorityView_info).then((res) => {
+        if (res === '') {
+          alert('视图权限重复')
+        } else {
+          alert(res)
+        }
+      })
+    },
+    AuthoritySeletce(event) {
+      this.ViewinterArr.forEach(item => {
+        if (event.target.value === item.view_id) {
+          this.authorityView_info.view_authority_text = item.view_authority_text
+          this.authorityView_info.view_id = item.view_id
+        }
+      })
+    },
+    // 添加API权限
+    addApiAuthority() {
+      // let ApiArrns = this.apiperArr.filter((item)=>{
+      //   return this.api_Name === item.api_authority_text
+      // })
+      if (this.api_Name.trim() === '' || this.api_Url.trim() === '' || this.api_Func.trim() === '') {
+        alert('参数有误')
+      } else {
+        this.AuthorityApi_info.api_authority_text = this.api_Name
+        this.AuthorityApi_info.api_authority_url = this.api_Url
+        this.AuthorityApi_info.api_authority_mehtod = this.api_Func
+        this.addToAuthorityApi(this.AuthorityApi_info).then(res => {
+          if (res === '') {
+            alert('API名称已经存在')
+          } else {
+            alert(res)
+            this.api_Name = ''
+            this.api_Url = ''
+            this.api_Func = ''
+          }
+        })
+      }
+    },
+    apiName(event) {
+      this.api_Name = event.target.value
+    },
+    apiUrl(event) {
+      this.api_Url = event.target.value
+    },
+    apiFunc(event) {
+      this.api_Func = event.target.value
     }
   }
 }

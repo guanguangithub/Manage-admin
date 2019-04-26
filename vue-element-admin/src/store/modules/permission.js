@@ -50,8 +50,6 @@ const mutations = {
 const actions = {
   async generateRoutes({ commit }, view_autohority) {
     // 获取用户所有的view_id
-    // console.log('view_autohority....', view_autohority)
-    // console.log(view_autohority)
     const view_ids = view_autohority.map(item => item.view_id)
     // console.log('view_ids', view_ids)
     // 在路由里面过滤一遍 得到用户能访问的路由
@@ -61,16 +59,6 @@ const actions = {
     console.log('accessedRoutes...', accessedRoutes)
     commit('SET_ROUTES', accessedRoutes)
     return accessedRoutes
-    // return new Promise(resolve => {
-    //   let accessedRoutes
-    //   if (roles.includes('admin')) {
-    //     accessedRoutes = asyncRoutes
-    //   } else {
-    //     accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
-    //   }
-    //   commit('SET_ROUTES', accessedRoutes)
-    //   resolve(accessedRoutes)
-    // })
   }
 }
 

@@ -27,16 +27,19 @@
       </span>
       <span class="searchPaperBtn">
         <span class="search-icon"><svg-icon icon-class="search" /></span>
-        <el-button type="primary" @click="searchBtn">搜索</el-button></span>
+        <el-button type="primary" @click="searchBtn">搜索</el-button>
+
+        <el-button type="primary" @click="excel">导出excal</el-button>
+      </span>
 
     </div>
     <div class="paperList-container">
       <div class="paper-listop">
         <p>试卷列表</p>
         <p>
-          <el-button plain @click="this.tab('all')">全部</el-button>
-          <el-button plain @click="this.tab('pending')">进行中</el-button>
-          <el-button plain @click="this.tab('done')">已结束</el-button>
+          <el-button plain @click="tab('all')">全部</el-button>
+          <el-button plain @click="tab('pending')">进行中</el-button>
+          <el-button plain @click="tab('done')">已结束</el-button>
         </p>
 
       </div>
@@ -123,6 +126,21 @@ export default {
     ...mapMutations({
       getConditionPaper: 'exam/GETCONDITIONPAPER'
     }),
+    excel() {
+      const tHeader = Object.keys(this.table[0])
+      const list = this.table.map(item => {
+        const arr = Object.values(item)
+        return arr.map(item => JSON.stringify(item))
+      })
+        import('@/vendor/Export2Excel').then(excel => {
+          excel.export_json_to_excel({
+            header: tHeader,
+            data: list,
+            filename: '',
+            bookType: 'xlsx'// excal后缀名， xlsx，csv，xls
+          })
+        })
+    },
     async searchBtn() {
       // await this.getConditionPaper({exam_id:this.examValue,subject_id:this.lessonValue})
       await this.fatchExamList()

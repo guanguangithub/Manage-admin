@@ -14,7 +14,7 @@
         <div v-if="flag">
           <div v-for="(item,i) in this.detailPaper.questions" :key="item.questions_id" class="markdown">
             <h5>{{ i+1 }} : {{ item.title }}</h5>
-            <markdown-editor ref="markdownEditor" v-model="markdowns[i].content" :options="{hideModeSwitch:true,previewStyle:'tab'}" height="200px" />
+            <markdown-editor ref="markdownEditor" v-model="markdowns[i].content" :options="{hideModeSwitch:true,previewStyle:'',toolbarItems:[]}" height="200px" />
           </div>
         </div>
 
@@ -94,7 +94,7 @@ export default {
     padding:20px;
 
 }
-.mymarkdown /deep/ .te-toolbar-section{
+.mark /deep/ .te-toolbar-section{
   display:none;
 }
 .markdown{

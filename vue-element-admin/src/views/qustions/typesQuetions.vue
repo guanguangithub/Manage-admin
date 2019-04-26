@@ -89,7 +89,7 @@ export default {
           })
         })
         .catch(() => {
-          console.log('添加失败')
+          alert('添加失败')
         })
     },
     getRowClass({ row, colum, rowIndex, columIndex }) {

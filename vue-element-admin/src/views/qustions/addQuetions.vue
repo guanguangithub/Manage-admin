@@ -10,14 +10,14 @@
           <p>题目信息</p>
           <span>题干</span>
           <p class="inp">
-            <el-input v-model="inpustem" placeholder="请输入内容" @blur="getinp($event)" />
+            <el-input v-model="contenttitle" placeholder="请输入内容" @blur="getinp($event)" />
           </p>
         </div>
         <div class="content-main">
           <p>题目主题</p>
           <div class="content-box">
-            <!-- <texaImg /> -->
-            <markdown-editor v-model="contenttitle" />
+
+            <markdown-editor v-model="inpustem" />
 
           </div>
           <div class="select-check">
@@ -62,7 +62,7 @@
         <!-- 提交时请求接口 /exam/questions 参数questions_type_id(试题类型id)  questions_stem(题干) subject_id(课程id) exam_id(考试类型id) user_id(用户id) questions_answer(题目答案) title(试题的标题)-->
         <el-button type="primary" @click="sub">提交</el-button>
       </div>
-
+      <p>{{ detailobj }}</p>
     </div>
   </div>
 </template>
@@ -70,7 +70,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import MarkdownEditor from '@/components/MarkdownEditor'
-// import texaImg from '../../components/Tinymce'
+
 export default {
   components: { MarkdownEditor },
   props: {},
@@ -103,13 +103,13 @@ export default {
     this.getexamsubject()
     this.getQuestionsType()
     this.checkitems()
-    this.checkitems()
+
     const id = this.$route.query.id
     this.detailobj = this.checkitemlist.find((item, ind) => {
       return item.questions_id === id
     })
     this.getinitId()
-    if (!this.ischange) {
+    if (!this.ischange && this.detailobj) {
       this.exam = this.detailobj.exam_id
       this.questions = this.detailobj.questions_type_id
       this.subject = this.detailobj.subject_id

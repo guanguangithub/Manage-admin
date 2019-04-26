@@ -32,11 +32,13 @@ router.beforeEach(async(to, from, next) => {
           // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
           // 如果没有用户信息就去获取用户信息 //获取到的用户信息
           const userInfo = await store.dispatch('user/getInfo')
-          console.log('permission第35行', userInfo)
+          // console.log('permission第35行', userInfo)
           // 2.通过身份获取权限
           const viewAutohostiry = await store.dispatch('user/getviewAuthority', { user_id: userInfo.user_id })
           // 通过权限生成路由
+          console.log('viewAutohostiry...', viewAutohostiry)
           const routess = await store.dispatch('permission/generateRoutes', viewAutohostiry)
+          console.log('routes....', routess)
           router.addRoutes(routess)
           next({ ...to, replace: true })
           // hack method to ensure that addRoutes is complete

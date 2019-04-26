@@ -6,7 +6,7 @@
       <span>
         <el-select v-model="examValue" placeholder="请选择" size="large">
           <el-option
-            v-for="item in this.examlist.data"
+            v-for="item in examlist.data"
             :key="item.exam_id"
             :label="item.exam_name"
             :value="item.exam_id"
@@ -18,7 +18,7 @@
       <span class="type-ipt">
         <el-select v-model="lessonValue" placeholder="请选择" size="large">
           <el-option
-            v-for="item in this.subjectlist.data"
+            v-for="item in subjectlist.data"
             :key="item.subject_id"
             :label="item.subject_text"
             :value="item.subject_id"
@@ -27,23 +27,26 @@
       </span>
       <span class="searchPaperBtn">
         <span class="search-icon"><svg-icon icon-class="search" /></span>
-        <el-button type="primary" @click="searchBtn">搜索</el-button></span>
+        <el-button type="primary" @click="searchBtn">搜索</el-button>
+
+        <el-button type="primary" @click="excel">导出excal</el-button>
+      </span>
 
     </div>
     <div class="paperList-container">
       <div class="paper-listop">
         <p>试卷列表</p>
         <p>
-          <el-button plain>全部</el-button>
-          <el-button plain>进行中</el-button>
-          <el-button plain>已结束</el-button>
+          <el-button plain @click="tab('all')">全部</el-button>
+          <el-button plain @click="tab('pending')">进行中</el-button>
+          <el-button plain @click="tab('done')">已结束</el-button>
         </p>
 
       </div>
       <div class="paper-list">
         <el-table
           size="large"
-          :data="this.table"
+          :data="table"
           :row-style="getRowStyle"
           style="width: 100%"
           :header-cell-style="getRowClass"
@@ -94,7 +97,7 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 // console.log({...mapActions()})
 export default {
   data() {
@@ -120,8 +123,28 @@ export default {
     this.fatchExamList()
   },
   methods: {
-    searchBtn() {
-      console.log(this.lessonValue, this.examValue)
+    ...mapMutations({
+      getConditionPaper: 'exam/GETCONDITIONPAPER'
+    }),
+    excel() {
+      const tHeader = Object.keys(this.table[0])
+      const list = this.table.map(item => {
+        const arr = Object.values(item)
+        return arr.map(item => JSON.stringify(item))
+      })
+        import('@/vendor/Export2Excel').then(excel => {
+          excel.export_json_to_excel({
+            header: tHeader,
+            data: list,
+            filename: '',
+            bookType: 'xlsx'// excal后缀名， xlsx，csv，xls
+          })
+        })
+    },
+    async searchBtn() {
+      // await this.getConditionPaper({exam_id:this.examValue,subject_id:this.lessonValue})
+      await this.fatchExamList()
+      this.getConditionPaper({ exam_id: this.examValue, subject_id: this.lessonValue })
     },
     getRowClass({ row, column, rowIndex, columnIndex }) {
       if (rowIndex === 0) {
@@ -140,6 +163,9 @@ export default {
     }),
     handleClick(row) {
       this.$router.push('/exams/paperDetail/' + row.exam_exam_id)
+    },
+    tab(a) {
+      console.log(a)
     }
   }
 }
@@ -147,7 +173,7 @@ export default {
 
 <style lang="scss" scoped>
     .paperList-bg{
-       height:698px;
+        height:698px;
         background: #F0F2F5;
         padding:0 35px;
         overflow-y: auto;

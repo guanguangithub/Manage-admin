@@ -29,7 +29,7 @@ export function getUserInfo() {
   })
 }
 export function updateUserInfo(data) {
-  console.log('data...', data)
+  // console.log('data...', data)
   return request({
     url: '/user/user',
     method: 'put',
@@ -37,6 +37,7 @@ export function updateUserInfo(data) {
   })
 }
 export function GetviewAuthority(params) {
+  // console.log('user_idn', params)
   return request({
     url: '/user/new',
     method: 'get',

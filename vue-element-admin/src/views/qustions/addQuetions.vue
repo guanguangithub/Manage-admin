@@ -16,9 +16,7 @@
         <div class="content-main">
           <p>题目主题</p>
           <div class="content-box">
-            <!-- <texaImg /> -->
             <markdown-editor v-model="inpustem" />
-
           </div>
           <div class="select-check">
             <p>请选择考试类型</p>
@@ -55,7 +53,6 @@
           </div>
           <p>答案信息</p>
           <div class="content-box">
-
             <markdown-editor v-model="content" />
           </div>
         </div>
@@ -63,16 +60,12 @@
         <el-button type="primary" @click="sub">提交</el-button>
       </div>
     </div>
-    <p>{{ examlist.data }}</p>
-    <p>{{ subjectlist }}</p>
-    <p>{{ getquestionslist }}</p>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import MarkdownEditor from '@/components/MarkdownEditor'
-// import texaImg from '../../components/Tinymce'
 export default {
   components: { MarkdownEditor },
   props: {},
@@ -82,8 +75,6 @@ export default {
       questions: '',
       subject: '',
       inpustem: '', // 题干
-      // title: '', // 题目
-      // answer: '', // 答案
       ischange: true,
       hasid: '',
       detailobj: {},
@@ -110,7 +101,7 @@ export default {
       return item.questions_id === id
     })
     this.getinitId()
-    if (this.detailobj && !this.ischange) {
+    if (!this.ischange && this.detailobj) {
       this.exam = this.detailobj.exam_id
       this.questions = this.detailobj.questions_type_id
       this.subject = this.detailobj.subject_id

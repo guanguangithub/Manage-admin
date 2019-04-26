@@ -31,5 +31,6 @@ export default {
       this.currentRole = 'editorDashboard'
     }
   }
+
 }
 </script>

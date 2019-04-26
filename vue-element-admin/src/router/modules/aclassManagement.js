@@ -10,7 +10,7 @@ const examsRouter = {
   meta: {
     title: 'aclassManagement',
     icon: 'chart',
-    view_id: ['main-grade', 'main-addUser', 'main-room']
+    view_id: ['main-grade', 'main-room', 'main-student']
   },
   children: [
     {
@@ -23,13 +23,13 @@ const examsRouter = {
       path: 'type',
       component: () => import('@/views/aclassManagement/teachingManagement'),
       name: 'teachingManagement',
-      meta: { title: 'teachingManagement', noCache: true, view_id: 'main-addUser' }
+      meta: { title: 'teachingManagement', noCache: true, view_id: 'main-room' }
     },
     {
       path: 'view',
       component: () => import('@/views/aclassManagement/studentManagement'),
       name: 'studentManagement',
-      meta: { title: 'studentManagement', noCache: true, view_id: 'main-room' }
+      meta: { title: 'studentManagement', noCache: true, view_id: 'main-student' }
     }
   ]
 }

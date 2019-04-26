@@ -39,3 +39,10 @@ export function getallPapers() {
     method: 'get'
   })
 }
+export function getConditionPaper(params) {
+  return request({
+    url: '/exam/questions/condition',
+    method: 'get',
+    params
+  })
+}

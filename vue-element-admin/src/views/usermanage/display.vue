@@ -141,7 +141,7 @@ export default {
       inds: 0,
       list: null,
       total: 0,
-      limit: 5,
+      limit: 10,
       data: null,
       toals: 1
     }

@@ -2,8 +2,8 @@
 export default {
   minHeight: '200px',
   previewStyle: 'vertical',
-  useCommandShortcut: true,
-  useDefaultHTMLSanitizer: true,
+  useCommandShortcut: false,
+  useDefaultHTMLSanitizer: false,
   usageStatistics: true,
   hideModeSwitch: true,
   toolbarItems: [

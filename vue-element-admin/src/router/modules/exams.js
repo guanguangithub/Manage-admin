@@ -8,7 +8,7 @@ const examsRouter = {
   meta: {
     title: 'exams',
     icon: 'chart',
-    view_id: ['main-addExam', 'main-examEdit', 'main-examDetail']
+    view_id: ['main-addExam', 'main-examEdit', 'main-examDetail', 'main-examList']
   },
   children: [
     {
@@ -43,7 +43,6 @@ const examsRouter = {
       name: 'paperList',
       meta: { title: 'paperList', noCache: true, view_id: 'main-examList' }
     }
-
   ]
 }
 

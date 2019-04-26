@@ -42,6 +42,7 @@ const actions = {
     const { username, password } = userInfo
     const res = await login({ user_name: username, user_pwd: password })
     setToken(res.token)
+    // console.log('login....', res)
     return res
   },
 
@@ -55,8 +56,7 @@ const actions = {
 
   async getviewAuthority({ commit }, payload) {
     const userAutohostiry = await GetviewAuthority(payload)
-    console.log('userAutohostiry-----------', userAutohostiry)
-
+    // console.log('userAutohostiry...', userAutohostiry)
     if (userAutohostiry.code === 1) {
       commit('SET_VIEWAUTOHOSTIRY', userAutohostiry.data)
       return userAutohostiry.data

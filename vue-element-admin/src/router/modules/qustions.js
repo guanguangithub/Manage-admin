@@ -12,7 +12,7 @@ const testRouter = {
   meta: {
     title: 'quetions',
     icon: 'chart',
-    view_id: ['main-addQuestions', 'main-questionsType', 'main-watchQuestions']
+    view_id: ['main-addQuestions', 'main-watchQuestions', 'main-questionsType']
   },
   children: [
     {
@@ -50,7 +50,7 @@ const detailRouter = {
   redirect: '/permission/detail', // 重定向地址，在面包屑中点击会重定向去的地址
   hidden: true, // 不在侧边栏线上
   alwaysShow: true, // 一直显示根路由
-  meta: { roles: ['admin', 'editor'], view_id: ['main-examDetail'] }, // 你可以在根路由设置权限，这样它下面所以的子路由都继承了这个权限
+  meta: { roles: ['admin', 'editor'] }, // 你可以在根路由设置权限，这样它下面所以的子路由都继承了这个权限
   children: [{
     path: 'detail',
     component: () => import('@/views/qustions/questions'),
@@ -59,8 +59,7 @@ const detailRouter = {
       title: 'permission',
       icon: 'lock', // 图标
       role: ['admin', 'editor'], // 或者你可以给每一个子路由设置自己的权限
-      noCache: true, // 不会被 <keep-alive> 缓存
-      view_id: 'main-examDetail'
+      noCache: true // 不会被 <keep-alive> 缓存
     }
   }]
 }

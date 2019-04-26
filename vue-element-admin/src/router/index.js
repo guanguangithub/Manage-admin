@@ -59,7 +59,6 @@ import uploadimageRouter from './modules/uploadimage'
  * all roles can be accessed
  */
 export const constantRoutes = [
-
   {
     path: '/redirect',
     component: Layout,
@@ -102,7 +101,7 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: 'dashboard', icon: 'dashboard', noCache: true, affix: true }
+        meta: { title: 'dashboard', icon: 'dashboard', noCache: true, affix: true, view_id: 'main' }
       }
     ]
   }
@@ -154,7 +153,6 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
-
   testRouter,
   usermanageRouter,
   examsRouter,
@@ -288,7 +286,7 @@ export const asyncRoutes = [
   //       meta: { title: 'page404', noCache: true }
   //     }
   //   ]
-  // },
+  // }
 
   // {
   //   path: '/error-log',

@@ -63,6 +63,9 @@
         <el-button type="primary" @click="sub">提交</el-button>
       </div>
     </div>
+    <p>{{ examlist.data }}</p>
+    <p>{{ subjectlist }}</p>
+    <p>{{ getquestionslist }}</p>
   </div>
 </template>
 
@@ -102,13 +105,12 @@ export default {
     this.getexamsubject()
     this.getQuestionsType()
     this.checkitems()
-    this.checkitems()
     const id = this.$route.query.id
     this.detailobj = this.checkitemlist.find((item, ind) => {
       return item.questions_id === id
     })
     this.getinitId()
-    if (!this.ischange) {
+    if (this.detailobj && !this.ischange) {
       this.exam = this.detailobj.exam_id
       this.questions = this.detailobj.questions_type_id
       this.subject = this.detailobj.subject_id

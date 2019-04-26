@@ -36,10 +36,11 @@ export function updateUserInfo(data) {
     data
   })
 }
-export function GetviewAuthority() {
+export function GetviewAuthority(params) {
   return request({
-    url: '/user/view_authority',
-    method: 'get'
+    url: '/user/new',
+    method: 'get',
+    params
   })
 }
 export function userupdata(data) {

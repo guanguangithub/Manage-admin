@@ -9,6 +9,7 @@
           <p>
             <!-- 添加试题类型 参数：text试题名称 sort试题序号 接口/exam/insertQuestionsType -->
             <el-button type="text" @click="open3">+添加类型</el-button>
+            <el-button type="text" @click="exportExcel">导出excel</el-button>
           </p>
         </div>
         <div class="tablelist">
@@ -23,7 +24,6 @@
             <el-table-column label="操作">
               <template slot-scope="scope">
                 <el-button
-
                   type="danger"
                   @click="handleDelete(scope.$index, scope.row)"
                 >删除</el-button>
@@ -101,6 +101,27 @@ export default {
     },
     getRowstyle() {
       return 'height:53px'
+    },
+    exportExcel() {
+      this.downloadLoading = true
+      const list = this.getquestionslist.data.map((item) => {
+        const arr = Object.values(item)
+        console.log(arr)
+        return arr.map((it) =>
+          JSON.stringify(it)
+        )
+      })
+      const header = Object.keys(this.getquestionslist.data[0])
+      import('@/vendor/Export2Excel').then(excel => {
+        excel.export_json_to_excel({
+          header: header,
+          data: list,
+          filename: '列表',
+          autoWidth: this.autoWidth,
+          bookType: 'xlsx'
+        })
+        this.downloadLoading = false
+      })
     }
   }
 }

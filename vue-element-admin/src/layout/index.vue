@@ -105,7 +105,5 @@ export default {
   .mobile .fixed-header {
     width: 100%;
   }
-  .has-logo /deep/ .app-wrapper>.sidebar-container{
-    top:60px;
-  }
+
 </style>

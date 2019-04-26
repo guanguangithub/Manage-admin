@@ -68,6 +68,7 @@
             </div>
             <p>
               <!-- 进入编辑页之后 更新数据之后更新试题接口/exam/questions/update -->
+
               <a :href="['http://169.254.12.1:9527/#/quetions/adds?id='+item.questions_id]">编辑</a>
             </p>
           </div>
@@ -143,12 +144,13 @@ export default {
       this.activeid = index
     },
     async refer() {
-      await this.checkitems()
+      await this.checkitems() // 点击查询时 先获取下原数据 再进行筛选
       if (this.subject !== '' && this.questions !== '' && this.exam !== '') {
         const { subject, questions, exam } = this
         this.changeitemlist({ subject, questions, exam })// 调用这个方法
       }
     }
+
   }
 }
 </script>
@@ -209,7 +211,6 @@ export default {
           margin: 25px 0;
           li {
             font-size: 12px;
-
           }
         }
         .type-exam {

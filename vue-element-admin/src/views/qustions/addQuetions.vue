@@ -62,8 +62,8 @@
         <!-- 提交时请求接口 /exam/questions 参数questions_type_id(试题类型id)  questions_stem(题干) subject_id(课程id) exam_id(考试类型id) user_id(用户id) questions_answer(题目答案) title(试题的标题)-->
         <el-button type="primary" @click="sub">提交</el-button>
       </div>
-      <p>{{ detailobj }}</p>
     </div>
+
   </div>
 </template>
 

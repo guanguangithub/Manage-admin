@@ -19,14 +19,18 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'roles',
       'userInfo'
     ])
   },
   created() {
-    // console.log('userInfo', this.userInfo)
+    console.log(this.userInfo)
     if (this.userInfo.identity_text !== '管理员') {
+      this.currentRole = 'adminDashboard'
+    } else {
       this.currentRole = 'editorDashboard'
     }
   }
+
 }
 </script>

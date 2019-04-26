@@ -4,29 +4,31 @@
       <p>添加用户</p>
     </div>
     <div class="add_box_content">
-      <!--添加用户  -->
+      <!-- 添加用户  -->
       <div class="add_box_content_add">
         <p id="ptx">
           <span v-for="(item,index) in dataArr" :key="index" :class="inds===index?'current':''" @click="SpanClick(index)">{{ item.title }}</span>
         </p>
+        <!-- 添加用户 -->
         <div v-if="inds === 0" class="add_box_content_child_one">
           <p>
-            <input type="text" placeholder="请输入用户名">
+            <input v-model="user_name" type="text" placeholder="请输入用户名" @change="userGetname($event)">
           </p>
           <p>
-            <input type="text" placeholder="请输入密码">
+            <input v-model="user_pwd" type="text" placeholder="请输入密码" @change="userGetpass($event)">
           </p>
           <p>
-            <select>
-              <option value="" selected disabled>请选择身份ID</option>
-              <option v-for="(item,index) in identityArr" :key="index" value="">{{ item.identity_text }}</option>
+            <select @change="selectVal($event)">
+              <option selected disabled>请选择身份ID</option>
+              <option v-for="(item,index) in identityArr" :key="index" :value="item.identity_id">{{ item.identity_text }}</option>
             </select>
           </p>
           <p>
-            <el-button type="primary">确定</el-button>
+            <el-button type="primary" @click="ClickAdduser">确定</el-button>
             <el-button plain>重置</el-button>
           </p>
         </div>
+        <!-- 更新用户 -->
         <div v-else class="add_box_content_child_two">
           <p>
             <select>
@@ -58,10 +60,10 @@
           <span>添加身份</span>
         </p>
         <p>
-          <input type="text" placeholder="请输入你的身份">
+          <input v-model="Identity_add" type="text" placeholder="请输入你的身份" @change="IdentityAdd($event)">
         </p>
         <p>
-          <el-button type="primary">确定</el-button>
+          <el-button type="primary" @click="addIdentity">确定</el-button>
           <el-button plain>重置</el-button>
         </p>
       </div>
@@ -160,50 +162,123 @@ export default {
           title: '更新用户'
         }
       ],
-      identityArr: [],
-      apiperArr: [],
-      ViewinterArr: [],
-      userArr: [],
-      inds: 0
+      identityArr: [], // 身份数据
+      apiperArr: [], // API数据
+      ViewinterArr: [], // 视图数据
+      userArr: [], // 用户数据
+      inds: 0,
+      // 添加用户
+      user_name: '',
+      user_pwd: '',
+      identity_id: '',
+      user_info: {},
+      // 添加身份
+      Identity_add: '',
+      Identity_info: {}
     }
   },
   created() {
+    // 身份数据
     this.identitydele().then(res => {
-      console.log(res)
       if (res.code === 1) {
         this.identityArr = res.data
       }
     })
+    // API数据
     this.apipermissions().then(res => {
-      console.log(res)
       if (res.code === 1) {
         this.apiperArr = res.data
       }
     })
+    // 视图数据
     this.Viewinterdele().then(res => {
-      console.log(res)
       if (res.code === 1) {
         this.ViewinterArr = res.data
       }
     })
+    // 用户数据
     this.usermanagedele().then(res => {
-      console.log(res)
       if (res.code === 1) {
         this.userArr = res.data
       }
     })
   },
   methods: {
+    // type切换
+    SpanClick(ind) {
+      this.inds = ind
+    },
+    // vuex库
     ...mapActions({
+      // 获取数据AIP
       usermanagedele: 'usermanage/userdelete',
       identitydele: 'usermanage/identitydelete',
       apipermissions: 'usermanage/apipermissions',
       Interfacedele: 'usermanage/InterfaceRelationship',
       Viewinterdele: 'usermanage/Viewinterface',
-      Identityviewdele: 'usermanage/Identityview'
+      Identityviewdele: 'usermanage/Identityview',
+      // 添加数据AIP
+      addToMockUser: 'addToMock/addToMockUser',
+      addToMockIdentity: 'addToMock/addToMockIdentity'
     }),
-    SpanClick(ind) {
-      this.inds = ind
+    // 添加用户的
+    ClickAdduser() {
+      const userName = this.userArr.filter((item, index) => {
+        return item.user_name === this.user_name
+      })
+      const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/
+      if (this.user_name.trim() === '' || this.user_pwd.trim() === '' || this.identity_id.trim() === '') {
+        alert('参数错误')
+      } else if (!reg.test(this.user_pwd)) {
+        alert('您的密码应该最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符')
+        return
+      } else if (userName.length) {
+        alert('用户名已经存在')
+      } else {
+        this.user_info.user_name = this.user_name
+        this.user_info.user_pwd = this.user_pwd
+        this.user_info.identity_id = this.identity_id
+        this.addToMockUser(this.user_info).then(res => {
+          if (res.code === 1) {
+            alert(res.msg)
+            this.user_name = ''
+            this.user_pwd = ''
+            this.identity_id = ''
+          }
+        })
+      }
+    },
+    userGetname(event) {
+      this.user_name = event.target.value
+    },
+    userGetpass(event) {
+      this.user_pwd = event.target.value
+    },
+    selectVal(event) {
+      this.identity_id = event.target.value
+    },
+    // 添加身份的
+    addIdentity() {
+      const identityData = this.identityArr.filter((item, index) => {
+        return item.identity_text === this.Identity_add
+      })
+      if (this.Identity_add === '') {
+        alert('参数错误')
+      } else if (identityData.length) {
+        alert('身份已经存在')
+      } else {
+        this.Identity_info.identity_text = this.Identity_add
+        console.log(this.Identity_info)
+        this.addToMockIdentity(this.Identity_info).then((res) => {
+          if (res.code === 1) {
+            alert(res.msg)
+            this.Identity_add = ''
+          }
+        })
+      }
+    },
+    IdentityAdd(event) {
+      this.Identity_add = event.target.value
     }
   }
 }

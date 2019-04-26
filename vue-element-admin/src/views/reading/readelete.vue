@@ -32,6 +32,7 @@
           <el-table-column prop="exam_student_id" label="操作" width="156">
             <template slot-scope="{row}">
               <span style="color:#0139FD" @click="setDelte(row)">批卷</span>
+              <span style="color:#0139FD" @click="excelEvnet">导出试卷</span>
             </template>
           </el-table-column>
         </el-table>
@@ -84,6 +85,22 @@ export default {
     }),
     setDelte(row) {
       this.$router.push({ path: '/reading/delete', query: { ids: row.exam_student_id }})
+    },
+    excelEvnet() {
+      // import('@/vendor/Export2Excel').then(excel => {
+      //   const tHeader = ['Id', 'Title', 'Author', 'Readings', 'Date']
+      //   const filterVal = ['id', 'title', 'author', 'pageviews', 'display_time']
+      //   const list = this.list
+      //   const data = this.formatJson(filterVal, list)
+      //   excel.export_json_to_excel({
+      //     header: tHeader,
+      //     data,
+      //     filename: this.filename,
+      //     autoWidth: this.autoWidth,
+      //     bookType: this.bookType
+      //   })
+      //   this.downloadLoading = false
+      // })
     }
   }
 }

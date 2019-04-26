@@ -15,6 +15,7 @@
           </select>
         </p>
         <el-button type="primary"><i class="el-icon-search" />查询</el-button>
+        <el-button type="primary" @click="excelEvnet">导出</el-button>
       </div>
     </div>
     <div class="readelete_box_content">
@@ -32,7 +33,6 @@
           <el-table-column prop="exam_student_id" label="操作" width="156">
             <template slot-scope="{row}">
               <span style="color:#0139FD" @click="setDelte(row)">批卷</span>
-              <span style="color:#0139FD" @click="excelEvnet">导出试卷</span>
             </template>
           </el-table-column>
         </el-table>
@@ -87,20 +87,20 @@ export default {
       this.$router.push({ path: '/reading/delete', query: { ids: row.exam_student_id }})
     },
     excelEvnet() {
-      // import('@/vendor/Export2Excel').then(excel => {
-      //   const tHeader = ['Id', 'Title', 'Author', 'Readings', 'Date']
-      //   const filterVal = ['id', 'title', 'author', 'pageviews', 'display_time']
-      //   const list = this.list
-      //   const data = this.formatJson(filterVal, list)
-      //   excel.export_json_to_excel({
-      //     header: tHeader,
-      //     data,
-      //     filename: this.filename,
-      //     autoWidth: this.autoWidth,
-      //     bookType: this.bookType
-      //   })
-      //   this.downloadLoading = false
-      // })
+      const header = Object.keys(this.deleteArr[0])
+      const list = this.deleteArr.map((item) => {
+        const arrs = Object.values(item)
+        return arrs.map(item => JSON.stringify(item))
+      })
+      console.log(list)
+      import('@/vendor/Export2Excel').then(excel => {
+        excel.export_json_to_excel({
+          header: header,
+          data: list,
+          filename: '试卷列表',
+          bookType: 'xlsx' // 后缀名
+        })
+      })
     }
   }
 }

@@ -11,7 +11,6 @@ function hasPermission(view_ids, route) {
     // console.log(view_ids.some(item => item === route.meta.view_id), 'is')
     return view_ids.some(item => route.meta.view_id.includes(item))
   } else {
-    console.log(111)
     return true
   }
 }
@@ -56,7 +55,7 @@ const actions = {
     // console.log(view_ids)
     const accessedRoutes = filterAsyncRoutes(asyncRoutes, view_ids)
     // 更新路由
-    console.log('accessedRoutes...', accessedRoutes)
+
     commit('SET_ROUTES', accessedRoutes)
     return accessedRoutes
   }

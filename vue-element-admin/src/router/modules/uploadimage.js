@@ -10,7 +10,7 @@ const uploadimageRouter = {
   alwaysShow: true,
   meta: {
     title: 'uploadimage',
-    icon: 'chart',
+    icon: 'titlegirl',
     view_id: 'browser-upload'
   },
   children: [

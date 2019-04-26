@@ -9,7 +9,8 @@ const usermanageRouter = {
   name: 'UserManagement',
   meta: {
     title: 'UserManagement',
-    icon: 'chart'
+    icon: 'chart',
+    view_id: ['main-addUser', 'main-showUser']
   },
   children: [
     {

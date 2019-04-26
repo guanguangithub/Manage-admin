@@ -10,14 +10,15 @@ const uploadimageRouter = {
   alwaysShow: true,
   meta: {
     title: 'uploadimage',
-    icon: 'chart'
+    icon: 'chart',
+    view_id: 'browser-upload'
   },
   children: [
     {
       path: 'upload',
       component: () => import('@/views/uploadimage/upload'),
       name: 'upload',
-      meta: { title: 'uploadDetele', noCache: true }
+      meta: { title: 'uploadDetele', noCache: true, view_id: 'browser-upload' }
     }
   ]
 }

@@ -2,22 +2,23 @@
   <div class="dashboard-editor-container">
     <div class=" clearfix">
       <pan-thumb :image="userInfo.avatar" style="float: left">
+        Your roles:
         <span class="pan-info-roles">{{ userInfo.identity_text }}</span>
       </pan-thumb>
       <github-corner style="position: absolute; top: 0px; border: 0; right: 0;" />
       <div class="info-container">
         <span class="display_name">{{ userInfo.user_name }}</span>
-        <span style="font-size:20px;padding-top:20px;display:inline-block;">Editor's Dashboard</span>
       </div>
     </div>
     <div>
       <img :src="userInfo.avatar" class="emptyGif">
+      <span class="display_name">{{ name }}</span>
+      <span style="font-size:20px;padding-top:20px;display:inline-block;">欢迎您！亲爱的{{ userInfo.identity_text }}</span>
     </div>
   </div>
 </template>
-
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import PanThumb from '@/components/PanThumb'
 import GithubCorner from '@/components/GithubCorner'
 
@@ -30,9 +31,12 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      userInfo: state => state.user.userInfo
-    })
+    ...mapGetters([
+      'name',
+      'avatar',
+      'roles',
+      'userInfo'
+    ])
   }
 }
 </script>

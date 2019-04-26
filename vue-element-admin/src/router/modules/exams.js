@@ -7,14 +7,15 @@ const examsRouter = {
   name: 'exams',
   meta: {
     title: 'exams',
-    icon: 'chart'
+    icon: 'chart',
+    view_id: ['main-addExam', 'main-examEdit', 'main-examDetail', 'main-examList']
   },
   children: [
     {
       path: 'addExam',
       component: () => import('@/views/exams/addExam'),
       name: 'addExam',
-      meta: { title: 'addExam', noCache: true }
+      meta: { title: 'addExam', noCache: true, view_id: 'main-addExam' }
     },
     // {
     //   path: 'upload',
@@ -27,22 +28,21 @@ const examsRouter = {
       hidden: true,
       component: () => import('@/views/exams/editExam'),
       name: 'editExam',
-      meta: { title: 'editExam', noCache: true }
+      meta: { title: 'editExam', noCache: true, view_id: 'main-examEdit' }
     },
     {
       path: 'paperDetail/:id',
       hidden: true,
       component: () => import('@/views/exams/paperDetail'),
       name: 'paperDetail',
-      meta: { title: 'paperDetail', noCache: true }
+      meta: { title: 'paperDetail', noCache: true, view_id: 'main-examDetail' }
     },
     {
       path: 'paperList',
       component: () => import('@/views/exams/paperList'),
       name: 'paperList',
-      meta: { title: 'paperList', noCache: true }
+      meta: { title: 'paperList', noCache: true, view_id: 'main-examList' }
     }
-
   ]
 }
 

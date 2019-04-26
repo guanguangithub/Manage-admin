@@ -29,17 +29,19 @@ export function getUserInfo() {
   })
 }
 export function updateUserInfo(data) {
-  console.log('data...', data)
+  // console.log('data...', data)
   return request({
     url: '/user/user',
     method: 'put',
     data
   })
 }
-export function GetviewAuthority() {
+export function GetviewAuthority(params) {
+  // console.log('user_idn', params)
   return request({
-    url: '/user/view_authority',
-    method: 'get'
+    url: '/user/new',
+    method: 'get',
+    params
   })
 }
 export function userupdata(data) {

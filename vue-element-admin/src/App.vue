@@ -41,5 +41,8 @@ body {
   height:100%;
 
 }
+#app .sidebar-container{
+  top:70px;
+}
 
 </style>

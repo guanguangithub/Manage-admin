@@ -9,10 +9,8 @@
       <sidebar class="sidebar-container" />
       <div :class="{hasTagsView:needTagsView}" class="main-container">
         <div :class="{'fixed-header':fixedHeader}">
-
           <tags-view v-if="needTagsView" />
         </div>
-
         <app-main class="app_main" />
         <right-panel v-if="showSettings">
           <settings />
@@ -132,7 +130,5 @@ export default {
   position:fixed;
   z-index:1000;
 }
-.sidebar-container{
-  top:70px;
-}
+
 </style>

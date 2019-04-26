@@ -31,25 +31,25 @@
         <!-- 更新用户 -->
         <div v-else class="add_box_content_child_two">
           <p>
-            <select>
+            <select @change="UpgetUserId($event)">
               <option value="" selected disabled>请选择身份标识</option>
-              <option v-for="(item,index) in userArr" :key="index" value="">{{ item.user_name }}</option>
+              <option v-for="(item,index) in userArr" :key="index" :value="item.user_id">{{ item.user_name }}</option>
             </select>
           </p>
           <p>
-            <input type="text" placeholder="请输入用户名">
+            <input v-model="Upusername" type="text" placeholder="请输入用户名" @change="UpdataUserName($event)">
           </p>
           <p>
-            <input type="text" placeholder="请输入密码">
+            <input v-model="Upuserpwd" type="text" placeholder="请输入密码" @change="UpdataUserPswd($event)">
           </p>
           <p>
-            <select>
+            <select @change="UpgetIdentId($event)">
               <option value="" selected disabled>请选择身份ID</option>
-              <option v-for="(item,index) in identityArr" :key="index" value="">{{ item.identity_text }}</option>
+              <option v-for="(item,index) in identityArr" :key="index" :value="item.identity_id">{{ item.identity_text }}</option>
             </select>
           </p>
           <p>
-            <el-button type="primary">确定</el-button>
+            <el-button type="primary" @click="ClickUpdata">确定</el-button>
             <el-button plain>重置</el-button>
           </p>
         </div>
@@ -73,16 +73,16 @@
           <span>添加API接口权限</span>
         </p>
         <p>
-          <input type="text" placeholder="请输入API接口权限名称">
+          <input v-model="api_Name" type="text" placeholder="请输入API接口权限名称" @change="apiName($event)">
         </p>
         <p>
-          <input type="text" placeholder="请输入API接口权限url">
+          <input v-model="api_Url" type="text" placeholder="请输入API接口权限url" @change="apiUrl($event)">
         </p>
         <p>
-          <input type="text" placeholder="请输入API接口权限方法">
+          <input v-model="api_Func" type="text" placeholder="请输入API接口权限方法" @change="apiFunc($event)">
         </p>
         <p>
-          <el-button type="primary">确定</el-button>
+          <el-button type="primary" @click="addApiAuthority">确定</el-button>
           <el-button plain>重置</el-button>
         </p>
       </div>
@@ -92,13 +92,13 @@
           <span>添加视图接口权限</span>
         </p>
         <p>
-          <select>
-            <option value="" selected disabled>请选择已有视图</option>
-            <option v-for="(item,index) in ViewinterArr" :key="index" value="">{{ item.view_authority_text }}</option>
+          <select @change="AuthoritySeletce($event)">
+            <option selected disabled>请选择已有视图</option>
+            <option v-for="(item,index) in ViewinterArr" :key="index" :value="item.view_id">{{ item.view_authority_text }}</option>
           </select>
         </p>
         <p>
-          <el-button type="primary">确定</el-button>
+          <el-button type="primary" @click="addAuthorityView">确定</el-button>
           <el-button plain>重置</el-button>
         </p>
       </div>
@@ -108,19 +108,19 @@
           <span>给身份设置API接口权限</span>
         </p>
         <p>
-          <select>
+          <select @change="GetidentitySelect($event)">
             <option value="" selected disabled>请选择身份ID</option>
-            <option v-for="(item,index) in identityArr" :key="index" value="">{{ item.identity_text }}</option>
+            <option v-for="(item,index) in identityArr" :key="index" :value="item.identity_id">{{ item.identity_text }}</option>
           </select>
         </p>
         <p>
-          <select>
+          <select @change="GetApiSelect($event)">
             <option value="" selected disabled>请选择API接口权限</option>
-            <option v-for="(item,index) in apiperArr" :key="index" value="">{{ item.api_authority_text }}</option>
+            <option v-for="(item,index) in apiperArr" :key="index" :value="item.api_authority_id">{{ item.api_authority_text }}</option>
           </select>
         </p>
         <p>
-          <el-button type="primary">确定</el-button>
+          <el-button type="primary" @click="setIdentityToApi">确定</el-button>
           <el-button plain>重置</el-button>
         </p>
       </div>
@@ -130,19 +130,19 @@
           <span>给身份设置视图权限</span>
         </p>
         <p>
-          <select>
+          <select @change="SetIdentityId($event)">
             <option value="" selected disabled>请选择身份ID</option>
-            <option v-for="(item,index) in identityArr" :key="index" value="">{{ item.identity_text }}</option>
+            <option v-for="(item,index) in identityArr" :key="index" :value="item.identity_id">{{ item.identity_text }}</option>
           </select>
         </p>
         <p>
-          <select>
+          <select @change="SetIdentView($event)">
             <option value="" selected disabled>请选择视图权限ID</option>
-            <option v-for="(item,index) in ViewinterArr" :key="index" value="">{{ item.view_authority_text }}</option>
+            <option v-for="(item,index) in ViewinterArr" :key="index" :value="item.view_authority_id">{{ item.view_authority_text }}</option>
           </select>
         </p>
         <p>
-          <el-button type="primary">确定</el-button>
+          <el-button type="primary" @click="SetToIdentity">确定</el-button>
           <el-button plain>重置</el-button>
         </p>
       </div>
@@ -174,7 +174,28 @@ export default {
       user_info: {},
       // 添加身份
       Identity_add: '',
-      Identity_info: {}
+      Identity_info: {},
+      // 添加API权限
+      api_Name: '',
+      api_Url: '',
+      api_Func: '',
+      AuthorityApi_info: {},
+      // 添加视图权限
+      authorityView_info: [],
+      // 给身份设置api接口权限
+      identityId: '',
+      authorityId: '',
+      setApiToidentity: {},
+      // 给身份设置视图权限
+      view_identityid: '',
+      view_authorityId: '',
+      SetToIdentityView: {},
+      // 更新用户
+      UpuserId: '',
+      Upusername: '',
+      Upuserpwd: '',
+      UpidentityId: '',
+      UpdataList: {}
     }
   },
   created() {
@@ -219,7 +240,13 @@ export default {
       Identityviewdele: 'usermanage/Identityview',
       // 添加数据AIP
       addToMockUser: 'addToMock/addToMockUser',
-      addToMockIdentity: 'addToMock/addToMockIdentity'
+      addToMockIdentity: 'addToMock/addToMockIdentity',
+      addToauthorityView: 'addToMock/addToauthorityView',
+      addToAuthorityApi: 'addToMock/addToAuthorityApi',
+      SetIdentityApi: 'addToMock/SetIdentityApi',
+      SetIdentityView: 'addToMock/SetIdentityView',
+      // 更新用户
+      Updateuser: 'addToMock/Updateuser'
     }),
     // 添加用户的
     ClickAdduser() {
@@ -279,6 +306,135 @@ export default {
     },
     IdentityAdd(event) {
       this.Identity_add = event.target.value
+    },
+    // 添加视图权限
+    addAuthorityView() {
+      console.log()
+      if (this.authorityView_info.length === 0) {
+        alert('参数错误')
+      } else {
+        this.addToauthorityView(this.authorityView_info).then((res) => {
+          if (res === '') {
+            alert('视图权限重复')
+          } else {
+            alert(res)
+          }
+        })
+      }
+    },
+    AuthoritySeletce(event) {
+      this.ViewinterArr.forEach(item => {
+        if (event.target.value === item.view_id) {
+          this.authorityView_info.push(item)
+        }
+      })
+    },
+    // 添加API权限
+    addApiAuthority() {
+      // let ApiArrns = this.apiperArr.filter((item)=>{
+      //   return this.api_Name === item.api_authority_text
+      // })
+      if (this.api_Name.trim() === '' || this.api_Url.trim() === '' || this.api_Func.trim() === '') {
+        alert('参数有误')
+      } else {
+        this.AuthorityApi_info.api_authority_text = this.api_Name
+        this.AuthorityApi_info.api_authority_url = this.api_Url
+        this.AuthorityApi_info.api_authority_mehtod = this.api_Func
+        this.addToAuthorityApi(this.AuthorityApi_info).then(res => {
+          if (res === '') {
+            alert('API名称已经存在')
+          } else {
+            alert(res)
+            this.api_Name = ''
+            this.api_Url = ''
+            this.api_Func = ''
+          }
+        })
+      }
+    },
+    apiName(event) {
+      this.api_Name = event.target.value
+    },
+    apiUrl(event) {
+      this.api_Url = event.target.value
+    },
+    apiFunc(event) {
+      this.api_Func = event.target.value
+    },
+    // 给身份设置api接口权限
+    setIdentityToApi() {
+      if (this.identityId === '' || this.authorityId === '') {
+        alert('参数错误')
+      } else {
+        this.setApiToidentity.identity_id = this.identityId
+        this.setApiToidentity.api_authority_id = this.authorityId
+        this.SetIdentityApi(this.setApiToidentity).then(res => {
+          console.log('355', res)
+          if (res === '') {
+            alert('身份权限重复')
+          } else {
+            alert(res.msg)
+          }
+        })
+      }
+    },
+    GetidentitySelect(event) {
+      this.identityId = event.target.value
+    },
+    GetApiSelect(event) {
+      this.authorityId = event.target.value
+    },
+    // 给身份设置视图权限
+    SetToIdentity() {
+      if (this.view_identityid === '' || this.view_authorityId === '') {
+        alert('参数错误')
+      } else {
+        this.SetToIdentityView.identity_id = this.view_identityid
+        this.SetToIdentityView.view_authority_id = this.view_authorityId
+        this.SetIdentityView(this.SetToIdentityView).then(res => {
+          if (res === '') {
+            alert('身份权限重复')
+          } else {
+            alert(res)
+          }
+        })
+      }
+    },
+    SetIdentityId(event) {
+      this.view_identityid = event.target.value
+    },
+    SetIdentView(event) {
+      this.view_authorityId = event.target.value
+    },
+    // 更新用户 Updateuser   avatar  user_id  user_name  user_pwd  identity_id
+    ClickUpdata() {
+      const regs = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/
+      if (this.UpuserId === '' || this.Upusername === '' || this.Upuserpwd === '' || this.UpidentityId === '') {
+        alert('参数错误')
+      } else if (!regs.test(this.Upuserpwd)) {
+        alert('您的密码应该最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符')
+      } else {
+        this.UpdataList.user_id = this.UpuserId
+        this.UpdataList.user_name = this.Upusername
+        this.UpdataList.user_pwd = this.Upuserpwd
+        this.UpdataList.identity_id = this.UpidentityId
+        this.UpdataList.avatar = ''
+        this.Updateuser(this.UpdataList).then(res => {
+          alert(res.msg)
+        })
+      }
+    },
+    UpgetUserId(event) {
+      this.UpuserId = event.target.value
+    },
+    UpdataUserName(event) {
+      this.Upusername = event.target.value
+    },
+    UpdataUserPswd(event) {
+      this.Upuserpwd = event.target.value
+    },
+    UpgetIdentId(event) {
+      this.UpidentityId = event.target.value
     }
   }
 }

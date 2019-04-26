@@ -37,16 +37,25 @@ const actions = {
   // aync 后面的getexamtype是自由命名的 await是请求数据那边的方法名 context里面有commit dispatch
   async getexamtype(context) {
     const res = await getexamtype()
-    return context.commit('getlist', res)
+    console.log(res)
+    if (res && res.code === 1) {
+      return context.commit('getlist', res)
+    }
   },
   async getexamsubject(context) {
     const res = await getexamsubject()
-    return context.commit('getsubjectlist', res)
+    console.log(res)
+    if (res && res.code === 1) {
+      return context.commit('getsubjectlist', res)
+    }
   },
 
   async getquestionstype(context) { // 获取考试类型
     const res = await getquestionstype()
-    return context.commit('gettype', res)
+    console.log(res)
+    if (res && res.code === 1) {
+      return context.commit('gettype', res)
+    }
   },
 
   async addquestionstype(context, payload) { // 添加试题 要传参

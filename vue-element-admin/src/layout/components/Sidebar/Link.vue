@@ -1,11 +1,8 @@
-
 <template>
-  <!-- eslint-disable vue/require-component-is -->
   <components v-bind="linkProps(to)">
     <slot />
   </components>
 </template>
-
 <script>
 import { isExternal } from '@/utils/validate'
 

@@ -16,9 +16,7 @@
         <div class="content-main">
           <p>题目主题</p>
           <div class="content-box">
-
             <markdown-editor v-model="inpustem" />
-
           </div>
           <div class="select-check">
             <p>请选择考试类型</p>
@@ -55,7 +53,6 @@
           </div>
           <p>答案信息</p>
           <div class="content-box">
-
             <markdown-editor v-model="content" />
           </div>
         </div>
@@ -63,14 +60,12 @@
         <el-button type="primary" @click="sub">提交</el-button>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import MarkdownEditor from '@/components/MarkdownEditor'
-
 export default {
   components: { MarkdownEditor },
   props: {},
@@ -80,8 +75,6 @@ export default {
       questions: '',
       subject: '',
       inpustem: '', // 题干
-      // title: '', // 题目
-      // answer: '', // 答案
       ischange: true,
       hasid: '',
       detailobj: {},
@@ -103,7 +96,6 @@ export default {
     this.getexamsubject()
     this.getQuestionsType()
     this.checkitems()
-
     const id = this.$route.query.id
     this.detailobj = this.checkitemlist.find((item, ind) => {
       return item.questions_id === id

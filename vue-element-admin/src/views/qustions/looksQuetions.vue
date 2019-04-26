@@ -264,4 +264,7 @@ li.liclass{
   color:#fff;
   background-color: #0139FD;
 }
+.el-select-dropdown__item{
+  padding-left:12px;
+}
 </style>

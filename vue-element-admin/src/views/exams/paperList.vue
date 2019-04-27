@@ -27,7 +27,7 @@
       </span>
       <span class="searchPaperBtn">
         <span class="search-icon"><svg-icon icon-class="search" /></span>
-        <el-button type="primary" @click="searchBtn">搜索</el-button>
+        <el-button type="primary" class="search" @click="searchBtn">搜索</el-button>
 
         <el-button type="primary" @click="excel">导出excal</el-button>
       </span>
@@ -225,8 +225,8 @@ export default {
     }
     .search-icon{
       position: absolute;
-      top:1px;
-      left:30%;
+      top:2px;
+      left:15%;
       color:#fff;
     }
     .el-button--primary{

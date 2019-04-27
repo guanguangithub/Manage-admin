@@ -50,6 +50,7 @@ export default {
       this.imagecropperKey = this.imagecropperKey + 1
       this.avatarUser({ user_id: this.userInfo.user_id, avatar: this.image }).then(res => {
         // console.log(res)
+        console.log(1)
         this.getInfo()
       })
     }

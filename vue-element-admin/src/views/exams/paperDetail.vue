@@ -97,6 +97,16 @@ export default {
 .mark /deep/ .te-toolbar-section{
   display:none;
 }
+.mark /deep/ .tui-editor-contents pre{
+   word-wrap: break-word;
+    word-break: normal;
+    white-space:pre-wrap;
+    box-sizing:border-box;
+    padding:20px;
+}
+.mark{
+  min-height:400px!important;
+}
 .markdown{
     width: 100%;
     height:auto;

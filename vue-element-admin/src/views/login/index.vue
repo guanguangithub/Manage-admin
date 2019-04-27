@@ -9,7 +9,7 @@
       label-position="left"
     >
       <div class="title-container">
-        <h3 class="title">{{ $t('login.title') }}</h3>
+        <h3 class="title" style="color:#4BADA0;">{{ $t('login.title') }}</h3>
         <lang-select class="set-language" />
       </div>
 
@@ -48,7 +48,7 @@
         </el-form-item>
       </el-tooltip>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;background:#4BADA0;height: 45px;" @click.native.prevent="handleLogin">
         {{ $t('login.logIn') }}
       </el-button>
     </el-form>
@@ -221,7 +221,9 @@ $light_gray: #eee;
 .login-container {
   min-height: 100%;
   width: 100%;
-  background-color: $bg;
+  background: $bg url('../../assets/bg/timg.gif') no-repeat center center;
+  background-size:cover;
+  // background-color: $bg;
   overflow: hidden;
 
   .login-form {

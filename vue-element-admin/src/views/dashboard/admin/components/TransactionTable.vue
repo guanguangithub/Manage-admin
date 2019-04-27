@@ -47,7 +47,11 @@ export default {
   methods: {
     fetchData() {
       transactionList().then(response => {
-        this.list = response.data.items.slice(0, 8)
+        if (response) {
+          this.list = response.data.items.slice(0, 8)
+        } else {
+          return
+        }
       })
     }
   }

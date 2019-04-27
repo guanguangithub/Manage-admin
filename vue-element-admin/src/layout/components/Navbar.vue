@@ -46,6 +46,8 @@
 import { mapGetters } from 'vuex'
 // import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import { removeToken } from '@/utils/auth'
+import { resetRouter } from '@/router'
 // import ErrorLog from '@/components/ErrorLog'
 // import Screenfull from '@/components/Screenfull'
 // import SizeSelect from '@/components/SizeSelect'
@@ -71,7 +73,10 @@ export default {
       this.$store.dispatch('app/toggleSideBar')
     },
     async logout() {
-      await this.$store.dispatch('user/logout')
+      // await this.$store.dispatch('user/logout')
+      this.$store.commit('user/GET_USERINFOR', {})
+      removeToken()
+      resetRouter()
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     }
   }

@@ -48,7 +48,7 @@
         </el-form-item>
       </el-tooltip>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px; padding:15px 20px; background:#999490;border-color:#5F6669" @click.native.prevent="handleLogin">
         {{ $t('login.logIn') }}
       </el-button>
     </el-form>
@@ -166,7 +166,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
@@ -177,6 +177,7 @@ $cursor: #fff;
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
   .login-container .el-input input {
     color: $cursor;
+
   }
 }
 
@@ -206,7 +207,7 @@ $cursor: #fff;
 
   .el-form-item {
     border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(51, 50, 50, 0.1);
     border-radius: 5px;
     color: #454545;
   }
@@ -222,6 +223,8 @@ $light_gray: #eee;
   min-height: 100%;
   width: 100%;
   background-color: $bg;
+  background:url('http://img010.hc360.cn/hb/MTQ1NzY1NzI3NzQ0NzM1MjczMTc1Ng==.jpg') no-repeat;
+  background-size:cover;
   overflow: hidden;
 
   .login-form {
@@ -296,4 +299,5 @@ $light_gray: #eee;
     }
   }
 }
+
 </style>

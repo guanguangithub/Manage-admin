@@ -11,11 +11,11 @@
           <p>题目信息</p>
           <el-button
             style="color: #1890ff;background: #e6f7ff;border-color: #91d5ff;"
-          >代码补全</el-button>
+          >{{ detailobj.questions_type_text }}</el-button>
           <el-button
             style="color: #2f54eb;background: #f0f5ff; border-color: #adc6ff; padding 6px 10px"
-          >javascript</el-button>
-          <el-button style="color: #fa8c16;background: #fff7e6;border-color: #ffd591;">周考1</el-button>
+          >{{ detailobj.subject_text }}</el-button>
+          <el-button style="color: #fa8c16;background: #fff7e6;border-color: #ffd591;">{{ detailobj.exam_name }}</el-button>
           <p>{{ detailobj.title }}</p>
 
           <markdown-editor v-model="content" height="400px" :options="{hideModeSwitch:false,previewStyle:false,toolbarItems:[]}" />

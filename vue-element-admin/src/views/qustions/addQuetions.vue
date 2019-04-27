@@ -137,7 +137,7 @@ export default {
       this.questions = value
     },
     getinp(e) {
-      this.inpustem = e.target.value
+      this.contenttitle = e.target.value
     },
 
     sub() {
@@ -299,6 +299,9 @@ export default {
     @include num(100%, 45px);
     line-height: 45px;
   }
+}
+.el-select-dropdown__item{
+  padding-left:12px;
 }
 .el-button--medium {
   margin: 20px 0;

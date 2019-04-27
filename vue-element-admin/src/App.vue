@@ -1,19 +1,14 @@
 <template>
   <div id="app">
-    <div class="tops">
-      <navbar />
-    </div>
-    <div class="bottoms">
-      <router-view />
-    </div>
+    <router-view />
+
   </div>
 </template>
 
 <script>
-import { Navbar } from './layout/components'
+
 export default {
-  name: 'App',
-  components: { Navbar }
+  name: 'App'
 }
 </script>
 <style>
@@ -44,25 +39,10 @@ body {
 #app{
   width:100%;
   height:100%;
-  display:flex;
-   flex-direction: column;
 
 }
-.tops{
-  width:100%;
-  height:70px;
-  overflow: hidden;
-  z-index:1212;
-  position:relative;
-}
-.bottoms{
-  flex:1;
-  width:100%;
-  height:100%;
-  overflow: auto;
-}
 #app .sidebar-container{
-  top:60px;
+  top:70px;
 }
 
 </style>

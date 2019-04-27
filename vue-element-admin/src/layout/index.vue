@@ -1,25 +1,31 @@
 <template>
   <div :class="classObj" class="app-wrapper">
-    <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <sidebar class="sidebar-container" />
-    <div :class="{hasTagsView:needTagsView}" class="main-container">
-      <div :class="{'fixed-header':fixedHeader}">
-        <!-- <navbar /> -->
-        <tags-view v-if="needTagsView" />
-      </div>
 
-      <app-main class="app_main" />
-      <right-panel v-if="showSettings">
-        <settings />
-      </right-panel>
+    <div class="tops">
+      <navbar />
     </div>
+    <div class="bottoms">
+      <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
+      <sidebar class="sidebar-container" />
+      <div :class="{hasTagsView:needTagsView}" class="main-container">
+        <div :class="{'fixed-header':fixedHeader}">
+          <tags-view v-if="needTagsView" />
+        </div>
+        <app-main class="app_main" />
+        <right-panel v-if="showSettings">
+          <settings />
+        </right-panel>
+      </div>
+    </div>
+
   </div>
+
 </template>
 
 <script>
 import RightPanel from '@/components/RightPanel'
 //  Navbar,
-import { AppMain, Settings, Sidebar, TagsView } from './components'
+import { AppMain, Settings, Sidebar, TagsView, Navbar } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
 
@@ -27,7 +33,7 @@ export default {
   name: 'Layout',
   components: {
     AppMain,
-    // Navbar,
+    Navbar,
     RightPanel,
     Settings,
     Sidebar,
@@ -67,13 +73,26 @@ export default {
     position: relative;
     height: 100%;
     width: 100%;
-
+    display: flex;
+    flex-direction: column;
     &.mobile.openSidebar {
       position: fixed;
       top: 0;
     }
   }
-
+.tops{
+  width:100%;
+  height:70px;
+  overflow: hidden;
+  z-index:1212;
+  position:relative;
+}
+.bottoms{
+  flex:1;
+  width:100%;
+  height:100%;
+  overflow: auto;
+}
   .app_main{
      width:100%;
      height:100%;
@@ -105,5 +124,11 @@ export default {
   .mobile .fixed-header {
     width: 100%;
   }
+.navbar{
+  width:100%;
+  height:70px;
+  position:fixed;
+  z-index:1000;
+}
 
 </style>

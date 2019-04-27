@@ -10,7 +10,7 @@ const readingRouter = {
   alwaysShow: true,
   meta: {
     title: 'Markmanagement',
-    icon: 'chart',
+    icon: 'papers',
     view_id: ['main-examinationPapers', 'main-examPaperClassList', 'main-examPaperClassmate']
   },
   children: [

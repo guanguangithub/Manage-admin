@@ -36,9 +36,9 @@ router.beforeEach(async(to, from, next) => {
           // 2.通过身份获取权限
           const viewAutohostiry = await store.dispatch('user/getviewAuthority', { user_id: userInfo.user_id })
           // 通过权限生成路由
-          console.log('viewAutohostiry...', viewAutohostiry)
+
           const routess = await store.dispatch('permission/generateRoutes', viewAutohostiry)
-          console.log('routes....', routess)
+
           router.addRoutes(routess)
           next({ ...to, replace: true })
           // hack method to ensure that addRoutes is complete

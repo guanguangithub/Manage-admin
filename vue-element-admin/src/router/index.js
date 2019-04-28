@@ -441,6 +441,7 @@ const router = createRouter()
 export function resetRouter() {
   const newRouter = createRouter()
   router.matcher = newRouter.matcher // reset router
+  console.log(1)
 }
 
 export default router

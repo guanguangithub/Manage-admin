@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-editor-container">
     <div class=" clearfix">
-      <pan-thumb :image="userInfo.avatar" style="float: left">
+      <pan-thumb :image="userInfo.avatar? userInfo.avatar:''" style="float: left">
         Your roles:
         <span class="pan-info-roles">{{ userInfo.identity_text }}</span>
       </pan-thumb>

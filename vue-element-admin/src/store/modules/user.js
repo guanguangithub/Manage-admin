@@ -29,6 +29,7 @@ const mutations = {
     state.roles = roles
   },
   GET_USERINFOR: (state, userInfo) => {
+    console.log(userInfo, 'store-info')
     state.userInfo = userInfo
   },
   SET_VIEWAUTOHOSTIRY: (state, viewAutohority) => {

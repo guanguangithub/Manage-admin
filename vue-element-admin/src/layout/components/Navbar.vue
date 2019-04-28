@@ -44,7 +44,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-// import Breadcrumb from '@/components/Breadcrumb'
+import { removeToken } from '@/utils/auth'
+import { resetRouter } from '@/router'
 import Hamburger from '@/components/Hamburger'
 // import ErrorLog from '@/components/ErrorLog'
 // import Screenfull from '@/components/Screenfull'
@@ -54,7 +55,6 @@ import Hamburger from '@/components/Hamburger'
 
 export default {
   components: { Hamburger
-
   },
   computed: {
     ...mapGetters([
@@ -70,9 +70,15 @@ export default {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
     },
-    async logout() {
-      await this.$store.dispatch('user/logout')
+    logout() {
+      // await this.$store.dispatch('user/logout')
+      console.log(111)
+      removeToken()
+      this.$store.commit('user/GET_USERINFOR', {})
+      resetRouter()
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+      // console.log(history)
+      // history.go(0)
     }
   }
 }

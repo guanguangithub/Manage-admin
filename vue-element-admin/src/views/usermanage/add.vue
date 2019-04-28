@@ -309,7 +309,6 @@ export default {
     },
     // 添加视图权限
     addAuthorityView() {
-      console.log()
       if (this.authorityView_info.length === 0) {
         alert('参数错误')
       } else {
